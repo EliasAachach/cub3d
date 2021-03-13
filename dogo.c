@@ -64,7 +64,7 @@ int             main()
     while (y <= 480)
     {
         x = 0;
-        while (x <= 640)
+        while (x <= 320)
         {
             my_mlx_pixel_put(fond, x, y, colors);
             x++;
