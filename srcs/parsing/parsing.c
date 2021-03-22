@@ -20,7 +20,7 @@ char	**alloc_map(char **map, int nbr_lines, int line_len)
 	return (map);
 }
 
-char	**find_map(int fd, ); //params : le fd deja ouverft pour les 1ers elements
+char	**find_map(int fd, ); //params : le fd deja ouvert pour les 1ers elements
 {
 	char 	**map;
 	char 	*line;
