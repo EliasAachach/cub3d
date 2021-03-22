@@ -1,5 +1,9 @@
 #ifndef _CUB3D_H_
 # define _CUB3D_H_
+//BOOL
+# define TRUE 1
+# define FALSE 0
+//end_BOOL
 //keys
 # define W_KEY 119
 # define A_KEY 97
