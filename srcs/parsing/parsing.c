@@ -2,22 +2,23 @@
 #include "cub3d.h"
 #include  <unistd.h>
 
-char	**alloc_map(char **parsing.map, int nbr_lines, int line_len)
+char	**alloc_map(int nbr_lines, int line_len)
 {
 	int i;
+	char *map
 
 	i = 0;
-    parsing.map = ((char *)malloc(sizeof(char) * (nbr_lines +1)));
-    if (!parsing.map)
+	map = ((char *)malloc(sizeof(char) * (nbr_lines +1)));
+    if (!map)
         return (NULL);
 	while (i <= nbr_lines)
 	{
-		parsing.map[i] = ((char *)malloc(sizeof(char) * (line_len + 1)));
-		if (!parsing.map[i])
+		map[i] = ((char *)malloc(sizeof(char) * (line_len + 1)));
+		if (!map[i])
 			return (NULL);
 		i++;
 	}
-	return (parsing.map);
+	return (map);
 }
 
 char	**find_map(int fd, t_parsing *parsing); //params : le fd deja ouvert pour les 1ers elements
@@ -47,7 +48,7 @@ char	**find_map(int fd, t_parsing *parsing); //params : le fd deja ouvert pour l
 		nbr_lines++;
 	}
     free(line);
-	parsing->map = alloc_map(parsing->map, nbr_lines, line_len);
+	parsing->map = alloc_map(nbr_lines, line_len);
     if (!parsing->map)
 		return (NULL);
 	close (fd);
