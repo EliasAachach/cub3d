@@ -23,4 +23,11 @@
 # define RGB_G 1
 # define RGB_B 0
 //end_RGB_macros
+
+typedef struct	s_parsing
+{
+	char *longest_line;
+	char **map;
+}				t_parsing;
+
 #endif

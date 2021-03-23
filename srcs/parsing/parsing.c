@@ -2,31 +2,31 @@
 #include "cub3d.h"
 #include  <unistd.h>
 
-char	**alloc_map(char **map, int nbr_lines, int line_len)
+char	**alloc_map(char **parsing.map, int nbr_lines, int line_len)
 {
 	int i;
 
 	i = 0;
-    map = ((char *)malloc(sizeof(char) * (nbr_lines +1)));
-    if (!map)
+    parsing.map = ((char *)malloc(sizeof(char) * (nbr_lines +1)));
+    if (!parsing.map)
         return (NULL);
 	while (i <= nbr_lines)
 	{
-		map[i] = ((char *)malloc(sizeof(char) * (line_len + 1)));
-		if (!map[i])
+		parsing.map[i] = ((char *)malloc(sizeof(char) * (line_len + 1)));
+		if (!parsing.map[i])
 			return (NULL);
 		i++;
 	}
-	return (map);
+	return (parsing.map);
 }
 
-char	**find_map(int fd, ); //params : le fd deja ouvert pour les 1ers elements
+char	**find_map(int fd, t_parsing *parsing); //params : le fd deja ouvert pour les 1ers elements
 {
-	char 	**map;
 	char 	*line;
     int		nbr_lines;
 	int		line_len;
 
+	parsing->longest_line = NULL;
 	line = NULL;
     nbr_lines = 0;
 	line_len = 0;
@@ -34,19 +34,24 @@ char	**find_map(int fd, ); //params : le fd deja ouvert pour les 1ers elements
     {
 		if (line[0] == '\n')
 		{
+			//LIGNE VIDE DANS LA MAP
 			return (NULL);
 		}
-		if (line_len < ft_strlen(line))
-			line_len = ft_strlen(line);
+		if (ft_strlen(parsing->longest_line) < ft_strlen(line))
+		{
+			if (parsing->longest_line)
+				free(parsing->longest_line);
+			parsing->longest_line = ft_strdup(line);
+		}
         free(line);
 		nbr_lines++;
 	}
     free(line);
-	map = alloc_map(map, nbr_lines, line_len);
-    if (!map)
+	parsing->map = alloc_map(parsing->map, nbr_lines, line_len);
+    if (!parsing->map)
 		return (NULL);
 	close (fd);
-	return (map);
+	return (parsing->map);
 }
 
 int	is_player(char c)
@@ -57,9 +62,9 @@ int	is_player(char c)
 		return (0);
 }
 
-char	**
 
-char	**valid_map(char **map)
+
+char	**valid_map(t_parsing *parsing)
 {
 	int x;
 	int y;
@@ -68,12 +73,12 @@ char	**valid_map(char **map)
 
 	player_in_map = FALSE;
 	x = 0;
-	while (map[x])
+	while (parsing->map[x])
 	{
 		y = 0;
-		while (map[x][y])
+		while (parsing->map[x][y])
 		{
-			if (is_player(map[x][y]) == 1)
+			if (is_player(parsing->map[x][y]) == 1)
 			{
 				FLOOD_FILL
 			}
@@ -81,4 +86,18 @@ char	**valid_map(char **map)
 		}
 		x++;
 	}
+}
+
+char **parsing()
+{
+	int fd;
+	char *line;
+	t_parsing parsing;
+	//parser les 1er elements
+
+	//parser la map
+	find_map(fd, &parsing);
+	fd = open (parsing.map, 0_RDONLY);
+	get_map(fd, &parsing);
+	valid_map(&parsing);
 }
