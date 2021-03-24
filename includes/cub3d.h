@@ -26,8 +26,11 @@
 
 typedef struct	s_parsing
 {
-	char *longest_line;
-	char **map;
+	int		longest_line;
+	int		nbr_lines;
+	char	*first_line;
+	char	**map;
+	char	**valid_map;
 }				t_parsing;
 
 #endif
