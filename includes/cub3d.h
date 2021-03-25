@@ -28,6 +28,13 @@ typedef struct	s_parsing
 {
 	int		longest_line;
 	int		nbr_lines;
+	int		player_x;
+	int		player_y;
+	int		player_exists;
+	int		highest_x;
+	int		lowest_x;
+	int		highest_y;
+	int		lowest_y;
 	char	*first_line;
 	char	**map;
 	char	**valid_map;
