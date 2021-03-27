@@ -1,3 +1,4 @@
+//clang rainbow.c -o rainbow -lmlx -lXext -lX11 -lm
 #ifndef _CUB3D_H_
 # define _CUB3D_H_
 //BOOL

@@ -5,15 +5,15 @@
 char	**alloc_map(int nbr_lines, int longest_line)
 {
 	int		i;
-	char	*map
+	char	**map;
 
 	i = 0;
-	map = ((char *)malloc(sizeof(char) * (nbr_lines +1)));
+	map = ((char *)malloc(sizeof(char *) * (nbr_lines +1)));
     if (!map)
         return (NULL);
 	while (i <= nbr_lines)
 	{
-		map[i] = ((char *)malloc(sizeof(char) * (line_len + 1)));
+		map[i] = ((char *)malloc(sizeof(char) * (longest_line + 1)));
 		if (!map[i])
 			return (NULL);
 		i++;
@@ -90,6 +90,12 @@ char **get_map(int fd, t_parsing *parsing)
 
 void	flood_fill(t_parsing *parsing, int x, int y)
 {
+	//MAP OUVERTE
+	if (x = 0 && parsing->map[x][y] != '1')
+	if (y = 0 && parsing->map[x][y] != '1')
+	if (x = parsing->nbr_lines && parsing->map[x][y] != '1')
+	if (y = parsing->longest_line && parsing->map[x][y] != '1')
+	//MAP OUVERTEfin
 	if (x > parsing->highest_x)
 		parsing->highest_x = x;
 	if (x < parsing->lowest_x)
@@ -100,9 +106,12 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 		parsing->lowest_x = x;
 	if (parsing->map[x][y] == '1')
 		parsing->map[x][y] = -2;
-	if (parsing->map[x][y] == '0')
+	if (parsing->map[x][y] == '0' || parsing->map[x][y] == '2')
 	{
-		parsing->map[x][y] == -1;
+		if (parsing->map[x][y] == '2')
+			parsing->map[x][y] == -3;
+		else
+			parsing->map[x][y] == -1;
 		flood_fill(&parsing, x, y + 1);
 		flood_fill(&parsing, x, y - 1);
 		flood_fill(&parsing, x + 1, y);
@@ -110,7 +119,7 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 	}
 }
 
-char	**valid_map(t_parsing *parsing)
+void	valid_map(t_parsing *parsing)
 {
 	int	x;
 	int	++y;
@@ -123,20 +132,44 @@ char	**valid_map(t_parsing *parsing)
 		{
 			if (player_in_map(parsing->map[x][y]) == 1)
 			{
-				if (parsing->player_exists == TRUE)
-				{
-					//plus d'un joueur dans la map->erreur
-					return (NULL);
-				}
-				parsing->player_in_map = TRUE;
-				parsing->player_x = parsing->lowest_x;
-				parsing->player_y = parsing->lowest_y;
 				parsing->player_x = x;
 				parsing->player_y = y;
+				parsing->lowest_x = parsing->player_x;
+				parsing->lowest_y = parsing->player_y;
 				flood_fill(&parsing, x, y);
+				parsing->nbr_lines = parsing->highest_x - parsing->lowest_x;
+				parsing->longest_line = parsing->highest_y - parsing->lowest_y;
+				return;
 			}
 			y++;
 		}
+		x++;
+	}
+}
+
+void	get_valid_map(t_poarsing *parsing)
+{
+	int i;
+	int j;
+	int x;
+	int y;
+
+	x = 0;
+	i = parsing->lowest_x;
+	while (i <= parsing->highest_x)
+	{
+		j = parsing->lowest_y;
+		y = 0;
+		while (map[i] || j <= parsing->highest_y)
+		{
+			if (map[i][j] == -1)
+				parsing->valid_map[x][y] = 0
+			if (map[i][j] == -2)
+				parsing->valid_map[x][y] = 1
+			if (map[i][j] == -3)
+				parsing->valid_map[x][y] = 2
+		}
+		i++;
 		x++;
 	}
 }
@@ -158,9 +191,6 @@ char **parsing()
 	fd = open (parsing.map, 0_RDONLY);
 	get_map(fd, &parsing);
 	valid_map(&parsing);
-	if (parsing.valid_map == NULL)
-	{
-		//erreur dans la map;
-	}
+	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line);
 	get_valid_map(&parsing);
 }
