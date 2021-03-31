@@ -21,7 +21,7 @@ char	**alloc_map(int nbr_lines, int longest_line)
 	return (map);
 }
 
-char	**find_map(int fd, t_parsing *parsing); //params : le fd deja ouvert pour les 1ers elements
+void	find_map(int fd, t_parsing *parsing);
 {
 	char	*line;
 
@@ -31,9 +31,9 @@ char	**find_map(int fd, t_parsing *parsing); //params : le fd deja ouvert pour l
 	if (get_next_line(fd, &line) == 1)
 	{
 		parsing->first_line = ft_strdup(line)
-		// on recupere la premiere ligne de la map
 		if (parsing->longest_line > ft_strlen(line))
-
+			parsing->longest_line = ft_strlen(line);
+		parsing->nbr_lines++;
 	}
     while (get_next_line(fd, &line) == 1)
     {
@@ -52,7 +52,6 @@ char	**find_map(int fd, t_parsing *parsing); //params : le fd deja ouvert pour l
 	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
     if (!parsing->map)
 		return (NULL);
-	close (fd);
 	return (parsing->map);
 }
 
@@ -92,9 +91,13 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 {
 	//MAP OUVERTE
 	if (x = 0 && parsing->map[x][y] != '1')
+		parsing->map_is_open = 1;
 	if (y = 0 && parsing->map[x][y] != '1')
+		parsing->map_is_open = 1;
 	if (x = parsing->nbr_lines && parsing->map[x][y] != '1')
+		parsing->map_is_open = 1;
 	if (y = parsing->longest_line && parsing->map[x][y] != '1')
+		parsing->map_is_open = 1;
 	//MAP OUVERTEfin
 	if (x > parsing->highest_x)
 		parsing->highest_x = x;
@@ -122,7 +125,7 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 void	valid_map(t_parsing *parsing)
 {
 	int	x;
-	int	++y;
+	int	y;
 
 	x = 0;
 	while (parsing->map[x])
@@ -147,7 +150,7 @@ void	valid_map(t_parsing *parsing)
 	}
 }
 
-void	get_valid_map(t_poarsing *parsing)
+void	get_valid_map(t_parsing *parsing)
 {
 	int i;
 	int j;
@@ -174,16 +177,12 @@ void	get_valid_map(t_poarsing *parsing)
 	}
 }
 
-char **parsing()
+char **parsing(t_parsing &parsing)
 {
 	int		fd;
 	char	*line;
-	t_parsing parsing;
 
-	parsing.longest_line = 0;
-	parsing.nbr_lines = 0;
-	parsing.player_x = 0;
-	parsing.player_y = 0;
+	open()
 	//parser les 1er elements
 
 	//parser la map

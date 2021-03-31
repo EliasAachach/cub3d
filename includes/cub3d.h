@@ -36,6 +36,7 @@ typedef struct	s_parsing
 	int		lowest_x;
 	int		highest_y;
 	int		lowest_y;
+	int		map_is_open;
 	char	*first_line;
 	char	**map;
 	char	**valid_map;
