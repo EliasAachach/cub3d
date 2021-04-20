@@ -92,7 +92,7 @@ char	*ft_strndup(char *s1, int len, int i)
 	s2 = ((char *)malloc(sizeof(char) * (len + 1)));
 	if (!s2)
 		return (NULL);
-	while (s1[i] || j <= len)
+	while (s1[i] && j <= len)
 	{
 		s2[j] = s1[i];
 		i++;
@@ -655,7 +655,7 @@ char	*ft_strtrim_inside(char *str)
 	ft_bzero(strnew, ft_strlen(str));
 	while (str[j])
 	{
-		if (str[j] != ' ')
+		if (str[j] != ' ' && str[j] != '	')
 		{
 			strnew[i] = str[j];
 			i++;

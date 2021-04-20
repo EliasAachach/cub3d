@@ -73,5 +73,5 @@ int     main(void)
 	free(elems.path_to_SO);
 	free(elems.path_to_EA);
 	free(elems.path_to_WE);
-//	system("leaks a.out");
+	system("leaks a.out");
 }
