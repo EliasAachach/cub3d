@@ -477,7 +477,10 @@ void	get_path(char *newline, int elem_flag, t_elems *elems)
 	}
 	tmp = ft_strndup(newline, len, i);
 	if (ft_strdup_path(tmp, elem_flag, elems) == 1)
+	{
+		free(tmp);
 		error_elems(newline, elems, 0);
+	}
 	free(tmp);
 }
 
@@ -522,6 +525,7 @@ void	color_code(char **final, int elem, t_elems *elems)
 	free(final[0]);
 	free(final[1]);
 	free(final[2]);
+	free(final);
 }
 
 void	ft_bzero(void *s, size_t n)
@@ -854,7 +858,10 @@ void	get_elems(int fd, t_elems *elems)
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (elem_present(elems) == 1)
+		{
+			free(line);
 			return ;
+		}
 		newline = del_spaces(line);
 		if (newline == NULL)
 				error_elems(line, elems, 0);
@@ -883,13 +890,13 @@ void	get_elems(int fd, t_elems *elems)
 void	parser(t_parsing *parsing, t_elems *elems)
 {
 	int		fd;
-	char	*line;
+	char	*str;
 
+	str = NULL;
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems);
 		if (check_all_elems(elems) == 1)
-			error_elems(line, elems, 0);
-	line = NULL;
+			error_elems(str, elems, 0);
 
 	/*write(1, "PB", 1);
 	find_map(fd, parsing);

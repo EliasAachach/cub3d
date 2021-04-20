@@ -68,5 +68,10 @@ int     main(void)
 	printf("rC : %d\n", elems.r_C);
 	printf("gC : %d\n", elems.g_C);
 	printf("bC : %d\n", elems.b_C);
-	system("leaks a.out");
+	free(elems.path_to_S);
+	free(elems.path_to_NO);
+	free(elems.path_to_SO);
+	free(elems.path_to_EA);
+	free(elems.path_to_WE);
+//	system("leaks a.out");
 }
