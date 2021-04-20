@@ -25,6 +25,7 @@
 # define RGB_B 0
 //end_RGB_macrosx
 #include <unistd.h>
+#include <stdio.h>
 #include <fcntl.h>
 
 typedef struct	s_elems
@@ -46,12 +47,12 @@ typedef struct	s_elems
 	int			b_F;
 	int			r_C;
 	int			g_C;
-	int			b_;
-	char		path_to_S;
-	char		path_to_NO;
-	char		path_to_SO;
-	char		path_to_EA;
-	char		path_to_WE;
+	int			b_C;
+	char		*path_to_S;
+	char		*path_to_NO;
+	char		*path_to_SO;
+	char		*path_to_EA;
+	char		*path_to_WE;
 }				t_elems;
 
 typedef struct	s_parsing
