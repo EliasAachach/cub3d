@@ -489,6 +489,9 @@ void	error_elems(char *newline, t_elems *elems, int error_flag)
 	char *line;
 
 	line = NULL;
+	while(get_next_line(elems->error_fd, &line) == 1)
+		free(line);
+	free(line);
 	if (error_flag == 0)
 		printf("Error : an element is missing.");
 	if (error_flag == 1)
@@ -498,12 +501,7 @@ void	error_elems(char *newline, t_elems *elems, int error_flag)
 	if (error_flag == 4)
 		printf("Error : map is invalid.");
 	if (error_flag == 5)
-	{
 		printf("Error : an element is incorrect.");
-		while(get_next_line(elems->error_fd, &line) == 1)
-			free(line);
-		free(line);
-	}
 	ft_free(newline, elems);
 	exit(0);
 }
@@ -1062,8 +1060,12 @@ void	parser(t_parsing *parsing, t_elems *elems)
 	line = NULL;
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems);
+	elems->error_fd = 0;
 		if (check_all_elems(elems) == 1)
+		{
+			elems->error_fd = fd;
 			error_elems(line, elems, 0);
+		}
 	last_line_check(elems->last_elem_line, parsing);
 	find_map(fd, parsing);
 	parsing->nbr_lines_map = parsing->nbr_lines;

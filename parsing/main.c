@@ -44,6 +44,7 @@ void	init_parsing(t_parsing *parsing, t_elems *elems)
 	elems->r_C = 0;
 	elems->g_C = 0;
 	elems->b_C = 0;
+	elems->error_fd = 0;
 	elems->path_to_S = NULL;
 	elems->path_to_NO = NULL;
 	elems->path_to_SO = NULL;
