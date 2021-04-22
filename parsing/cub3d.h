@@ -48,6 +48,7 @@ typedef struct	s_elems
 	int			r_C;
 	int			g_C;
 	int			b_C;
+	int			error_fd;
 	char		*path_to_S;
 	char		*path_to_NO;
 	char		*path_to_SO;

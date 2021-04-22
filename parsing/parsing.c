@@ -486,6 +486,9 @@ void	ft_free(char *newline, t_elems *elems)
 
 void	error_elems(char *newline, t_elems *elems, int error_flag)
 {
+	char *line;
+
+	line = NULL;
 	if (error_flag == 0)
 		printf("Error : an element is missing.");
 	if (error_flag == 1)
@@ -495,7 +498,12 @@ void	error_elems(char *newline, t_elems *elems, int error_flag)
 	if (error_flag == 4)
 		printf("Error : map is invalid.");
 	if (error_flag == 5)
+	{
 		printf("Error : an element is incorrect.");
+		while(get_next_line(elems->error_fd, &line) == 1)
+			free(line);
+		free(line);
+	}
 	ft_free(newline, elems);
 	exit(0);
 }
@@ -850,9 +858,13 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
 	|| ft_strlen(final[2]) > 3 || i > 3)
 	{
-		free(final[0]);
-		free(final[1]);
-		error_elems(final[2], elems, 5);
+		while (i >= 0)
+		{
+			free(final[i]);
+			i--;
+		}
+		free(final);
+		error_elems(NULL, elems, 5);
 	}
 	color_code(final, elem_flag, elems);
 }
@@ -1013,11 +1025,13 @@ void	get_elems(int fd, t_elems *elems)
 	char	*line;
 	char	*newline;
 	int		elem_flag;
+
 	line = NULL;
 	elem_flag = 0;
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (elem_present(elems) == 1)
+		elems->error_fd = fd;
+	if (elem_present(elems) == 1)
 		{
 			elems->last_elem_line = ft_strdup(line);
 			free(line);
@@ -1035,14 +1049,9 @@ void	get_elems(int fd, t_elems *elems)
 				error_elems(newline, elems, 1);
 			stock_elem(newline, elem_flag, elems);
 		}
+	else
+		free(newline);
 	}
-}
-
-void	free_map(char **map)
-{
-	int i;
-
-
 }
 
 void	parser(t_parsing *parsing, t_elems *elems)
