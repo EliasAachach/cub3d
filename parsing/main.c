@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 void    parser(t_parsing *parsing, t_elems *elems);
+void	ft_putstr_fd(char *s);
 
 void	init_parsing(t_parsing *parsing, t_elems *elems)
 {
@@ -23,6 +24,7 @@ void	init_parsing(t_parsing *parsing, t_elems *elems)
 	parsing->lowest_y = 0;
 	parsing->map_is_open = 0;
 	parsing->map_error = 0;
+	parsing->first_line_passed = 0;
 
 	elems->R_is_present = 0;
 	elems->NO_is_present = 0;
@@ -68,6 +70,20 @@ int     main(void)
 	printf("rC : %d\n", elems.r_C);
 	printf("gC : %d\n", elems.g_C);
 	printf("bC : %d\n", elems.b_C);
+		int i = 0;
+	while (i <= parsing.nbr_lines)
+	{
+		ft_putstr_fd(parsing.valid_map[i]);
+		ft_putstr_fd("\n");
+		i++;
+	}
+	i = 0;
+	while (i <= parsing.nbr_lines)
+	{
+		free(parsing.valid_map[i]);
+		i++;
+	}
+	free(parsing.valid_map);
 	free(elems.path_to_S);
 	free(elems.path_to_NO);
 	free(elems.path_to_SO);

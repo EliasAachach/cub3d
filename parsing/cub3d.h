@@ -53,6 +53,7 @@ typedef struct	s_elems
 	char		*path_to_SO;
 	char		*path_to_EA;
 	char		*path_to_WE;
+	char		*last_elem_line;
 }				t_elems;
 
 typedef struct	s_parsing
@@ -68,6 +69,7 @@ typedef struct	s_parsing
 	int		lowest_y;
 	int		map_is_open;
 	int		map_error;
+	int		first_line_passed;
 	char	*filename;
 	char	*first_line;
 	char	**map;

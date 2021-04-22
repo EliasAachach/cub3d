@@ -1,6 +1,26 @@
 #include "gnl/get_next_line.h"
 #include "cub3d.h"
 
+void	ft_putchar_fd(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr_fd(int n)
+{
+	unsigned int nbr;
+
+	nbr = n;
+	if (n < 0)
+	{
+		ft_putchar_fd('-');
+		nbr = -n;
+	}
+	if (nbr >= 10)
+		ft_putnbr_fd(nbr / 10);
+	ft_putchar_fd(nbr % 10 + '0');
+}
+
 void	ft_putstr_fd(char *s)
 {
 	if (s)
@@ -9,34 +29,70 @@ void	ft_putstr_fd(char *s)
 	}
 }
 
-char	**alloc_map(int nbr_lines, int longest_line)
+void	free_parsing(t_parsing *parsing)
+{
+	int	i;
+
+	i = 0;
+	if (parsing->first_line)
+		free(parsing->first_line);
+	if (parsing->map)
+	{
+		while (i <= parsing->nbr_lines)
+		{
+			free(parsing->map[i]);
+			i++;
+		}
+		free(parsing->map);
+	}
+}
+
+void	parse_error(t_parsing *parsing, int error_flag)
+{
+	if (error_flag == 0)
+		printf("Error : Map is invalid.");
+	if (error_flag == 1)
+		printf("Error : Map is open.");
+	free_parsing(parsing);
+	exit(0);
+}
+
+void	ft_strcpy(char *dest, const char *src)
+{
+	unsigned int i;
+	unsigned int j;
+
+	i = 0;
+	j = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+
+char	**alloc_map(int nbr_lines, int longest_line, int flag)
 {
 	int		i;
 	char	**map;
 
 	i = 0;
-	*map = ((char *)malloc(sizeof(char *) * (nbr_lines + 1)));
+	map = ((char **)malloc(sizeof(char *) * (nbr_lines + 1)));
 	if (!map)
 		return (NULL);
-	while (i <= nbr_lines)
+	if (flag == 1)
 	{
-		map[i] = ((char *)malloc(sizeof(char) * (longest_line + 1)));
-		if (!map[i])
-			return (NULL);
-		i++;
+		while (i <= nbr_lines)
+		{
+			map[i] = ((char *)malloc(sizeof(char) * (longest_line + 1)));
+			if (!map[i])
+				return (NULL);
+			i++;
+		}
 	}
 	return (map);
 }
-
-/*size_t	ft_strlen(const char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}*/
 
 int		ft_isdigit(int c)
 {
@@ -120,23 +176,54 @@ char	*ft_strdup(char *s1)
 	return (s2);
 }
 
+int		is_first_line(char *line)
+{
+	int i;
+
+	i = 0;
+	while (ft_strlen(line) > 0 && line[i])
+	{
+		if (line[i] == ' ' || line[i] == '	')
+		{
+			i++;
+		}
+		else
+			return (1);
+	}
+	return (0);
+}
+
+void	last_line_check(char *line, t_parsing *parsing)
+{
+	if (is_first_line(line) == 1)
+	{
+		parsing->first_line = ft_strdup(line);
+		parsing->first_line_passed = 1;
+		parsing->longest_line = ft_strlen(line);
+		parsing->nbr_lines++;
+	}
+	free(line);
+}
+
 void	find_map(int fd, t_parsing *parsing)
 {
-	int		first_line_passed;
 	char	*line;
 
 	line = NULL;
-	first_line_passed = 0;
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (first_line_passed == 0 && line[0] != '\n')
+		if (parsing->first_line_passed == 0)
 		{
-			parsing->first_line = ft_strdup(line);
-			first_line_passed = 1;
+			if (is_first_line(line) == 1)
+			{
+				parsing->first_line = ft_strdup(line);
+				parsing->first_line_passed = 1;
+			}
 		}
-		if (line[0] == '\n' && first_line_passed == 1)
+		if (line[0] == '\n' && parsing->first_line_passed == 1)
 		{
 			parsing->valid_map = NULL;
+			parsing->map_error = TRUE;
 			free(parsing->first_line);
 			free(line);
 			return ;
@@ -149,7 +236,7 @@ void	find_map(int fd, t_parsing *parsing)
 		}
         free(line);
 	}
-	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
+	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
     if (!parsing->map)
 	{
 		parsing->map_error = TRUE;
@@ -173,24 +260,86 @@ void	get_map(int fd, t_parsing *parsing)
 
 	first_line_passed = FALSE;
 	line = NULL;
-	while (get_next_line(fd, &line) == 1 && first_line_passed == FALSE)
+	x = 0;
+	while (get_next_line(fd, &line) == 1)
 	{
-		if (ft_strcmp(line, parsing->first_line) == 0)
+		if ((ft_strcmp(line, parsing->first_line) == 0
+			|| first_line_passed == TRUE) && x <= parsing->nbr_lines)
 		{
+			first_line_passed = TRUE;
 			parsing->map[x] = ft_strdup(line);
 			x++;
-			while (get_next_line(fd, &line) == 1 && x <= parsing->nbr_lines)
-			{
-				parsing->map[x] = ft_strdup(line);
-				x++;
-			}
 		}
-		first_line_passed = TRUE;
+		free(line);
 	}
+}
+
+int		check_0(t_parsing *parsing, int x, int y)
+{
+	if (parsing->map[x - 1][y] == '0' && parsing->map[x][y + 1] == '0'
+		&& parsing->map[x + 1][y] == '0' && parsing->map[x][y - 1] == '0')
+	{
+		return (0);
+	}
+	return (1); 
+}
+
+int		check_sides(char side)
+{
+	if (side == '0')
+	{
+		return (0);
+	}
+	if (side == '1')
+	{
+		return (0);
+	}
+	if (side == '2')
+	{
+		return (0);
+	}
+	if (side == -1)
+	{
+		return (0);
+	}
+	if (side == -2)
+	{
+		return (0);
+	}
+	if (side == -3)
+	{
+		return (0);
+	}
+	return (1); 
+}
+
+int		check_adjacent_cases(t_parsing *parsing, int x, int y)
+{
+	if (check_sides(parsing->map[x - 1][y]) == 1)
+		return (1);
+	if (check_sides(parsing->map[x][y + 1]) == 1)
+		return (1);
+	if (check_sides(parsing->map[x + 1][y]) == 1)
+		return (1);
+	if (check_sides(parsing->map[x][y - 1]) == 1)
+		return (1);
+	return (0);
 }
 
 void	flood_fill(t_parsing *parsing, int x, int y)
 {
+	if (parsing->map[x][y] != '1')
+	{
+		if (check_adjacent_cases(parsing, x, y) == 1)
+		{
+			parsing->map_is_open = 1;
+			return ;
+		}
+	}
+	if (player_in_map(parsing->map[x][y]) == 1)
+	{
+		parsing->map_is_open = 1;
+	}
 	if (x == 0 && parsing->map[x][y] != '1')
 		parsing->map_is_open = 1;
 	if (y == 0 && parsing->map[x][y] != '1')
@@ -206,7 +355,7 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 	if (y > parsing->highest_y)
 		parsing->highest_y = y;
 	if (y < parsing->lowest_y)
-		parsing->lowest_x = x;
+		parsing->lowest_y = y;
 	if (parsing->map[x][y] == '1')
 		parsing->map[x][y] = -2;
 	if (parsing->map[x][y] == '0' || parsing->map[x][y] == '2')
@@ -228,7 +377,7 @@ void	valid_map(t_parsing *parsing)
 	int	y;
 
 	x = 0;
-	while (parsing->map[x])
+	while (x < parsing->nbr_lines)
 	{
 		y = 0;
 		while (parsing->map[x][y])
@@ -237,11 +386,12 @@ void	valid_map(t_parsing *parsing)
 			{
 				parsing->player_x = x;
 				parsing->player_y = y;
+				parsing->map[x][y] = '0';
 				parsing->lowest_x = parsing->player_x;
 				parsing->lowest_y = parsing->player_y;
 				flood_fill(parsing, x, y);
 				parsing->nbr_lines = parsing->highest_x - parsing->lowest_x;
-				parsing->longest_line = parsing->highest_y - parsing->lowest_y;
+				parsing->longest_line = parsing->highest_y - parsing->lowest_y + 2;
 				return ;
 			}
 			y++;
@@ -263,18 +413,26 @@ void	get_valid_map(t_parsing *parsing)
 	{
 		j = parsing->lowest_y;
 		y = 0;
-		while (parsing->map[i] || j <= parsing->highest_y)
+		while (parsing->map[i][j] && j <= parsing->highest_y)
 		{
 			if (parsing->map[i][j] == -1)
-				parsing->valid_map[x][y] = 0;
+				parsing->valid_map[x][y] = '0';
 			if (parsing->map[i][j] == -2)
-				parsing->valid_map[x][y] = 1;
+				parsing->valid_map[x][y] = '1';
 			if (parsing->map[i][j] == -3)
-				parsing->valid_map[x][y] = 2;
+				parsing->valid_map[x][y] = '2';
+			j++;
+			y++;
 		}
 		i++;
 		x++;
 	}
+}
+
+void	fill_valid_map(t_parsing *parsing)
+{
+	parsing->valid_map[0][0] = '1';
+	parsing->valid_map[parsing->nbr_lines][0] = '1';
 }
 
 int		check_next_char(char *line)
@@ -859,18 +1017,22 @@ void	get_elems(int fd, t_elems *elems)
 	{
 		if (elem_present(elems) == 1)
 		{
+			elems->last_elem_line = ft_strdup(line);
 			free(line);
 			return ;
 		}
 		newline = del_spaces(line);
 		if (newline == NULL)
-				error_elems(line, elems, 0);
+			error_elems(line, elems, 0);
 		free(line);
-		elem_flag = wich_elem(newline, elems);
-		check_flag(elem_flag, elems);
-		if (elems->double_elem)
-			error_elems(newline, elems, 1);
-		stock_elem(newline, elem_flag, elems);
+	if (ft_strlen(newline) > 0)
+		{
+			elem_flag = wich_elem(newline, elems);
+			check_flag(elem_flag, elems);
+			if (elems->double_elem)
+				error_elems(newline, elems, 1);
+			stock_elem(newline, elem_flag, elems);
+		}
 	}
 }
 
@@ -890,23 +1052,25 @@ void	get_elems(int fd, t_elems *elems)
 void	parser(t_parsing *parsing, t_elems *elems)
 {
 	int		fd;
-	char	*str;
+	char	*line;
 
-	str = NULL;
+	line = NULL;
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems);
 		if (check_all_elems(elems) == 1)
-			error_elems(str, elems, 0);
-
-	/*write(1, "PB", 1);
+			error_elems(line, elems, 0);
+	last_line_check(elems->last_elem_line, parsing);
 	find_map(fd, parsing);
-	write(1, "a", 1);
-	if (parsing->valid_map == NULL || parsing->map_error == TRUE)
-		error_elems(line, elems, 4);
+	if (parsing->map_error == TRUE)
+		parse_error(parsing, 0);
+	close(fd);
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing);
 	valid_map(parsing);
-	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line);
+	if (parsing->map_is_open == 1)
+		parse_error(parsing, 0);
+	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
 	get_valid_map(parsing);
-	*/
+	fill_valid_map(parsing);
+	close(fd);
 }
