@@ -38,7 +38,7 @@ void	free_parsing(t_parsing *parsing)
 		free(parsing->first_line);
 	if (parsing->map)
 	{
-		while (i <= parsing->nbr_lines)
+		while (i <= parsing->nbr_lines_map)
 		{
 			free(parsing->map[i]);
 			i++;
@@ -210,7 +210,7 @@ void	find_map(int fd, t_parsing *parsing)
 	char	*line;
 
 	line = NULL;
-	while (get_next_line(fd, &line) == 1)
+	while (get_next_line(fd, &line))
 	{
 		if (parsing->first_line_passed == 0)
 		{
@@ -236,6 +236,7 @@ void	find_map(int fd, t_parsing *parsing)
 		}
         free(line);
 	}
+	free(line);
 	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
     if (!parsing->map)
 	{
@@ -272,6 +273,7 @@ void	get_map(int fd, t_parsing *parsing)
 		}
 		free(line);
 	}
+	free(line);
 }
 
 int		check_0(t_parsing *parsing, int x, int y)
@@ -1036,18 +1038,12 @@ void	get_elems(int fd, t_elems *elems)
 	}
 }
 
-/*void	pass_empty_lines(fd)
+void	free_map(char **map)
 {
-	char	*line;
+	int i;
 
-	line = NULL;
-	while ((get_next_line(fd, &line) == 1) && ft_strcmp(line, "\n") == 0)
-	{
-		if (!(ft_strcmp(line, "\n") == 0))
-			return (line);
-	}
-	return (line);
-}*/
+
+}
 
 void	parser(t_parsing *parsing, t_elems *elems)
 {
@@ -1061,6 +1057,7 @@ void	parser(t_parsing *parsing, t_elems *elems)
 			error_elems(line, elems, 0);
 	last_line_check(elems->last_elem_line, parsing);
 	find_map(fd, parsing);
+	parsing->nbr_lines_map = parsing->nbr_lines;
 	if (parsing->map_error == TRUE)
 		parse_error(parsing, 0);
 	close(fd);
@@ -1071,6 +1068,7 @@ void	parser(t_parsing *parsing, t_elems *elems)
 		parse_error(parsing, 0);
 	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
 	get_valid_map(parsing);
+	free_parsing(parsing);
 	fill_valid_map(parsing);
 	close(fd);
 }

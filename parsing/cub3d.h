@@ -69,6 +69,7 @@ typedef struct	s_parsing
 	int		lowest_y;
 	int		map_is_open;
 	int		map_error;
+	int		nbr_lines_map;
 	int		first_line_passed;
 	char	*filename;
 	char	*first_line;
