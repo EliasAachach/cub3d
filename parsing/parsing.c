@@ -47,13 +47,52 @@ void	free_parsing(t_parsing *parsing)
 	}
 }
 
-void	parse_error(t_parsing *parsing, int error_flag)
+void	ft_free(char *newline, t_elems *elems)
+{
+	if (newline)
+		free(newline);
+	if (elems->path_to_S)
+		free(elems->path_to_S);
+	if (elems->path_to_NO)
+		free(elems->path_to_NO);
+	if (elems->path_to_SO)
+		free(elems->path_to_SO);
+	if (elems->path_to_EA)
+		free(elems->path_to_EA);
+	if (elems->path_to_WE)
+		free(elems->path_to_WE);
+}
+
+void	error_elems(char *newline, t_elems *elems, int error_flag)
+{
+	char *line;
+
+	line = NULL;
+	while(get_next_line(elems->error_fd, &line) == 1)
+		free(line);
+	 free(line);
+	if (error_flag == 0)
+		printf("Error : an element is missing.");
+	if (error_flag == 1)
+		printf("Error : an element is present mutiple times.");
+	if (error_flag == 3)
+		printf("Unexpected error, check your map.");
+	if (error_flag == 4)
+		printf("Error : map is invalid.");
+	if (error_flag == 5)
+		printf("Error : an element is incorrect.");
+	ft_free(newline, elems);
+	exit(0);
+}
+
+void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag)
 {
 	if (error_flag == 0)
 		printf("Error : Map is invalid.");
 	if (error_flag == 1)
 		printf("Error : Map is open.");
 	free_parsing(parsing);
+	error_elems(NULL, elems, 9);
 	exit(0);
 }
 
@@ -239,7 +278,7 @@ void	find_map(int fd, t_parsing *parsing)
 			}
 		}
 		newline = del_spaces(line);
-		if ((newline[0] == '\n' && parsing->first_line_passed == 1) || newline == NULL)
+		if ((newline[0] == '\0' && parsing->first_line_passed == 1) || newline == NULL)
 		{
 			parsing->valid_map = NULL;
 			parsing->map_error = TRUE;
@@ -248,13 +287,14 @@ void	find_map(int fd, t_parsing *parsing)
 			free(newline);
 			return ;
 		}
-		if (!(line[0] == '\n'))
+		if (!(line[0] == '\0'))
 		{
 			if (parsing->longest_line < ft_strlen(line))
 				parsing->longest_line = ft_strlen(line);
 			parsing->nbr_lines++;
 		}
         free(line);
+		free(newline);
 	}
 	free(line);
 	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
@@ -486,44 +526,6 @@ int		check_next_char(char *line)
 			return (0);
 	}
 	return (0);
-}
-
-void	ft_free(char *newline, t_elems *elems)
-{
-	if (newline)
-		free(newline);
-	if (elems->path_to_S)
-		free(elems->path_to_S);
-	if (elems->path_to_NO)
-		free(elems->path_to_NO);
-	if (elems->path_to_SO)
-		free(elems->path_to_SO);
-	if (elems->path_to_EA)
-		free(elems->path_to_EA);
-	if (elems->path_to_WE)
-		free(elems->path_to_WE);
-}
-
-void	error_elems(char *newline, t_elems *elems, int error_flag)
-{
-	char *line;
-
-	line = NULL;
-	while(get_next_line(elems->error_fd, &line) == 1)
-		free(line);
-	free(line);
-	if (error_flag == 0)
-		printf("Error : an element is missing.");
-	if (error_flag == 1)
-		printf("Error : an element is present mutiple times.");
-	if (error_flag == 3)
-		printf("Unexpected error, check your map.");
-	if (error_flag == 4)
-		printf("Error : map is invalid.");
-	if (error_flag == 5)
-		printf("Error : an element is incorrect.");
-	ft_free(newline, elems);
-	exit(0);
 }
 
 int		wich_elem(char *line, t_elems *elems)
@@ -1073,14 +1075,15 @@ void	parser(t_parsing *parsing, t_elems *elems)
 	last_line_check(elems->last_elem_line, parsing);
 	find_map(fd, parsing);
 	parsing->nbr_lines_map = parsing->nbr_lines;
+	elems->error_fd = fd;
 	if (parsing->map_error == TRUE)
-		parse_error(parsing, 0);
+		parse_error(parsing, elems, 0);
 	close(fd);
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing);
 	valid_map(parsing);
 	if (parsing->map_is_open == 1)
-		parse_error(parsing, 0);
+		parse_error(parsing, elems, 0);
 	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
 	get_valid_map(parsing);
 	free_parsing(parsing);
