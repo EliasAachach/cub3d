@@ -267,9 +267,9 @@ int		check_line(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != '0' || line[i] != '1' || line[i] != '2' || line[i] != ' '
-			|| line[i] != 'N' || line[i] != 'S' || line[i] != 'E'
-			|| line[i] != 'W')
+		if (line[i] != '0' && line[i] != '1' && line[i] != '2' && line[i] != ' '
+			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
+			&& line[i] != 'W')
 				return (1);
 		i++;
 	}
@@ -294,8 +294,8 @@ void	find_map(int fd, t_parsing *parsing)
 			}
 		}
 		newline = del_spaces(line);
-		if ((newline[0] == '\0' && parsing->first_line_passed == 1)
-			|| newline == NULL || check_line(newline) == 1)
+		if (((newline[0] == '\0' || check_line(newline) == 1)
+			&& parsing->first_line_passed == 1) || newline == NULL)
 		{
 			parsing->valid_map = NULL;
 			parsing->map_error = TRUE;
@@ -366,29 +366,19 @@ int		check_0(t_parsing *parsing, int x, int y)
 int		check_sides(char side)
 {
 	if (side == '0')
-	{
 		return (0);
-	}
 	if (side == '1')
-	{
 		return (0);
-	}
 	if (side == '2')
-	{
 		return (0);
-	}
+	if (side == ' ')
+		return (0);
 	if (side == -1)
-	{
 		return (0);
-	}
 	if (side == -2)
-	{
 		return (0);
-	}
 	if (side == -3)
-	{
 		return (0);
-	}
 	return (1); 
 }
 
@@ -437,7 +427,8 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 		parsing->lowest_y = y;
 	if (parsing->map[x][y] == '1')
 		parsing->map[x][y] = -2;
-	if (parsing->map[x][y] == '0' || parsing->map[x][y] == '2')
+	if (parsing->map[x][y] == '0' || parsing->map[x][y] == '2'
+		|| parsing->map[x][y] == ' ')
 	{
 		if (parsing->map[x][y] == '2')
 			parsing->map[x][y] = -3;
