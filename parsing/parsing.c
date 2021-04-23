@@ -260,6 +260,22 @@ char 	*del_spaces(char *line)
 	return (newline);
 }
 
+int		check_line(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '0' || line[i] != '1' || line[i] != '2' || line[i] != ' '
+			|| line[i] != 'N' || line[i] != 'S' || line[i] != 'E'
+			|| line[i] != 'W')
+				return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	find_map(int fd, t_parsing *parsing)
 {
 	char	*line;
@@ -278,7 +294,8 @@ void	find_map(int fd, t_parsing *parsing)
 			}
 		}
 		newline = del_spaces(line);
-		if ((newline[0] == '\0' && parsing->first_line_passed == 1) || newline == NULL)
+		if ((newline[0] == '\0' && parsing->first_line_passed == 1)
+			|| newline == NULL || check_line(newline) == 1)
 		{
 			parsing->valid_map = NULL;
 			parsing->map_error = TRUE;
