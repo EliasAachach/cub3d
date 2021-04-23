@@ -205,11 +205,29 @@ void	last_line_check(char *line, t_parsing *parsing)
 	free(line);
 }
 
+char 	*del_spaces(char *line)
+{
+	int i;
+	char *newline;
+	int j = 0;
+	j++;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '	')
+		i++;
+	newline = ft_strdup(line + i);
+	if (!newline)
+		return (NULL);
+	return (newline);
+}
+
 void	find_map(int fd, t_parsing *parsing)
 {
 	char	*line;
+	char	*newline;
 
 	line = NULL;
+	newline = NULL;
 	while (get_next_line(fd, &line))
 	{
 		if (parsing->first_line_passed == 0)
@@ -220,12 +238,14 @@ void	find_map(int fd, t_parsing *parsing)
 				parsing->first_line_passed = 1;
 			}
 		}
-		if (line[0] == '\n' && parsing->first_line_passed == 1)
+		newline = del_spaces(line);
+		if ((newline[0] == '\n' && parsing->first_line_passed == 1) || newline == NULL)
 		{
 			parsing->valid_map = NULL;
 			parsing->map_error = TRUE;
 			free(parsing->first_line);
 			free(line);
+			free(newline);
 			return ;
 		}
 		if (!(line[0] == '\n'))
@@ -532,22 +552,6 @@ int		wich_elem(char *line, t_elems *elems)
 	}
 	error_elems(line, elems, 0);
 	return (0);
-}
-
-char 	*del_spaces(char *line)
-{
-	int i;
-	char *newline;
-	int j = 0;
-	j++;
-
-	i = 0;
-	while (line[i] == ' ' || line[i] == '	')
-		i++;
-	newline = ft_strdup(line + i);
-	if (!newline)
-		return (NULL);
-	return (newline);
 }
 
 void	get_R_values(char *newline, t_elems *elems)
