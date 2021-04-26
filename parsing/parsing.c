@@ -633,6 +633,20 @@ int		ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
 	return (ft_strdup_path2(tmp, elem_flag, elems));
 }
 
+int		existing_path(char *tmp)
+{
+	int	fd;
+
+	fd = open(tmp, O_RDONLY);
+	if (fd < 0)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
+
 void	get_path(char *newline, int elem_flag, t_elems *elems)
 {
 	int		i;
@@ -656,7 +670,7 @@ void	get_path(char *newline, int elem_flag, t_elems *elems)
 		len++;
 	}
 	tmp = ft_strndup(newline, len, i);
-	if (ft_strdup_path(tmp, elem_flag, elems) == 1)
+	if (ft_strdup_path(tmp, elem_flag, elems) == 1 || existing_path(tmp) == 1)
 	{
 		free(tmp);
 		error_elems(newline, elems, 0);
