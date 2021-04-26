@@ -868,7 +868,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 		i++;
 	}
 	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
-	|| ft_strlen(final[2]) > 3 || i > 3)
+	|| ft_strlen(final[2]) > 3 || i != 3)
 	{
 		while (i >= 0)
 		{
