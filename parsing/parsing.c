@@ -564,6 +564,22 @@ int		wich_elem(char *line, t_elems *elems)
 	return (0);
 }
 
+int		res_check(char *str, t_elems *elems)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return (1);
+		i++;
+	}
+	if (elems->R_x_value <= 0 || elems->R_y_value <= 0)
+		return (1);
+	return (0);
+}
+
 void	get_R_values(char *newline, t_elems *elems)
 {
 	int i;
@@ -572,7 +588,7 @@ void	get_R_values(char *newline, t_elems *elems)
 	while (!(newline[i] >= '0' && newline[i] <= '9'))
 	{
 		if (!(newline[i] == ' ' || newline[i] == '	'))
-			error_elems(newline, elems, 0);
+			error_elems(newline, elems, 5);
 		i++;
 	}
 	elems->R_x_value = ft_atoi(newline + i);
@@ -581,10 +597,12 @@ void	get_R_values(char *newline, t_elems *elems)
 	while (!(newline[i] >= '0' && newline[i] <= '9'))
 	{
 		if (!(newline[i] == ' ' || newline[i] == '	'))
-			error_elems(newline, elems, 0);
+			error_elems(newline, elems, 5);
 		i++;
 	}
 	elems->R_y_value = ft_atoi(newline + i);
+	if (res_check(newline + i, elems) == 1)
+		error_elems(newline, elems, 5);
 	free(newline);
 }
 
