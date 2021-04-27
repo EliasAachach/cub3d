@@ -72,15 +72,15 @@ void	error_elems(char *newline, t_elems *elems, int error_flag)
 		free(line);
 	 free(line);
 	if (error_flag == 0)
-		printf("Error : an element is missing.");
+		printf("Error\nAn element is missing.");
 	if (error_flag == 1)
-		printf("Error : an element is present mutiple times.");
+		printf("Error\nAn element is present mutiple times.");
 	if (error_flag == 3)
-		printf("Unexpected error, check your map.");
+		printf("Error\nUnexpected error, check your map.");
 	if (error_flag == 4)
-		printf("Error : map is invalid.");
+		printf("Error\nMap is invalid.");
 	if (error_flag == 5)
-		printf("Error : an element is incorrect.");
+		printf("Error\nAn element is incorrect.");
 	ft_free(newline, elems);
 	exit(0);
 }
@@ -691,7 +691,7 @@ void	get_path(char *newline, int elem_flag, t_elems *elems)
 	if (ft_strdup_path(tmp, elem_flag, elems) == 1 || existing_path(tmp) == 1)
 	{
 		free(tmp);
-		error_elems(newline, elems, 0);
+		error_elems(newline, elems, 5);
 	}
 	free(tmp);
 }
@@ -1098,12 +1098,30 @@ void	get_elems(int fd, t_elems *elems)
 	}
 }
 
-void	parser(t_parsing *parsing, t_elems *elems)
+void	filename_check(char *filename)
+{
+	int fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+
+	if (ft_strcmp(filename + ft_strlen(filename) - 4, ".cub") == 1 || fd < 0)
+	{
+		close(fd);
+		printf("Error\nMap is invalid");
+		exit(0);
+	}
+	close(fd);
+}
+
+void	parser(t_parsing *parsing, t_elems *elems, char *map)
 {
 	int		fd;
 	char	*line;
 
 	line = NULL;
+	filename_check(map);
+	parsing->filename = map;
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems);
 	elems->error_fd = 0;

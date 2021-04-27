@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void    parser(t_parsing *parsing, t_elems *elems);
+void    parser(t_parsing *parsing, t_elems *elems, char *map);
 void	ft_putstr_fd(char *s);
 
 void	init_parsing(t_parsing *parsing, t_elems *elems)
 {
-    parsing->filename = "map";
+    parsing->filename = NULL;
 	parsing->first_line = NULL;
 	parsing->map = NULL;
 	parsing->valid_map = NULL;
@@ -52,12 +52,12 @@ void	init_parsing(t_parsing *parsing, t_elems *elems)
 	elems->path_to_WE = NULL;
 }
 
-int     main(void)
+int     main(int argc, char **argv)
 {
     t_parsing	parsing;
-    t_elems		elems;;
+    t_elems		elems;
     init_parsing(&parsing, &elems);
-    parser(&parsing, &elems);
+    parser(&parsing, &elems, argv[1]);
 	printf("path_to_S : %s\n", elems.path_to_S);
 	printf("path_to_NO : %s\n", elems.path_to_NO);
 	printf("path_to_SO : %s\n", elems.path_to_SO);
