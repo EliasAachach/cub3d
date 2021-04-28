@@ -1055,7 +1055,7 @@ int		check_all_elems(t_elems *elems)
 		elems->WE_is_present == FALSE || elems->S_is_present == FALSE ||
 		elems->C_is_present == FALSE || elems->F_is_present == FALSE)
 			return (1);
-		return (0);
+	return (0);
 }
 
 int		elem_present(t_elems *elems)
@@ -1122,6 +1122,23 @@ void	arg_check(char **arg, int nbr_arg)
 	close(fd);
 }
 
+int		rgb_check(t_elems *elems)
+{
+	if (!(elems->r_F >= 0 && elems->r_F <= 255))
+		return (1);
+	if (!(elems->g_F >= 0 && elems->g_F <= 255))
+		return (1);
+	if (!(elems->b_F >= 0 && elems->b_F <= 255))
+		return (1);
+	if (!(elems->r_C >= 0 && elems->r_C <= 255))
+		return (1);
+	if (!(elems->g_C >= 0 && elems->g_C <= 255))
+		return (1);
+	if (!(elems->b_C >= 0 && elems->b_C <= 255))
+		return (1);
+	return (0);
+}
+
 void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 {
 	int		fd;
@@ -1133,12 +1150,17 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems);
 	elems->error_fd = 0;
-		if (check_all_elems(elems) == 1)
-		{
-			elems->error_fd = fd;
-			error_elems(line, elems, 0);
-		}
 	last_line_check(elems->last_elem_line, parsing);
+	if (check_all_elems(elems) == 1)
+	{
+		elems->error_fd = fd;
+		error_elems(line, elems, 0);
+	}
+	if (rgb_check(elems) == 1)
+	{
+		elems->error_fd = fd;
+		error_elems(line, elems, 5);
+	}
 	find_map(fd, parsing);
 	parsing->nbr_lines_map = parsing->nbr_lines;
 	elems->error_fd = fd;
