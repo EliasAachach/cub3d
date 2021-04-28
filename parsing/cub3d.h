@@ -72,6 +72,7 @@ typedef struct	s_parsing
 	int		map_error;
 	int		nbr_lines_map;
 	int		first_line_passed;
+	int		player_in_map;
 	char	*filename;
 	char	*first_line;
 	char	**map;

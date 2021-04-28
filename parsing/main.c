@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void    parser(t_parsing *parsing, t_elems *elems, char *map);
+void    parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg);
 void	ft_putstr_fd(char *s);
 
 void	init_parsing(t_parsing *parsing, t_elems *elems)
@@ -24,6 +24,7 @@ void	init_parsing(t_parsing *parsing, t_elems *elems)
 	parsing->lowest_y = 0;
 	parsing->map_is_open = 0;
 	parsing->map_error = 0;
+	parsing->player_in_map = 0;
 	parsing->first_line_passed = 0;
 
 	elems->R_is_present = 0;
@@ -57,7 +58,7 @@ int     main(int argc, char **argv)
     t_parsing	parsing;
     t_elems		elems;
     init_parsing(&parsing, &elems);
-    parser(&parsing, &elems, argv[1]);
+    parser(&parsing, &elems, argv, argc);
 	printf("path_to_S : %s\n", elems.path_to_S);
 	printf("path_to_NO : %s\n", elems.path_to_NO);
 	printf("path_to_SO : %s\n", elems.path_to_SO);

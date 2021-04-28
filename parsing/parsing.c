@@ -322,10 +322,13 @@ void	find_map(int fd, t_parsing *parsing)
 	}
 }
 
-int	player_in_map(char c)
+int	player_in_map(char c, t_parsing *parsing)
 {
 	if ( c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	{
+		parsing->player_in_map = TRUE;
 		return (1);
+	}
 	else
 		return (0);
 }
@@ -405,7 +408,7 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 			return ;
 		}
 	}
-	if (player_in_map(parsing->map[x][y]) == 1)
+	if (player_in_map(parsing->map[x][y], parsing) == 1)
 	{
 		parsing->map_is_open = 1;
 	}
@@ -452,7 +455,7 @@ void	valid_map(t_parsing *parsing)
 		y = 0;
 		while (parsing->map[x][y])
 		{
-			if (player_in_map(parsing->map[x][y]) == 1)
+			if (player_in_map(parsing->map[x][y], parsing) == 1)
 			{
 				parsing->player_x = x;
 				parsing->player_y = y;
@@ -1098,14 +1101,19 @@ void	get_elems(int fd, t_elems *elems)
 	}
 }
 
-void	filename_check(char *filename)
+void	arg_check(char **arg, int nbr_arg)
 {
 	int fd;
 
-	fd = open(filename, O_RDONLY);
+	if (nbr_arg != 2)
+	{
+		printf("Error\nWrong number of arguments.");
+		exit(0);
+	}
+	fd = open(arg[1], O_RDONLY);
 	if (fd < 0)
 
-	if (ft_strcmp(filename + ft_strlen(filename) - 4, ".cub") == 1 || fd < 0)
+	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
 	{
 		close(fd);
 		printf("Error\nMap is invalid");
@@ -1114,14 +1122,14 @@ void	filename_check(char *filename)
 	close(fd);
 }
 
-void	parser(t_parsing *parsing, t_elems *elems, char *map)
+void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 {
 	int		fd;
 	char	*line;
 
 	line = NULL;
-	filename_check(map);
-	parsing->filename = map;
+	arg_check(arg, nbr_arg);
+	parsing->filename = arg[1];
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems);
 	elems->error_fd = 0;
@@ -1140,7 +1148,7 @@ void	parser(t_parsing *parsing, t_elems *elems, char *map)
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing);
 	valid_map(parsing);
-	if (parsing->map_is_open == 1)
+	if (parsing->map_is_open == 1 || parsing->player_in_map == FALSE)
 		parse_error(parsing, elems, 0);
 	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
 	get_valid_map(parsing);
