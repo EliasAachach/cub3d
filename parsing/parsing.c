@@ -882,6 +882,27 @@ char	*ft_strtrim_inside(char *str)
 	return (strnew);
 }
 
+int		final_check(char **final, int i)
+{
+	int j;
+
+	if (i != 3)
+		return (1);
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (final[i][j])
+		{
+			if (!(final[i][j] >= '0' && final[i][j] <= '9'))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	get_colors(char *newline, int elem_flag, t_elems *elems)
 {
 	int		i;
@@ -903,7 +924,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 		i++;
 	}
 	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
-	|| ft_strlen(final[2]) > 3 || i != 3)
+	|| ft_strlen(final[2]) > 3 || i != 3 || final_check(final, i) == 1)
 	{
 		while (i >= 0)
 		{
