@@ -88,9 +88,9 @@ void	error_elems(char *newline, t_elems *elems, int error_flag)
 void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag)
 {
 	if (error_flag == 0)
-		printf("Error : Map is invalid.");
+		printf("Error\nMap is invalid.");
 	if (error_flag == 1)
-		printf("Error : Map is open.");
+		printf("Error\nMap is open.");
 	free_parsing(parsing);
 	error_elems(NULL, elems, 9);
 	exit(0);
@@ -400,7 +400,7 @@ int		check_adjacent_cases(t_parsing *parsing, int x, int y)
 
 void	flood_fill(t_parsing *parsing, int x, int y)
 {
-	if (parsing->map[x][y] != '1')
+	if (parsing->map[x][y] != '1' && parsing->map[x][y] != -2)
 	{
 		if (check_adjacent_cases(parsing, x, y) == 1)
 		{
@@ -1185,14 +1185,18 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 	find_map(fd, parsing);
 	parsing->nbr_lines_map = parsing->nbr_lines;
 	elems->error_fd = fd;
+	close(fd);
 	if (parsing->map_error == TRUE)
 		parse_error(parsing, elems, 0);
-	close(fd);
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing);
 	valid_map(parsing);
-	if (parsing->map_is_open == 1 || parsing->player_in_map == FALSE)
+	if (parsing->map_is_open == TRUE || parsing->player_in_map == FALSE)
+	{
+		if (parsing->map_is_open == TRUE)
+			parse_error(parsing, elems, 1);
 		parse_error(parsing, elems, 0);
+	}
 	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
 	get_valid_map(parsing);
 	free_parsing(parsing);
