@@ -387,19 +387,28 @@ int		check_sides(char side)
 
 int		check_adjacent_cases(t_parsing *parsing, int x, int y)
 {
+	ft_putstr_fd("\nisok entree");
 	if (check_sides(parsing->map[x - 1][y]) == 1)
 		return (1);
+	ft_putstr_fd("\nisok x - 1");
 	if (check_sides(parsing->map[x][y + 1]) == 1)
 		return (1);
+	ft_putstr_fd("\nisok y + 1");
 	if (check_sides(parsing->map[x + 1][y]) == 1)
 		return (1);
+	ft_putstr_fd("\nisok x + 1");
 	if (check_sides(parsing->map[x][y - 1]) == 1)
 		return (1);
+	ft_putstr_fd("\nisok y - 1");
 	return (0);
 }
 
 void	flood_fill(t_parsing *parsing, int x, int y)
 {
+	ft_putstr_fd("\nx:");
+	ft_putnbr_fd(x);
+	ft_putstr_fd("\ny:");
+	ft_putnbr_fd(y);
 	if (parsing->map[x][y] != '1' && parsing->map[x][y] != -2)
 	{
 		if (check_adjacent_cases(parsing, x, y) == 1)
