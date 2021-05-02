@@ -353,6 +353,8 @@ void	get_map(int fd, t_parsing *parsing)
 		}
 		free(line);
 	}
+	if (x == parsing->nbr_lines)
+		parsing->map[x] = ft_strdup(line);
 	free(line);
 }
 
@@ -391,7 +393,7 @@ int		check_adjacent_cases(t_parsing *parsing, int x, int y)
 		return (1);
 	if (check_sides(parsing->map[x][y + 1]) == 1)
 		return (1);
-	if (x + 1 >= parsing->nbr_lines || check_sides(parsing->map[x + 1][y]) == 1)
+	if (x + 1 > parsing->nbr_lines || check_sides(parsing->map[x + 1][y]) == 1)
 		return (1);
 	if (check_sides(parsing->map[x][y - 1]) == 1)
 		return (1);
