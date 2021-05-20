@@ -27,9 +27,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <mlx.h>
 
 typedef struct	s_elems
 {
+	void		*mlx_ptr;
 	int			R_is_present;
 	int			NO_is_present;
 	int			SO_is_present;

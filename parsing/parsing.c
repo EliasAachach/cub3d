@@ -572,8 +572,12 @@ int		wich_elem(char *line, t_elems *elems)
 int		res_check(char *str, t_elems *elems)
 {
 	int	i;
+	int	x;
+	int	y;
 
 	i = 0;
+	elems->mlx_ptr = mlx_init();
+	mlx_get_screen_size(elems->mlx_ptr, (&x), (&y));
 	while(str[i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
@@ -582,6 +586,10 @@ int		res_check(char *str, t_elems *elems)
 	}
 	if (elems->R_x_value <= 0 || elems->R_y_value <= 0)
 		return (1);
+	if (elems->R_x_value > x)
+		elems->R_x_value = x;
+	if (elems->R_y_value > y)
+		elems->R_y_value = y;
 	return (0);
 }
 
