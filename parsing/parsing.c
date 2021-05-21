@@ -276,6 +276,39 @@ int		check_line(char *line)
 	return (0);
 }
 
+void	last_line(char *line, t_parsing *parsing)
+{
+	char	*newline;
+
+	newline = NULL;
+	if (parsing->first_line_passed == 0)
+	{
+		if (is_first_line(line) == 1)
+		{
+			parsing->first_line = ft_strdup(line);
+			parsing->first_line_passed = 1;
+		}
+	}
+	newline = del_spaces(line);
+	if (((newline[0] == '\0' || check_line(newline) == 1)
+		&& parsing->first_line_passed == 1) || newline == NULL)
+	{
+		parsing->valid_map = NULL;
+		parsing->map_error = TRUE;
+		free(parsing->first_line);
+		free(line);
+		free(newline);
+		return ;
+	}
+	if (!(line[0] == '\0'))
+	{
+		if (parsing->longest_line < ft_strlen(line))
+			parsing->longest_line = ft_strlen(line);
+		parsing->nbr_lines++;
+	}
+	free(newline);
+}
+
 void	find_map(int fd, t_parsing *parsing)
 {
 	char	*line;
@@ -313,6 +346,7 @@ void	find_map(int fd, t_parsing *parsing)
         free(line);
 		free(newline);
 	}
+	last_line(line, parsing);
 	free(line);
 	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
     if (!parsing->map)
@@ -342,7 +376,7 @@ void	get_map(int fd, t_parsing *parsing)
 	first_line_passed = FALSE;
 	line = NULL;
 	x = 0;
-	while (get_next_line(fd, &line) == 1)
+	while (get_next_line(fd, &line))
 	{
 		if ((ft_strcmp(line, parsing->first_line) == 0
 			|| first_line_passed == TRUE) && x <= parsing->nbr_lines)
