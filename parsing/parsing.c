@@ -36,15 +36,15 @@ void	free_parsing(t_parsing *parsing)
 	i = 0;
 	if (parsing->first_line)
 		free(parsing->first_line);
-	if (parsing->map)
-	{
-		while (i <= parsing->nbr_lines_map)
-		{
-			free(parsing->map[i]);
-			i++;
-		}
-		free(parsing->map);
-	}
+	// if (parsing->map)
+	// {
+	// 	while (i <= parsing->nbr_lines_map)
+	// 	{
+	// 		free(parsing->map[i]);
+	// 		i++;
+	// 	}
+	// 	free(parsing->map);
+	// }
 }
 
 void	ft_free(char *newline, t_elems *elems)
@@ -118,6 +118,7 @@ char	**alloc_map(int nbr_lines, int longest_line, int flag)
 
 	i = 0;
 	map = ((char **)malloc(sizeof(char *) * (nbr_lines + 1)));
+	map[nbr_lines] = NULL;
 	if (!map)
 		return (NULL);
 	if (flag == 1)
@@ -125,6 +126,7 @@ char	**alloc_map(int nbr_lines, int longest_line, int flag)
 		while (i <= nbr_lines)
 		{
 			map[i] = ((char *)malloc(sizeof(char) * (longest_line + 1)));
+			map[i][longest_line] = '\0';
 			if (!map[i])
 				return (NULL);
 			i++;
@@ -387,7 +389,7 @@ void	get_map(int fd, t_parsing *parsing)
 		}
 		free(line);
 	}
-	if (x == parsing->nbr_lines)
+	if (x == parsing->nbr_lines - 1)
 		parsing->map[x] = ft_strdup(line);
 	free(line);
 }
@@ -423,11 +425,11 @@ int		check_sides(char side)
 
 int		check_adjacent_cases(t_parsing *parsing, int x, int y)
 {
-	if (check_sides(parsing->map[x - 1][y]) == 1)
+	if (x - 1 < 0 || check_sides(parsing->map[x - 1][y]) == 1)
 		return (1);
 	if (check_sides(parsing->map[x][y + 1]) == 1)
 		return (1);
-	if (x + 1 > parsing->nbr_lines || check_sides(parsing->map[x + 1][y]) == 1)
+	if (x + 1 >= parsing->nbr_lines || check_sides(parsing->map[x + 1][y]) == 1)
 		return (1);
 	if (check_sides(parsing->map[x][y - 1]) == 1)
 		return (1);
@@ -1181,7 +1183,7 @@ void	arg_check(char **arg, int nbr_arg)
 	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
 	{
 		close(fd);
-		printf("Error\nMap is invalid");
+		printf("Error\nFile is invalid");
 		exit(0);
 	}
 	close(fd);
@@ -1234,6 +1236,16 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 		parse_error(parsing, elems, 0);
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing);
+	ft_putstr_fd("MAP\n");
+	int i;
+		i = 0;
+	while (i <= parsing->nbr_lines)
+	{
+		ft_putstr_fd(parsing->map[i]);
+	ft_putstr_fd("\n");
+		i++;
+	}
+	ft_putstr_fd("MAP\n");
 	valid_map(parsing);
 	if (parsing->map_is_open == TRUE || parsing->player_in_map == FALSE)
 	{
@@ -1242,8 +1254,8 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 		parse_error(parsing, elems, 0);
 	}
 	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
-	get_valid_map(parsing);
+	// get_valid_map(parsing);
 	free_parsing(parsing);
-	fill_valid_map(parsing);
+	// fill_valid_map(parsing);
 	close(fd);
 }

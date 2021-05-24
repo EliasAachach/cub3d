@@ -75,14 +75,14 @@ int     main(int argc, char **argv)
 		int i = 0;
 	while (i <= parsing.nbr_lines)
 	{
-		ft_putstr_fd(parsing.valid_map[i]);
+		ft_putstr_fd(parsing.map[i]);
 		ft_putstr_fd("\n");
 		i++;
 	}
 	i = 0;
 	while (i <= parsing.nbr_lines)
 	{
-		free(parsing.valid_map[i]);
+		free(parsing.map[i]);
 		i++;
 	}
 	free(parsing.valid_map);
