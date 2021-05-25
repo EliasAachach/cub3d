@@ -423,41 +423,41 @@ int		check_sides(char side)
 	return (1); 
 }
 
-int		check_adjacent_cases(t_parsing *parsing, int x, int y)
+int		check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
 {
-	if (x - 1 < 0 || check_sides(parsing->map[x - 1][y]) == 1)
+	if (x - 1 < 0 || check_sides(ff_map[x - 1][y]) == 1)
 		return (1);
-	if (check_sides(parsing->map[x][y + 1]) == 1)
+	if (check_sides(ff_map[x][y + 1]) == 1)
 		return (1);
-	if (x + 1 >= parsing->nbr_lines || check_sides(parsing->map[x + 1][y]) == 1)
+	if (x + 1 >= parsing->nbr_lines || check_sides(ff_map[x + 1][y]) == 1)
 		return (1);
-	if (check_sides(parsing->map[x][y - 1]) == 1)
+	if (check_sides(ff_map[x][y - 1]) == 1)
 		return (1);
 	return (0);
 }
 
-void	flood_fill(t_parsing *parsing, int x, int y)
+void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
 {
-	if (parsing->map[x][y] != '1' && parsing->map[x][y] != -2)
+	if (ff_map[x][y] != '1' && ff_map[x][y] != -2)
 	{
-		if (check_adjacent_cases(parsing, x, y) == 1)
+		if (check_adjacent_cases(parsing, ff_map, x, y) == 1)
 		{
-			parsing->map_is_open = 1;
+			parsing->map_is_open = TRUE;
 			return ;
 		}
 	}
-	if (player_in_map(parsing->map[x][y], parsing) == 1)
+	if (player_in_map(ff_map[x][y], parsing) == 1)
 	{
-		parsing->map_is_open = 1;
+		parsing->map_is_open = TRUE;
 	}
-	if (x == 0 && parsing->map[x][y] != '1')
-		parsing->map_is_open = 1;
-	if (y == 0 && parsing->map[x][y] != '1')
-		parsing->map_is_open = 1;
-	if (x == parsing->nbr_lines && parsing->map[x][y] != '1')
-		parsing->map_is_open = 1;
-	if (y == parsing->longest_line && parsing->map[x][y] != '1')
-		parsing->map_is_open = 1;
+	if (x == 0 && ff_map[x][y] != '1')
+		parsing->map_is_open = TRUE;
+	if (y == 0 && ff_map[x][y] != '1')
+		parsing->map_is_open = TRUE;
+	if (x == parsing->nbr_lines && ff_map[x][y] != '1')
+		parsing->map_is_open = TRUE;
+	if (y == parsing->longest_line && ff_map[x][y] != '1')
+		parsing->map_is_open = TRUE;
 	if (x > parsing->highest_x)
 		parsing->highest_x = x;
 	if (x < parsing->lowest_x)
@@ -466,42 +466,56 @@ void	flood_fill(t_parsing *parsing, int x, int y)
 		parsing->highest_y = y;
 	if (y < parsing->lowest_y)
 		parsing->lowest_y = y;
-	if (parsing->map[x][y] == '1')
-		parsing->map[x][y] = -2;
-	if (parsing->map[x][y] == '0' || parsing->map[x][y] == '2'
-		|| parsing->map[x][y] == ' ')
+	if (ff_map[x][y] == '1')
+		ff_map[x][y] = -2;
+	if (ff_map[x][y] == '0' || ff_map[x][y] == '2'
+		|| ff_map[x][y] == ' ')
 	{
-		if (parsing->map[x][y] == '2')
-			parsing->map[x][y] = -3;
+		if (ff_map[x][y] == '2')
+			ff_map[x][y] = -3;
 		else
-			parsing->map[x][y] = -1;
-		flood_fill(parsing, x, y + 1);
-		flood_fill(parsing, x, y - 1);
-		flood_fill(parsing, x + 1, y);
-		flood_fill(parsing, x - 1, y);
+			ff_map[x][y] = -1;
+		flood_fill(parsing, ff_map, x, y + 1);
+		flood_fill(parsing, ff_map, x, y - 1);
+		flood_fill(parsing, ff_map, x + 1, y);
+		flood_fill(parsing, ff_map, x - 1, y);
+	}
+}
+
+void	get_valid_map(t_parsing *parsing, char **ff_map)
+{
+	int		i;
+
+	i = 0;
+	while (i < parsing->nbr_lines)
+	{
+		ff_map[i] = ft_strdup(parsing->map[i]);
+		i++;
 	}
 }
 
 void	valid_map(t_parsing *parsing)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	**ff_map;
 
 	x = 0;
+	ff_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
+	get_valid_map(parsing, ff_map);
 	while (x < parsing->nbr_lines)
 	{
 		y = 0;
-		while (parsing->map[x][y])
+		while (ff_map[x][y])
 		{
-			if (player_in_map(parsing->map[x][y], parsing) == 1)
+			if (player_in_map(ff_map[x][y], parsing) == 1)
 			{
 				parsing->player_x = x;
 				parsing->player_y = y;
-				parsing->map[x][y] = '0';
+				ff_map[x][y] = '0';
 				parsing->lowest_x = parsing->player_x;
 				parsing->lowest_y = parsing->player_y;
-				flood_fill(parsing, x, y);
-				parsing->nbr_lines = parsing->highest_x - parsing->lowest_x;
+				flood_fill(parsing, ff_map, x, y);
 				parsing->longest_line = parsing->highest_y - parsing->lowest_y + 2;
 				return ;
 			}
@@ -509,41 +523,6 @@ void	valid_map(t_parsing *parsing)
 		}
 		x++;
 	}
-}
-
-void	get_valid_map(t_parsing *parsing)
-{
-	int i;
-	int j;
-	int x;
-	int y;
-
-	x = 0;
-	i = parsing->lowest_x;
-	while (i <= parsing->highest_x)
-	{
-		j = parsing->lowest_y;
-		y = 0;
-		while (parsing->map[i][j] && j <= parsing->highest_y)
-		{
-			if (parsing->map[i][j] == -1)
-				parsing->valid_map[x][y] = '0';
-			if (parsing->map[i][j] == -2)
-				parsing->valid_map[x][y] = '1';
-			if (parsing->map[i][j] == -3)
-				parsing->valid_map[x][y] = '2';
-			j++;
-			y++;
-		}
-		i++;
-		x++;
-	}
-}
-
-void	fill_valid_map(t_parsing *parsing)
-{
-	parsing->valid_map[0][0] = '1';
-	parsing->valid_map[parsing->nbr_lines][0] = '1';
 }
 
 int		check_next_char(char *line)
@@ -1236,16 +1215,6 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 		parse_error(parsing, elems, 0);
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing);
-	ft_putstr_fd("MAP\n");
-	int i;
-		i = 0;
-	while (i <= parsing->nbr_lines)
-	{
-		ft_putstr_fd(parsing->map[i]);
-	ft_putstr_fd("\n");
-		i++;
-	}
-	ft_putstr_fd("MAP\n");
 	valid_map(parsing);
 	if (parsing->map_is_open == TRUE || parsing->player_in_map == FALSE)
 	{
@@ -1254,8 +1223,6 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 		parse_error(parsing, elems, 0);
 	}
 	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
-	// get_valid_map(parsing);
 	free_parsing(parsing);
-	// fill_valid_map(parsing);
 	close(fd);
 }
