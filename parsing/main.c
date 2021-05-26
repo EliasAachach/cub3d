@@ -85,7 +85,8 @@ int     main(int argc, char **argv)
 		free(parsing.map[i]);
 		i++;
 	}
-	free(parsing.valid_map);
+	// free(parsing.map[i]);
+	free(parsing.map);
 	free(elems.path_to_S);
 	free(elems.path_to_NO);
 	free(elems.path_to_SO);

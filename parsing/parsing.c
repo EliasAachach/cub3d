@@ -36,15 +36,15 @@ void	free_parsing(t_parsing *parsing)
 	i = 0;
 	if (parsing->first_line)
 		free(parsing->first_line);
-	// if (parsing->map)
-	// {
-	// 	while (i <= parsing->nbr_lines_map)
-	// 	{
-	// 		free(parsing->map[i]);
-	// 		i++;
-	// 	}
-	// 	free(parsing->map);
-	// }
+	if (parsing->map)
+	{
+		while (parsing->map[i])
+		{
+			free(parsing->map[i]);
+			i++;
+		}
+		free(parsing->map);
+	}
 }
 
 void	ft_free(char *newline, t_elems *elems)
@@ -295,7 +295,6 @@ void	last_line(char *line, t_parsing *parsing)
 	if (((newline[0] == '\0' || check_line(newline) == 1)
 		&& parsing->first_line_passed == 1) || newline == NULL)
 	{
-		parsing->valid_map = NULL;
 		parsing->map_error = TRUE;
 		free(parsing->first_line);
 		free(line);
@@ -332,7 +331,6 @@ void	find_map(int fd, t_parsing *parsing)
 		if (((newline[0] == '\0' || check_line(newline) == 1)
 			&& parsing->first_line_passed == 1) || newline == NULL)
 		{
-			parsing->valid_map = NULL;
 			parsing->map_error = TRUE;
 			free(parsing->first_line);
 			free(line);
@@ -494,6 +492,22 @@ void	get_valid_map(t_parsing *parsing, char **ff_map)
 	}
 }
 
+static void		*ft_strfree(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	while (i > 0)
+	{
+		i--;
+		free(str[i]);
+	}
+	free(str);
+	return ((void *)0);
+}
+
 void	valid_map(t_parsing *parsing)
 {
 	int		x;
@@ -517,12 +531,14 @@ void	valid_map(t_parsing *parsing)
 				parsing->lowest_y = parsing->player_y;
 				flood_fill(parsing, ff_map, x, y);
 				parsing->longest_line = parsing->highest_y - parsing->lowest_y + 2;
+				ft_strfree(ff_map);
 				return ;
 			}
 			y++;
 		}
 		x++;
 	}
+	ft_strfree(ff_map);
 }
 
 int		check_next_char(char *line)
@@ -782,22 +798,6 @@ void	ft_bzero(void *s, size_t n)
 		str[i] = '\0';
 		i++;
 	}
-}
-
-static void		*ft_strfree(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	while (i > 0)
-	{
-		i--;
-		free(str[i]);
-	}
-	free(str);
-	return ((void *)0);
 }
 
 static int		ft_nbwrds(char const *s, char c)
@@ -1222,7 +1222,6 @@ void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
 			parse_error(parsing, elems, 1);
 		parse_error(parsing, elems, 0);
 	}
-	parsing->valid_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 1);
-	free_parsing(parsing);
+	free(parsing->first_line);
 	close(fd);
 }
