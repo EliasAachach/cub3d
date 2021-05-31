@@ -369,7 +369,7 @@ int		check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
 	return (0);
 }
 
-void	ff_check()
+void	ff_check(t_parsing *parsing, char **ff_map, int x, int y)
 {
 	if (player_in_map(ff_map[x][y], parsing) == 1)
 		parsing->map_is_open = TRUE;
@@ -395,7 +395,7 @@ void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
 			return ;
 		}
 	}
-	
+	ff_check(parsing, ff_map, x, y);
 	if (ff_map[x][y] == '0' || ff_map[x][y] == '2'
 		|| ff_map[x][y] == ' ')
 	{
