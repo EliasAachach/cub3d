@@ -369,16 +369,8 @@ int		check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
 	return (0);
 }
 
-void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
+void	ff_check()
 {
-	if (ff_map[x][y] != '1' && ff_map[x][y] != -2)
-	{
-		if (check_adjacent_cases(parsing, ff_map, x, y) == 1)
-		{
-			parsing->map_is_open = TRUE;
-			return ;
-		}
-	}
 	if (player_in_map(ff_map[x][y], parsing) == 1)
 		parsing->map_is_open = TRUE;
 	if (x == 0 && ff_map[x][y] != '1')
@@ -391,6 +383,19 @@ void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
 		parsing->map_is_open = TRUE;
 	if (ff_map[x][y] == '1')
 		ff_map[x][y] = -2;
+}
+
+void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
+{
+	if (ff_map[x][y] != '1' && ff_map[x][y] != -2)
+	{
+		if (check_adjacent_cases(parsing, ff_map, x, y) == 1)
+		{
+			parsing->map_is_open = TRUE;
+			return ;
+		}
+	}
+	
 	if (ff_map[x][y] == '0' || ff_map[x][y] == '2'
 		|| ff_map[x][y] == ' ')
 	{
