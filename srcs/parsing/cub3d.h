@@ -85,5 +85,6 @@ typedef struct	s_parsing
 //prototypes
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s);
+int		ft_strcmp(char *s1, char *s2);
 
 #endif

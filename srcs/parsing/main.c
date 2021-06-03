@@ -5,7 +5,11 @@
 #include <stdio.h>
 
 void    parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg);
-void	ft_putstr_fd(char *s);
+
+void	ft_putstr_fd(char *s)
+{
+	write(1, s, ft_strlen(s));
+}
 
 void	init_parsing(t_parsing *parsing, t_elems *elems)
 {
