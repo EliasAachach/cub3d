@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "gnl/get_next_line.h"
 #include <mlx.h>
 
 typedef struct	s_elems
@@ -83,7 +84,6 @@ typedef struct	s_parsing
 }				t_parsing;
 
 //prototypes
-size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s);
 int		ft_strcmp(char *s1, char *s2);
 
