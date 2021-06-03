@@ -1,4 +1,4 @@
-#include"cub3d.h"
+#include "cub3d.h"
 
 void	ff_check(t_parsing *parsing, char **ff_map, int x, int y)
 {

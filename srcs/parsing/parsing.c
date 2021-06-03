@@ -253,7 +253,7 @@ void	find_map(int fd, t_parsing *parsing)
 	}
 }
 
-int	player_in_map(char c, t_parsing *parsing)
+int		player_in_map(char c, t_parsing *parsing)
 {
 	if ( c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
