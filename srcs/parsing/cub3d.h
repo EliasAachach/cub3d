@@ -26,6 +26,7 @@
 //end_RGB_macrosx
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <mlx.h>
 
@@ -80,5 +81,9 @@ typedef struct	s_parsing
 	char	**map;
 	char	**valid_map;
 }				t_parsing;
+
+//prototypes
+size_t	ft_strlen(char *s);
+char	*ft_strdup(char *s);
 
 #endif
