@@ -89,5 +89,6 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(const char *str);
 void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y);
 int		player_in_map(char c, t_parsing *parsing);
-
+void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag);
+void	error_elems(char *newline, t_elems *elems, int error_flag);
 #endif
