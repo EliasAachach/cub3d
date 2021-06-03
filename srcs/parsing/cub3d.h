@@ -86,5 +86,7 @@ typedef struct	s_parsing
 //prototypes
 char	*ft_strdup(char *s);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_atoi(const char *str);
+void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y);
 
 #endif

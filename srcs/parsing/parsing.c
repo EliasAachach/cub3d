@@ -68,7 +68,7 @@ void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag)
 	exit(0);
 }
 
-char	**alloc_map(int nbr_lines, int longest_line, int flag)
+char	**alloc_map(int nbr_lines, int longest_line)
 {
 	int		i;
 	char	**map;
@@ -78,17 +78,6 @@ char	**alloc_map(int nbr_lines, int longest_line, int flag)
 	map[nbr_lines] = NULL;
 	if (!map)
 		return (NULL);
-	if (flag == 1)
-	{
-		while (i <= nbr_lines)
-		{
-			map[i] = ((char *)malloc(sizeof(char) * (longest_line + 1)));
-			map[i][longest_line] = '\0';
-			if (!map[i])
-				return (NULL);
-			i++;
-		}
-	}
 	return (map);
 }
 
@@ -98,29 +87,6 @@ int		ft_isdigit(int c)
 		return (1);
 	else
 		return (0);
-}
-
-int		ft_atoi(const char *str)
-{
-	int i;
-	int neg;
-	int nb;
-
-	i = 0;
-	nb = 0;
-	neg = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '-')
-		neg = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (ft_isdigit(str[i]) == 1)
-	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
-	}
-	return (nb * neg);
 }
 
 char	*ft_strndup(char *s1, int len, int i)
@@ -279,7 +245,7 @@ void	find_map(int fd, t_parsing *parsing)
 	}
 	last_line(line, parsing);
 	free(line);
-	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
+	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
     if (!parsing->map)
 	{
 		parsing->map_error = TRUE;
@@ -323,79 +289,6 @@ void	get_map(int fd, t_parsing *parsing)
 	free(line);
 }
 
-int		check_sides(char side)
-{
-	if (side == '0')
-		return (0);
-	if (side == '1')
-		return (0);
-	if (side == '2')
-		return (0);
-	if (side == ' ')
-		return (0);
-	if (side == -1)
-		return (0);
-	if (side == -2)
-		return (0);
-	if (side == -3)
-		return (0);
-	return (1); 
-}
-
-int		check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
-{
-	if (x - 1 < 0 || check_sides(ff_map[x - 1][y]) == 1)
-		return (1);
-	if (check_sides(ff_map[x][y + 1]) == 1)
-		return (1);
-	if (x + 1 >= parsing->nbr_lines || check_sides(ff_map[x + 1][y]) == 1)
-		return (1);
-	if (check_sides(ff_map[x][y - 1]) == 1)
-		return (1);
-	return (0);
-}
-
-void	ff_check(t_parsing *parsing, char **ff_map, int x, int y)
-{
-	if (player_in_map(ff_map[x][y], parsing) == 1)
-		parsing->map_is_open = TRUE;
-	if (x == 0 && ff_map[x][y] != '1')
-		parsing->map_is_open = TRUE;
-	if (y == 0 && ff_map[x][y] != '1')
-		parsing->map_is_open = TRUE;
-	if (x == parsing->nbr_lines && ff_map[x][y] != '1')
-		parsing->map_is_open = TRUE;
-	if (y == parsing->longest_line && ff_map[x][y] != '1')
-		parsing->map_is_open = TRUE;
-	if (ff_map[x][y] == '1')
-		ff_map[x][y] = -2;
-}
-
-void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
-{
-	if (ff_map[x][y] != '1' && ff_map[x][y] != -2)
-	{
-		if (check_adjacent_cases(parsing, ff_map, x, y) == 1)
-		{
-			parsing->map_is_open = TRUE;
-			return ;
-		}
-	}
-	ff_check(parsing, ff_map, x, y);
-	if (ff_map[x][y] == '0' || ff_map[x][y] == '2'
-		|| ff_map[x][y] == ' ')
-	{
-		if (ff_map[x][y] == '2')
-			ff_map[x][y] = -3;
-		else
-			ff_map[x][y] = -1;
-		flood_fill(parsing, ff_map, x, y + 1);
-		flood_fill(parsing, ff_map, x, y - 1);
-		flood_fill(parsing, ff_map, x + 1, y);
-		flood_fill(parsing, ff_map, x - 1, y);
-	}
-}
-
 void	get_valid_map(t_parsing *parsing, char **ff_map)
 {
 	int		i;
@@ -431,7 +324,7 @@ void	valid_map(t_parsing *parsing)
 	char	**ff_map;
 
 	x = 0;
-	ff_map = alloc_map(parsing->nbr_lines, parsing->longest_line, 0);
+	ff_map = alloc_map(parsing->nbr_lines, parsing->longest_line);
 	get_valid_map(parsing, ff_map);
 	while (x < parsing->nbr_lines)
 	{
