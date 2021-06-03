@@ -81,14 +81,6 @@ char	**alloc_map(int nbr_lines, int longest_line)
 	return (map);
 }
 
-int		ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
 char	*ft_strndup(char *s1, int len, int i)
 {
 	int		j;
