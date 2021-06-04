@@ -6,11 +6,11 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:22:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 16:25:23 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:00:53 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../parsing/cub3d.h"
 
 void	ft_bzero(void *s, size_t n)
 {
