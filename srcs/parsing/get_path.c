@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:44:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 15:45:31 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:35:50 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,51 @@ char	*ft_strndup(char *s1, int len, int i)
 	}
 	s2[j] = '\0';
 	return (s2);
+}
+
+int		ft_strdup_path2(char *tmp, int elem_flag, t_elems *elems)
+{
+	if (elem_flag == 'E' + 'A')
+	{
+		elems->path_to_EA = ft_strdup(tmp);
+		if (elems->path_to_EA == NULL)
+			return (1);
+		return (0);
+	}
+	if (elem_flag == 'W' + 'E')
+	{
+		elems->path_to_WE = ft_strdup(tmp);
+		if (elems->path_to_WE == NULL)
+			return (1);
+		return (0);
+	}
+	return (1);
+}
+
+int		ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
+{
+	if (elem_flag == 'S')
+	{
+		elems->path_to_S = ft_strdup(tmp);
+		if (elems->path_to_S == NULL)
+			return (1);
+		return (0);
+	}
+	if (elem_flag == 'N' + 'O')
+	{
+		elems->path_to_NO = ft_strdup(tmp);
+		if (elems->path_to_NO == NULL)
+			return (1);
+		return (0);
+	}
+		if (elem_flag == 'S' + 'O')
+		{
+			elems->path_to_SO = ft_strdup(tmp);
+			if (elems->path_to_SO == NULL)
+				return (1);
+			return (0);
+		}
+	return (ft_strdup_path2(tmp, elem_flag, elems));
 }
 
 void	get_path(char *newline, int elem_flag, t_elems *elems)
