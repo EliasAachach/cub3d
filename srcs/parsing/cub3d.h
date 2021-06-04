@@ -107,5 +107,11 @@ void	find_map(int fd, t_parsing *parsing);
 int		is_first_line(char *line);
 int		check_line(char *line);
 char	**alloc_map(int nbr_lines, int longest_line);
+char 	*del_spaces(char *line);
+void	valid_map(t_parsing *parsing);
+int		rgb_check(t_elems *elems);
+void	arg_check(char **arg, int nbr_arg);
+int		check_all_elems(t_elems *elems);
+void	check_colors(char *newline, int elem_flag, t_elems *elems, int i);
 
 #endif
