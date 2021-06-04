@@ -1,36 +1,6 @@
 #include "gnl/get_next_line.h"
 #include "cub3d.h"
 
-char	**alloc_map(int nbr_lines, int longest_line)
-{
-	int		i;
-	char	**map;
-
-	i = 0;
-	map = ((char **)malloc(sizeof(char *) * (nbr_lines + 1)));
-	map[nbr_lines] = NULL;
-	if (!map)
-		return (NULL);
-	return (map);
-}
-
-int		is_first_line(char *line)
-{
-	int i;
-
-	i = 0;
-	while (ft_strlen(line) > 0 && line[i])
-	{
-		if (line[i] == ' ' || line[i] == '	')
-		{
-			i++;
-		}
-		else
-			return (1);
-	}
-	return (0);
-}
-
 void	last_line_check(char *line, t_parsing *parsing)
 {
 	if (is_first_line(line) == 1)
@@ -55,22 +25,6 @@ char 	*del_spaces(char *line)
 	if (!newline)
 		return (NULL);
 	return (newline);
-}
-
-int		check_line(char *line)
-{
-	int		i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != '2' && line[i] != ' '
-			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
-			&& line[i] != 'W')
-				return (1);
-		i++;
-	}
-	return (0);
 }
 
 int		player_in_map(char c, t_parsing *parsing)

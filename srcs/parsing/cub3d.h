@@ -104,5 +104,8 @@ void	stock_values(char *newline, int elem_flag, t_elems *elems);
 int		wich_elem(char *line, t_elems *elems);
 int		res_check(char *str, t_elems *elems);
 void	find_map(int fd, t_parsing *parsing);
+int		is_first_line(char *line);
+int		check_line(char *line);
+char	**alloc_map(int nbr_lines, int longest_line);
 
 #endif

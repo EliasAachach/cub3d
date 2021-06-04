@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:30 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 17:41:52 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 18:11:32 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ int		res_check(char *str, t_elems *elems)
 	if (elems->R_y_value > y)
 		elems->R_y_value = y;
 	return (0);
+}
+
+char	**alloc_map(int nbr_lines, int longest_line)
+{
+	int		i;
+	char	**map;
+
+	i = 0;
+	map = ((char **)malloc(sizeof(char *) * (nbr_lines + 1)));
+	map[nbr_lines] = NULL;
+	if (!map)
+		return (NULL);
+	return (map);
 }
