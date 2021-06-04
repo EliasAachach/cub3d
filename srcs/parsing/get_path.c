@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:44:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 17:35:50 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:37:14 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@ int		ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
 			return (0);
 		}
 	return (ft_strdup_path2(tmp, elem_flag, elems));
+}
+
+int		existing_path(char *tmp)
+{
+	int	fd;
+
+	fd = open(tmp, O_RDONLY);
+	if (fd < 0)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	return (0);
 }
 
 void	get_path(char *newline, int elem_flag, t_elems *elems)

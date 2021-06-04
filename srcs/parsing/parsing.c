@@ -237,44 +237,6 @@ void	valid_map(t_parsing *parsing)
 	ft_strfree(ff_map);
 }
 
-int		res_check(char *str, t_elems *elems)
-{
-	int	i;
-	int	x;
-	int	y;
-
-	i = 0;
-	elems->mlx_ptr = mlx_init();
-	mlx_get_screen_size(elems->mlx_ptr, (&x), (&y));
-	while(str[i])
-	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
-			return (1);
-		i++;
-	}
-	if (elems->R_x_value <= 0 || elems->R_y_value <= 0)
-		return (1);
-	if (elems->R_x_value > x)
-		elems->R_x_value = x;
-	if (elems->R_y_value > y)
-		elems->R_y_value = y;
-	return (0);
-}
-
-int		existing_path(char *tmp)
-{
-	int	fd;
-
-	fd = open(tmp, O_RDONLY);
-	if (fd < 0)
-	{
-		close(fd);
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
-
 void	check_colors(char *newline, int elem_flag, t_elems *elems, int i)
 {
 	int	all;
@@ -297,47 +259,6 @@ void	check_colors(char *newline, int elem_flag, t_elems *elems, int i)
 		all++;
 		color++;
 	}
-}
-
-void	color_code(char **final, int elem, t_elems *elems)
-{
-	if (elem == 'F')
-	{
-		elems->r_F = ft_atoi(final[0]);
-		elems->g_F = ft_atoi(final[1]);
-		elems->b_F = ft_atoi(final[2]);
-	}
-	if (elem == 'C')
-	{
-		elems->r_C = ft_atoi(final[0]);
-		elems->g_C = ft_atoi(final[1]);
-		elems->b_C = ft_atoi(final[2]);
-	}
-	free(final[0]);
-	free(final[1]);
-	free(final[2]);
-	free(final);
-}
-
-int		final_check(char **final, int i)
-{
-	int j;
-
-	if (i != 3)
-		return (1);
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (final[i][j])
-		{
-			if (!(final[i][j] >= '0' && final[i][j] <= '9'))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
 }
 
 int		check_all_elems(t_elems *elems)

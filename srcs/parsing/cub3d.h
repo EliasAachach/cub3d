@@ -102,5 +102,6 @@ char	**ft_split(char const *s, char c);
 void	*ft_strfree(char **str);
 void	stock_values(char *newline, int elem_flag, t_elems *elems);
 int		wich_elem(char *line, t_elems *elems);
+int		res_check(char *str, t_elems *elems);
 
 #endif

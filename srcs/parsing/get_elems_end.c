@@ -6,11 +6,52 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:09:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 16:17:34 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:40:11 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		final_check(char **final, int i)
+{
+	int j;
+
+	if (i != 3)
+		return (1);
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (final[i][j])
+		{
+			if (!(final[i][j] >= '0' && final[i][j] <= '9'))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	color_code(char **final, int elem, t_elems *elems)
+{
+	if (elem == 'F')
+	{
+		elems->r_F = ft_atoi(final[0]);
+		elems->g_F = ft_atoi(final[1]);
+		elems->b_F = ft_atoi(final[2]);
+	}
+	if (elem == 'C')
+	{
+		elems->r_C = ft_atoi(final[0]);
+		elems->g_C = ft_atoi(final[1]);
+		elems->b_C = ft_atoi(final[2]);
+	}
+	free(final[0]);
+	free(final[1]);
+	free(final[2]);
+	free(final);
+}
 
 void	get_colors(char *newline, int elem_flag, t_elems *elems)
 {
