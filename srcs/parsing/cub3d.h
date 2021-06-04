@@ -100,5 +100,6 @@ char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_strtrim_inside(char *str);
 char	**ft_split(char const *s, char c);
 void	*ft_strfree(char **str);
+void	stock_values(char *newline, int elem_flag, t_elems *elems);
 
 #endif

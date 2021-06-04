@@ -237,65 +237,6 @@ void	valid_map(t_parsing *parsing)
 	ft_strfree(ff_map);
 }
 
-int		check_next_char(char *line)
-{
-	if (line[0] == 'S' || line[0] == 'N')
-	{
-		if (line[1] == 'O')
-		{
-			if (line[0] == 'S')
-				return ('S' + 'O');
-			else
-				return ('N' + 'O');
-		}
-		else if (line[0] == 'S')
-			return ('S');
-	}
-	else if (line[0] == 'W')
-	{
-		if (line[1] == 'E')
-			return ('W' + 'E');
-		else
-			return (0);
-	}
-	else if (line[0] == 'E')
-	{
-		if (line[1] == 'A')
-			return ('E' + 'A');
-		else
-			return (0);
-	}
-	return (0);
-}
-
-int		wich_elem(char *line, t_elems *elems)
-{
-	char	*charset;
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = 0;
-	charset = "RNSWEFC";
-	while (charset[i])
-	{
-		if (line[0] == charset[i])
-		{
-			ret = charset[i];
-			if (!(charset[i] == 'R' || charset[i] == 'F' || charset[i] == 'C'))
-			{
-				ret = check_next_char(line);
-				if (ret == 0)
-					error_elems(line, elems, 0);
-			}
-			return (ret);
-		}
-		i++;
-	}
-	error_elems(line, elems, 0);
-	return (0);
-}
-
 int		res_check(char *str, t_elems *elems)
 {
 	int	i;
@@ -318,51 +259,6 @@ int		res_check(char *str, t_elems *elems)
 	if (elems->R_y_value > y)
 		elems->R_y_value = y;
 	return (0);
-}
-
-int		ft_strdup_path2(char *tmp, int elem_flag, t_elems *elems)
-{
-	if (elem_flag == 'E' + 'A')
-	{
-		elems->path_to_EA = ft_strdup(tmp);
-		if (elems->path_to_EA == NULL)
-			return (1);
-		return (0);
-	}
-	if (elem_flag == 'W' + 'E')
-	{
-		elems->path_to_WE = ft_strdup(tmp);
-		if (elems->path_to_WE == NULL)
-			return (1);
-		return (0);
-	}
-	return (1);
-}
-
-int		ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
-{
-	if (elem_flag == 'S')
-	{
-		elems->path_to_S = ft_strdup(tmp);
-		if (elems->path_to_S == NULL)
-			return (1);
-		return (0);
-	}
-	if (elem_flag == 'N' + 'O')
-	{
-		elems->path_to_NO = ft_strdup(tmp);
-		if (elems->path_to_NO == NULL)
-			return (1);
-		return (0);
-	}
-		if (elem_flag == 'S' + 'O')
-		{
-			elems->path_to_SO = ft_strdup(tmp);
-			if (elems->path_to_SO == NULL)
-				return (1);
-			return (0);
-		}
-	return (ft_strdup_path2(tmp, elem_flag, elems));
 }
 
 int		existing_path(char *tmp)

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:22:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 17:00:53 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:08:57 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,63 @@ char	*ft_strtrim_inside(char *str)
 	strnew[i] = '\0';
 	free(str);
 	return (strnew);
+}
+
+int		check_next_char(char *line)
+{
+	if (line[0] == 'S' || line[0] == 'N')
+	{
+		if (line[1] == 'O')
+		{
+			if (line[0] == 'S')
+				return ('S' + 'O');
+			else
+				return ('N' + 'O');
+		}
+		else if (line[0] == 'S')
+			return ('S');
+	}
+	else if (line[0] == 'W')
+	{
+		if (line[1] == 'E')
+			return ('W' + 'E');
+		else
+			return (0);
+	}
+	else if (line[0] == 'E')
+	{
+		if (line[1] == 'A')
+			return ('E' + 'A');
+		else
+			return (0);
+	}
+	return (0);
+}
+
+int		wich_elem(char *line, t_elems *elems)
+{
+	char	*charset;
+	int		i;
+	int		ret;
+
+	i = 0;
+	ret = 0;
+	charset = "RNSWEFC";
+	while (charset[i])
+	{
+		if (line[0] == charset[i])
+		{
+			ret = charset[i];
+			if (!(charset[i] == 'R' || charset[i] == 'F' || charset[i] == 'C'))
+			{
+				ret = check_next_char(line);
+				if (ret == 0)
+					error_elems(line, elems, 0);
+			}
+			return (ret);
+		}
+		i++;
+	}
+	error_elems(line, elems, 0);
+	return (0);
 }
