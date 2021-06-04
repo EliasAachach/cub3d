@@ -6,11 +6,11 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:13:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 16:23:57 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/04 16:59:54 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../parsing/cub3d.h"
 
 char	*ft_strtrim(const char *s1, const char *set)
 {
