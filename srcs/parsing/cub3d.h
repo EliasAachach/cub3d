@@ -113,5 +113,6 @@ int		rgb_check(t_elems *elems);
 void	arg_check(char **arg, int nbr_arg);
 int		check_all_elems(t_elems *elems);
 void	check_colors(char *newline, int elem_flag, t_elems *elems, int i);
+int		final_check(char **final, int i)
 
 #endif

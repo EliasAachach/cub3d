@@ -6,11 +6,32 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:57:20 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 16:11:37 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/05 17:55:50 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	final_check(char **final, int i)
+{
+	int	j;
+
+	if (i != 3)
+		return (1);
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (final[i][j])
+		{
+			if (!(final[i][j] >= '0' && final[i][j] <= '9'))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	elem_present(t_elems *elems)
 {

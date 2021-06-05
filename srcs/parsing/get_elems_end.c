@@ -6,32 +6,11 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:09:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 17:40:11 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/05 17:56:36 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	final_check(char **final, int i)
-{
-	int	j;
-
-	if (i != 3)
-		return (1);
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (final[i][j])
-		{
-			if (!(final[i][j] >= '0' && final[i][j] <= '9'))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
 
 void	color_code(char **final, int elem, t_elems *elems)
 {
@@ -51,6 +30,22 @@ void	color_code(char **final, int elem, t_elems *elems)
 	free(final[1]);
 	free(final[2]);
 	free(final);
+}
+
+void	get_colors2(char **final, int elem_flag, t_elems *elems)
+{
+	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
+		|| ft_strlen(final[2]) > 3 || i != 3 || final_check(final, i) == 1)
+	{
+		while (i >= 0)
+		{
+			free(final[i]);
+			i--;
+		}
+		free(final);
+		error_elems(NULL, elems, 5);
+	}
+	color_code(final, elem_flag, elems);
 }
 
 void	get_colors(char *newline, int elem_flag, t_elems *elems)
@@ -73,18 +68,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 		final[i] = ft_strtrim_inside(final[i]);
 		i++;
 	}
-	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
-		|| ft_strlen(final[2]) > 3 || i != 3 || final_check(final, i) == 1)
-	{
-		while (i >= 0)
-		{
-			free(final[i]);
-			i--;
-		}
-		free(final);
-		error_elems(NULL, elems, 5);
-	}
-	color_code(final, elem_flag, elems);
+	get_colors2(final, elem_flag, elems);
 }
 
 void	get_R_values(char *newline, t_elems *elems)
