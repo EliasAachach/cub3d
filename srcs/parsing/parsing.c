@@ -25,7 +25,7 @@ void	get_map(int fd, t_parsing *parsing)
 	while (get_next_line(fd, &line))
 	{
 		if ((ft_strcmp(line, parsing->first_line) == 0
-			|| first_line_passed == TRUE) && x <= parsing->nbr_lines)
+				|| first_line_passed == TRUE) && x <= parsing->nbr_lines)
 		{
 			first_line_passed = TRUE;
 			parsing->map[x] = ft_strdup(line);

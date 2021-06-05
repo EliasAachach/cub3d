@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-int		player_in_map(char c, t_parsing *parsing)
+int	player_in_map(char c, t_parsing *parsing)
 {
-	if ( c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		parsing->player_in_map = TRUE;
 		return (1);

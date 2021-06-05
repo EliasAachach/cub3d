@@ -31,7 +31,7 @@ char	*ft_strndup(char *s1, int len, int i)
 	return (s2);
 }
 
-int		ft_strdup_path2(char *tmp, int elem_flag, t_elems *elems)
+int	ft_strdup_path2(char *tmp, int elem_flag, t_elems *elems)
 {
 	if (elem_flag == 'E' + 'A')
 	{
@@ -50,7 +50,7 @@ int		ft_strdup_path2(char *tmp, int elem_flag, t_elems *elems)
 	return (1);
 }
 
-int		ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
+int	ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
 {
 	if (elem_flag == 'S')
 	{
@@ -66,17 +66,17 @@ int		ft_strdup_path(char *tmp, int elem_flag, t_elems *elems)
 			return (1);
 		return (0);
 	}
-		if (elem_flag == 'S' + 'O')
-		{
-			elems->path_to_SO = ft_strdup(tmp);
-			if (elems->path_to_SO == NULL)
-				return (1);
-			return (0);
-		}
+	if (elem_flag == 'S' + 'O')
+	{
+		elems->path_to_SO = ft_strdup(tmp);
+		if (elems->path_to_SO == NULL)
+			return (1);
+		return (0);
+	}
 	return (ft_strdup_path2(tmp, elem_flag, elems));
 }
 
-int		existing_path(char *tmp)
+int	existing_path(char *tmp)
 {
 	int	fd;
 
