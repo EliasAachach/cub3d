@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:21:49 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 23:23:16 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/05 19:12:15 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ void	get_valid_map(t_parsing *parsing, char **ff_map)
 	}
 }
 
+void	player_here(t_parsing *parsing, int x, int y, char **ff_map)
+{
+	parsing->player_x = x;
+	parsing->player_y = y;
+	ff_map[x][y] = '0';
+	flood_fill(parsing, ff_map, x, y);
+	ft_strfree(ff_map);
+}
+
 void	valid_map(t_parsing *parsing)
 {
 	int		x;
@@ -51,11 +60,7 @@ void	valid_map(t_parsing *parsing)
 		{
 			if (player_in_map(ff_map[x][y], parsing) == 1)
 			{
-				parsing->player_x = x;
-				parsing->player_y = y;
-				ff_map[x][y] = '0';
-				flood_fill(parsing, ff_map, x, y);
-				ft_strfree(ff_map);
+				player_here(parsing, x, y, ff_map);
 				return ;
 			}
 			y++;
