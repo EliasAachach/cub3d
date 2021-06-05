@@ -16,7 +16,7 @@ void	ff_check(t_parsing *parsing, char **ff_map, int x, int y)
 		ff_map[x][y] = -2;
 }
 
-int		check_sides(char side)
+int	check_sides(char side)
 {
 	if (side == '0')
 		return (0);
@@ -32,10 +32,10 @@ int		check_sides(char side)
 		return (0);
 	if (side == -3)
 		return (0);
-	return (1); 
+	return (1);
 }
 
-int		check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
+int	check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
 {
 	if (x - 1 < 0 || check_sides(ff_map[x - 1][y]) == 1)
 		return (1);

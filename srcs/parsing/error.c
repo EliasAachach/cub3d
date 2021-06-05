@@ -47,10 +47,10 @@ void	ft_free(char *newline, t_elems *elems)
 
 void	error_elems(char *newline, t_elems *elems, int error_flag)
 {
-	char *line;
+	char	*line;
 
 	line = NULL;
-	while(get_next_line(elems->error_fd, &line) == 1)
+	while (get_next_line(elems->error_fd, &line) == 1)
 		free(line);
 	 free(line);
 	if (error_flag == 0)

@@ -36,19 +36,19 @@ void	check_colors(char *newline, int elem_flag, t_elems *elems, int i)
 	}
 }
 
-int		check_all_elems(t_elems *elems)
+int	check_all_elems(t_elems *elems)
 {
-	if (elems->R_is_present == FALSE || elems->NO_is_present == FALSE ||
-		elems->EA_is_present == FALSE || elems->SO_is_present == FALSE ||
-		elems->WE_is_present == FALSE || elems->S_is_present == FALSE ||
-		elems->C_is_present == FALSE || elems->F_is_present == FALSE)
-			return (1);
+	if (elems->R_is_present == FALSE || elems->NO_is_present == FALSE
+		|| elems->EA_is_present == FALSE || elems->SO_is_present == FALSE
+		|| elems->WE_is_present == FALSE || elems->S_is_present == FALSE
+		|| elems->C_is_present == FALSE || elems->F_is_present == FALSE)
+		return (1);
 	return (0);
 }
 
 void	arg_check(char **arg, int nbr_arg)
 {
-	int fd;
+	int	fd;
 
 	if (nbr_arg != 2)
 	{
@@ -57,7 +57,10 @@ void	arg_check(char **arg, int nbr_arg)
 	}
 	fd = open(arg[1], O_RDONLY);
 	if (fd < 0)
-
+	{
+		close (fd);
+		return (1);
+	}
 	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
 	{
 		close(fd);

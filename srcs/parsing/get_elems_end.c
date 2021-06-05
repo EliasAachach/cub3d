@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-int		final_check(char **final, int i)
+int	final_check(char **final, int i)
 {
-	int j;
+	int	j;
 
 	if (i != 3)
 		return (1);
@@ -74,7 +74,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 		i++;
 	}
 	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
-	|| ft_strlen(final[2]) > 3 || i != 3 || final_check(final, i) == 1)
+		|| ft_strlen(final[2]) > 3 || i != 3 || final_check(final, i) == 1)
 	{
 		while (i >= 0)
 		{
@@ -89,7 +89,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 
 void	get_R_values(char *newline, t_elems *elems)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (!(newline[i] >= '0' && newline[i] <= '9'))

@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-int		elem_present(t_elems *elems)
+int	elem_present(t_elems *elems)
 {
 	if (elems->R_is_present == TRUE && elems->NO_is_present == TRUE
 		&& elems->SO_is_present == TRUE && elems->WE_is_present == TRUE
 		&& elems->EA_is_present == TRUE && elems->S_is_present == TRUE
 		&& elems->F_is_present == TRUE && elems->C_is_present == TRUE)
-			return (1);
-		return (0);
+		return (1);
+	return (0);
 }
 
 void	stock_elem(char *newline, int elem_flag, t_elems *elems)
@@ -33,13 +33,13 @@ void	stock_elem(char *newline, int elem_flag, t_elems *elems)
 		|| elem_flag == 'W' + 'E' || elem_flag == 'E' + 'A'
 		|| elem_flag == 'S')
 	{
-			get_path(newline, elem_flag, elems);
-			free(newline);
-			return ;
+		get_path(newline, elem_flag, elems);
+		free(newline);
+		return ;
 	}
 }
 
-void    elem_found(t_elems *elems, char *newline, int elem_flag)
+void	elem_found(t_elems *elems, char *newline, int elem_flag)
 {
 	elem_flag = wich_elem(newline, elems);
 	check_flag(elem_flag, elems);
@@ -59,7 +59,7 @@ void	get_elems(int fd, t_elems *elems)
 	while (get_next_line(fd, &line) == 1)
 	{
 		elems->error_fd = fd;
-	if (elem_present(elems) == 1)
+		if (elem_present(elems) == 1)
 		{
 			elems->last_elem_line = ft_strdup(line);
 			free(line);
@@ -69,9 +69,9 @@ void	get_elems(int fd, t_elems *elems)
 		if (newline == NULL)
 			error_elems(line, elems, 0);
 		free(line);
-	if (ft_strlen(newline) > 0)
-            elem_found(elems, newline, elem_flag);
-	else
-		free(newline);
+		if (ft_strlen(newline) > 0)
+			elem_found(elems, newline, elem_flag);
+		else
+			free(newline);
 	}
 }

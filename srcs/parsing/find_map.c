@@ -26,10 +26,10 @@ void	end_of_loop(t_parsing *parsing, char *line, char *newline)
 
 void	error_last_line(t_parsing *parsing, char *line, char *newline)
 {
-		parsing->map_error = TRUE;
-		free(parsing->first_line);
-		free(line);
-		free(newline);
+	parsing->map_error = TRUE;
+	free(parsing->first_line);
+	free(line);
+	free(newline);
 }
 
 void	first_line_false(t_parsing *parsing, char *line)
@@ -55,7 +55,7 @@ void	last_line(char *line, t_parsing *parsing)
 	}
 	newline = del_spaces(line);
 	if (((newline[0] == '\0' || check_line(newline) == 1)
-		&& parsing->first_line_passed == 1) || newline == NULL)
+			&& parsing->first_line_passed == 1) || newline == NULL)
 	{
 		error_last_line(parsing, line, newline);
 		return ;
@@ -81,7 +81,7 @@ void	find_map(int fd, t_parsing *parsing)
 			first_line_false(parsing, line);
 		newline = del_spaces(line);
 		if (((newline[0] == '\0' || check_line(newline) == 1)
-			&& parsing->first_line_passed == 1) || newline == NULL)
+				&& parsing->first_line_passed == 1) || newline == NULL)
 		{
 			error_last_line(parsing, line, newline);
 			return ;
@@ -91,7 +91,7 @@ void	find_map(int fd, t_parsing *parsing)
 	last_line(line, parsing);
 	free(line);
 	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
-    if (!parsing->map)
+	if (!parsing->map)
 	{
 		parsing->map_error = TRUE;
 		return ;

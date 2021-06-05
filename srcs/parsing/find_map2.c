@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-int		is_first_line(char *line)
+int	is_first_line(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_strlen(line) > 0 && line[i])
@@ -29,7 +29,7 @@ int		is_first_line(char *line)
 	return (0);
 }
 
-int		check_line(char *line)
+int	check_line(char *line)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ int		check_line(char *line)
 		if (line[i] != '0' && line[i] != '1' && line[i] != '2' && line[i] != ' '
 			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
 			&& line[i] != 'W')
-				return (1);
+			return (1);
 		i++;
 	}
 	return (0);
