@@ -73,7 +73,7 @@ char	*ft_strtrim_inside(char *str)
 	return (strnew);
 }
 
-int		check_next_char(char *line)
+int	check_next_char(char *line)
 {
 	if (line[0] == 'S' || line[0] == 'N')
 	{
@@ -104,7 +104,7 @@ int		check_next_char(char *line)
 	return (0);
 }
 
-int		wich_elem(char *line, t_elems *elems)
+int	wich_elem(char *line, t_elems *elems)
 {
 	char	*charset;
 	int		i;

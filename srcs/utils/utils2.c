@@ -25,13 +25,13 @@ char	*ft_strtrim(const char *s1, const char *set)
 		start++;
 	len = ft_strlen(&s1[start]);
 	if (len != 0)
-		while (s1[start + len - 1] &&
-				ft_strchr(set, s1[start + len - 1]) != NULL)
+		while (s1[start + len - 1]
+			&& ft_strchr(set, s1[start + len - 1]) != NULL)
 			len--;
 	return (ft_substr(s1, start, len));
 }
 
-int		ft_nbwrds(char const *s, char c)
+int	ft_nbwrds(char const *s, char c)
 {
 	int	i;
 	int	j;
@@ -54,7 +54,7 @@ int		ft_nbwrds(char const *s, char c)
 	return (j);
 }
 
-static int		w(char const *s, int i, char c)
+static int	w(char const *s, int i, char c)
 {
 	while (s[i] != c && s[i])
 		i++;
@@ -67,7 +67,7 @@ char	**ft_split(char const *s, char c)
 	int		i[3];
 
 	if ((ft_nbwrds(s, c) == -1)
-			|| !(out = (char **)malloc(sizeof(char *) * (ft_nbwrds(s, c) + 1))))
+		|| !(out = (char **)malloc(sizeof(char *) * (ft_nbwrds(s, c) + 1))))
 		return (NULL);
 	i[0] = 0;
 	i[1] = 0;

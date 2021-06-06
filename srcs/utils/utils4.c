@@ -12,7 +12,7 @@
 
 #include "../parsing/cub3d.h"
 
-int		res_check(char *str, t_elems *elems)
+int	res_check(char *str, t_elems *elems)
 {
 	int	i;
 	int	x;
@@ -21,7 +21,7 @@ int		res_check(char *str, t_elems *elems)
 	i = 0;
 	elems->mlx_ptr = mlx_init();
 	mlx_get_screen_size(elems->mlx_ptr, (&x), (&y));
-	while(str[i])
+	while (str[i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (1);
@@ -63,7 +63,7 @@ char	**alloc_map(int nbr_lines, int longest_line)
 	return (map);
 }
 
-int		rgb_check(t_elems *elems)
+int	rgb_check(t_elems *elems)
 {
 	if (!(elems->r_F >= 0 && elems->r_F <= 255))
 		return (1);

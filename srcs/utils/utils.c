@@ -18,9 +18,10 @@ char	*ft_strdup(char *s1)
 	return (s2);
 }
 
-int		ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (s1[i] || s2[i])
 	{
@@ -32,7 +33,7 @@ int		ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -40,11 +41,11 @@ int		ft_isdigit(int c)
 		return (0);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int i;
-	int neg;
-	int nb;
+	int	i;
+	int	neg;
+	int	nb;
 
 	i = 0;
 	nb = 0;
