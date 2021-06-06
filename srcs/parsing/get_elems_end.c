@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:09:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/05 17:56:36 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/06 20:27:40 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	color_code(char **final, int elem, t_elems *elems)
 	free(final);
 }
 
-void	get_colors2(char **final, int elem_flag, t_elems *elems)
+void	get_colors2(char **final, int i, int elem_flag, t_elems *elems)
 {
 	if (ft_strlen(final[0]) > 3 || ft_strlen(final[1]) > 3
 		|| ft_strlen(final[2]) > 3 || i != 3 || final_check(final, i) == 1)
@@ -68,7 +68,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 		final[i] = ft_strtrim_inside(final[i]);
 		i++;
 	}
-	get_colors2(final, elem_flag, elems);
+	get_colors2(final, i, elem_flag, elems);
 }
 
 void	get_R_values(char *newline, t_elems *elems)

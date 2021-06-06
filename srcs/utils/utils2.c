@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:13:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/06 20:21:57 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/06 20:25:24 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**ft_split(char const *s, char c)
 	{
 		if (s[i[0]] != c)
 		{
-			out[i[1]] = (char *)malloc(sizeof(char) * w(s, i[0], c)));
+			out[i[1]] = (char *)malloc(sizeof(char) * w(s, i[0], c));
 			if (!out)
 				return (ft_strfree(out));
 			i[2] = 0;

@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 23:27:20 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/06 20:30:10 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	arg_check(char **arg, int nbr_arg)
 	if (fd < 0)
 	{
 		close (fd);
-		return (1);
+		printf("Error\nFile is invalid");
+		exit(0);
 	}
 	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
 	{
