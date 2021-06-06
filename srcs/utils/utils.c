@@ -18,6 +18,34 @@ char	*ft_strdup(char *s1)
 	return (s2);
 }
 
+int	wich_elem(char *line, t_elems *elems)
+{
+	char	*charset;
+	int		i;
+	int		ret;
+
+	i = 0;
+	ret = 0;
+	charset = "RNSWEFC";
+	while (charset[i])
+	{
+		if (line[0] == charset[i])
+		{
+			ret = charset[i];
+			if (!(charset[i] == 'R' || charset[i] == 'F' || charset[i] == 'C'))
+			{
+				ret = check_next_char(line);
+				if (ret == 0)
+					error_elems(line, elems, 0);
+			}
+			return (ret);
+		}
+		i++;
+	}
+	error_elems(line, elems, 0);
+	return (0);
+}
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;

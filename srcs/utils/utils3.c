@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:22:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 17:08:57 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/06 19:40:12 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,36 +98,6 @@ int	check_next_char(char *line)
 	{
 		if (line[1] == 'A')
 			return ('E' + 'A');
-		else
-			return (0);
 	}
-	return (0);
-}
-
-int	wich_elem(char *line, t_elems *elems)
-{
-	char	*charset;
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = 0;
-	charset = "RNSWEFC";
-	while (charset[i])
-	{
-		if (line[0] == charset[i])
-		{
-			ret = charset[i];
-			if (!(charset[i] == 'R' || charset[i] == 'F' || charset[i] == 'C'))
-			{
-				ret = check_next_char(line);
-				if (ret == 0)
-					error_elems(line, elems, 0);
-			}
-			return (ret);
-		}
-		i++;
-	}
-	error_elems(line, elems, 0);
 	return (0);
 }
