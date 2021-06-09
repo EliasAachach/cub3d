@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:22:23 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:30:31 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:32:00 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t n)
 {
 	char			*str;
 
-	str = (char*)malloc(sizeof (char) * (n + 1));
+	str = (char *)malloc(sizeof(char) * (n + 1));
 	if (!str)
 		return (NULL);
 	str[n] = '\0';
@@ -51,9 +51,9 @@ char	*ft_strchr(const char *s, int c)
 
 char	*ft_realloc(void *ptr, size_t size, size_t old_size)
 {
-	void *tmp;
+	void	*tmp;
 
-	tmp = (void *)malloc(sizeof(void) * size)
+	tmp = (void *)malloc(sizeof(void) * size);
 	if (tmp)
 		ft_memcpy(tmp, ptr, old_size);
 	free(ptr);
