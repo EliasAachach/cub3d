@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:13:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:37:00 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:37:43 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	w(char const *s, int i, char c)
 	return (i + 1);
 }
 
-void	init(int i[3]);
+void	init(int i[3])
 {
 	i[0] = 0;
 	i[1] = 0;
