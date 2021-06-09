@@ -6,12 +6,12 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 13:54:21 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 13:56:25 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _CUB3D_H_
-# define _CUB3D_H_
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define TRUE 1
 # define FALSE 0
