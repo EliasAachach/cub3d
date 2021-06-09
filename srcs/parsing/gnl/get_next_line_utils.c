@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:22:23 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:29:12 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:30:31 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*ft_substr(const char *s, unsigned int start, size_t n)
 {
 	char			*str;
 
-	if (!(str = (char*)malloc(sizeof(char) * (n + 1))))
+	str = (char*)malloc(sizeof (char) * (n + 1));
+	if (!str)
 		return (NULL);
 	str[n] = '\0';
 	ft_memcpy(str, s + start, n);
