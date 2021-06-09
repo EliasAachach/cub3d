@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:54:13 by elaachac          #+#    #+#             */
-/*   Updated: 2020/03/10 13:57:08 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:10:23 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static	int	get_line(char **rest, char **line, size_t start)
 {
 	char	*tmp;
 
-	if (!(tmp = ft_strchr(*rest + start, (int)'\n')))
+	tmp = ft_strchr(*rest + start, (int)'\n');
+	if (!tmp)
 		return (0);
 	*line = ft_substr(*rest, 0, tmp - *rest);
 	ft_memcpy(*rest, tmp + 1, ft_strlen(tmp));
@@ -39,7 +40,8 @@ static	int	read_fd(int fd, char **line, char **rest)
 	ssize_t		total_len;
 	ssize_t		len;
 
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (-1);
 	total_len = (*rest) ? ft_strlen(*rest) : 0;
 	while ((len = read(fd, buf, BUFFER_SIZE)))
