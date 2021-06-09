@@ -6,15 +6,15 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:22:23 by elaachac          #+#    #+#             */
-/*   Updated: 2021/04/21 16:22:54 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:29:12 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t		ft_strlen(const	char *s)
+size_t	ft_strlen(const	char *s)
 {
-	size_t count;
+	size_t	count;
 
 	count = 0;
 	if (!(s))
@@ -24,7 +24,7 @@ size_t		ft_strlen(const	char *s)
 	return (count);
 }
 
-char		*ft_substr(const char *s, unsigned int start, size_t n)
+char	*ft_substr(const char *s, unsigned int start, size_t n)
 {
 	char			*str;
 
@@ -35,7 +35,7 @@ char		*ft_substr(const char *s, unsigned int start, size_t n)
 	return (str);
 }
 
-char		*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	if ((char)c == '\0')
 		return ("\0");
@@ -48,17 +48,18 @@ char		*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char		*ft_realloc(void *ptr, size_t size, size_t old_size)
+char	*ft_realloc(void *ptr, size_t size, size_t old_size)
 {
 	void *tmp;
 
-	if ((tmp = (void *)malloc(sizeof(void) * size)))
+	tmp = (void *)malloc(sizeof(void) * size)
+	if (tmp)
 		ft_memcpy(tmp, ptr, old_size);
 	free(ptr);
 	return (tmp);
 }
 
-void		*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t			i;
 	unsigned char	*str;
