@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:54:13 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 16:50:42 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:52:00 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static	int	read_fd(int fd, char **line, char **rest)
 		if (get_line(rest, line, total_len))
 			return (ft_free((void **)&buf, 1));
 		total_len += len;
-		len = read(fd, buf, BUFFER_SIZE)
+		len = read(fd, buf, BUFFER_SIZE);
 	}
 	return (ft_free((void **)&buf, 0));
 }
