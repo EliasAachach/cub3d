@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:54:13 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:11:28 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:26:18 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static	int	read_fd(int fd, char **line, char **rest)
 	return (ft_free((void **)&buf, 0));
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*rest = NULL;
 	int			ret;
@@ -70,7 +70,8 @@ int			get_next_line(int fd, char **line)
 	*line = rest;
 	if (*line == NULL)
 	{
-		if (!(*line = (char *)malloc(sizeof(char) * 1)))
+		*line = (char *)malloc(sizeof(char) * 1);
+		if (!line)
 			return (-1);
 		(*line)[0] = '\0';
 		return (0);
