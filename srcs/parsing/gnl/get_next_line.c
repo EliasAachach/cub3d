@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:54:13 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:10:23 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:11:28 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	int	get_line(char **rest, char **line, size_t start)
 {
 	char	*tmp;
 
-	tmp = ft_strchr(*rest + start, (int)'\n');
+	tmp = ft_strchr(*rest + start, (int) '\n');
 	if (!tmp)
 		return (0);
 	*line = ft_substr(*rest, 0, tmp - *rest);
