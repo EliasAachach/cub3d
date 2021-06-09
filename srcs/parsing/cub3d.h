@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 13:56:25 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:00:21 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@
 # define RGB_G 1
 # define RGB_B 0
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include "gnl/get_next_line.h"
-#include <mlx.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include "gnl/get_next_line.h"
+# include <mlx.h>
 
 typedef struct	s_elems
 {
@@ -50,8 +50,8 @@ typedef struct	s_elems
 	int			S_is_present;
 	int			F_is_present;
 	int			C_is_present;
-	int			missing_elem;	//si err ds elems
-	int			double_elem;	//si deux fois le meme elems
+	int			missing_elem;
+	int			double_elem;
 	int			R_x_value;
 	int			R_y_value;
 	int			r_F;
@@ -101,7 +101,7 @@ void	error_elems(char *newline, t_elems *elems, int error_flag);
 void	get_path(char *newline, int elem_flag, t_elems *elems);
 void	get_elems(int fd, t_elems *elems);
 void	check_flag(int elem_flag, t_elems *elems);
-char 	*del_spaces(char *line);
+char	*del_spaces(char *line);
 void	get_R_values(char *newline, t_elems *elems);
 char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_strtrim_inside(char *str);
@@ -114,7 +114,7 @@ void	find_map(int fd, t_parsing *parsing);
 int		is_first_line(char *line);
 int		check_line(char *line);
 char	**alloc_map(int nbr_lines, int longest_line);
-char 	*del_spaces(char *line);
+char	*del_spaces(char *line);
 void	valid_map(t_parsing *parsing);
 int		rgb_check(t_elems *elems);
 void	arg_check(char **arg, int nbr_arg);
