@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:13:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/06 20:25:24 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 13:49:26 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ static int	w(char const *s, int i, char c)
 	return (i + 1);
 }
 
+void	init(int i);
+{
+	i[0] = 0;
+	i[1] = 0;
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**out;
@@ -69,8 +75,7 @@ char	**ft_split(char const *s, char c)
 	out = (char **)malloc(sizeof(char *) * (ft_nbwrds(s, c) + 1));
 	if ((ft_nbwrds(s, c) == -1) || !out)
 		return (NULL);
-	i[0] = 0;
-	i[1] = 0;
+	init(i);
 	while (s[i[0]])
 	{
 		if (s[i[0]] != c)
