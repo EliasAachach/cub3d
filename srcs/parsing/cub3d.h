@@ -1,11 +1,21 @@
-//clang rainbow.c -o rainbow -lmlx -lXext -lX11 -lm
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
+/*   Updated: 2021/06/09 13:54:21 by elaachac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef _CUB3D_H_
 # define _CUB3D_H_
-//BOOL
+
 # define TRUE 1
 # define FALSE 0
-//end_BOOL
-//keys
+
 # define W_KEY 119
 # define A_KEY 97
 # define S_KEY 115
@@ -16,14 +26,12 @@
 # define RIGHT_KEY 65363
 # define LEFT_KEY 65361
 # define ESC_KEY 65307
-//end_keys
-//
-//RGB_macros
+
 # define RGB_A 3
 # define RGB_R 2
 # define RGB_G 1
 # define RGB_B 0
-//end_RGB_macrosx
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -83,7 +91,6 @@ typedef struct	s_parsing
 	char	**valid_map;
 }				t_parsing;
 
-//prototypes
 char	*ft_strdup(char *s);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(const char *str);
