@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:00:21 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/09 14:06:01 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # include "gnl/get_next_line.h"
 # include <mlx.h>
 
-typedef struct	s_elems
+typedef struct s_elems
 {
 	void		*mlx_ptr;
 	int			R_is_present;
@@ -69,7 +69,7 @@ typedef struct	s_elems
 	char		*last_elem_line;
 }				t_elems;
 
-typedef struct	s_parsing
+typedef struct s_parsing
 {
 	int		longest_line;
 	int		nbr_lines;
