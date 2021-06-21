@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:21:49 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/05 19:12:15 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/21 14:58:19 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	player_in_map(char c, t_parsing *parsing)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
+		parsing->player_dir = c;
 		parsing->player_in_map = TRUE;
 		return (1);
 	}

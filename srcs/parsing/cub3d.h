@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:06:01 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/21 16:26:14 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_parsing
 	int		nbr_lines;
 	int		player_x;
 	int		player_y;
+	int		player_dir;
 	int		player_exists;
 	int		highest_x;
 	int		lowest_x;
@@ -90,6 +91,17 @@ typedef struct s_parsing
 	char	**map;
 	char	**valid_map;
 }				t_parsing;
+
+typedef struct s_ray
+{
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planx;
+	double	plany;
+	void	*mlx_win;
+}				t_ray;
 
 char	*ft_strdup(char *s);
 int		ft_strcmp(char *s1, char *s2);
