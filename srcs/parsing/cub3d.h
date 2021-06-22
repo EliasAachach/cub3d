@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/21 16:26:14 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:35:21 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,26 @@ typedef struct s_parsing
 	char	**valid_map;
 }				t_parsing;
 
+typedef	struct s_dda
+{
+	int mapx;
+	int mapy;
+}				t_dda;
+
+
 typedef struct s_ray
 {
+	t_dda	dda;
 	double	posx;
 	double	posy;
 	double	dirx;
 	double	diry;
+	double	ray_dirx;
+	double	ray_diry;
 	double	planx;
 	double	plany;
+	double	camerax;
+	double	resx;
 	void	*mlx_win;
 }				t_ray;
 
