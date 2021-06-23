@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/22 18:35:21 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/23 19:08:40 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define RGB_R 2
 # define RGB_G 1
 # define RGB_B 0
+
+# define X_WALL 0
+# define Y_WALL 1
 
 # include <unistd.h>
 # include <stdio.h>
@@ -94,14 +97,26 @@ typedef struct s_parsing
 
 typedef	struct s_dda
 {
-	int mapx;
-	int mapy;
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		side;
+	int		hit;
 }				t_dda;
+
+typedef	struct s_draw
+{
+	int		line_height;
+	int		start_draw;
+	int		end_draw;
+}				t_draw;
 
 
 typedef struct s_ray
 {
 	t_dda	dda;
+	t_draw	draw;
 	double	posx;
 	double	posy;
 	double	dirx;
@@ -110,8 +125,14 @@ typedef struct s_ray
 	double	ray_diry;
 	double	planx;
 	double	plany;
+	double	side_distx;
+	double	side_disty;
+	double	delta_distx;
+	double	delta_disty;
 	double	camerax;
 	double	resx;
+	double	resy;
+	double	perp_wall_dist;
 	void	*mlx_win;
 }				t_ray;
 
