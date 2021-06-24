@@ -39,6 +39,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "gnl/get_next_line.h"
 # include <mlx.h>
 
@@ -186,5 +187,6 @@ void	arg_check(char **arg, int nbr_arg);
 int		check_all_elems(t_elems *elems);
 void	check_colors(char *newline, int elem_flag, t_elems *elems, int i);
 int		final_check(char **final, int i);
+void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray);
 
 #endif

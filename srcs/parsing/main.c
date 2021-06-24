@@ -61,34 +61,36 @@ int     main(int argc, char **argv)
 {
     t_parsing	parsing;
     t_elems		elems;
+	t_ray		ray;
     init_parsing(&parsing, &elems);
     parser(&parsing, &elems, argv, argc);
-	printf("path_to_S : %s\n", elems.path_to_S);
-	printf("path_to_NO : %s\n", elems.path_to_NO);
-	printf("path_to_SO : %s\n", elems.path_to_SO);
-	printf("path_to_EA : %s\n", elems.path_to_EA);
-	printf("path_to_WE : %s\n", elems.path_to_WE);
-	printf("Rx : %d\n", elems.R_x_value);
-	printf("Ry : %d\n", elems.R_y_value);
-	printf("rF : %d\n", elems.r_F);
-	printf("gF : %d\n", elems.g_F);
-	printf("bF : %d\n", elems.b_F);
-	printf("rC : %d\n", elems.r_C);
-	printf("gC : %d\n", elems.g_C);
-	printf("bC : %d\n", elems.b_C);
-		int i = 0;
-	while (i <= parsing.nbr_lines)
-	{
-		ft_putstr_fd(parsing.map[i]);
-		ft_putstr_fd("\n");
-		i++;
-	}
-	i = 0;
-	while (i <= parsing.nbr_lines)
-	{
-		free(parsing.map[i]);
-		i++;
-	}
+	// printf("path_to_S : %s\n", elems.path_to_S);
+	// printf("path_to_NO : %s\n", elems.path_to_NO);
+	// printf("path_to_SO : %s\n", elems.path_to_SO);
+	// printf("path_to_EA : %s\n", elems.path_to_EA);
+	// printf("path_to_WE : %s\n", elems.path_to_WE);
+	// printf("Rx : %d\n", elems.R_x_value);
+	// printf("Ry : %d\n", elems.R_y_value);
+	// printf("rF : %d\n", elems.r_F);
+	// printf("gF : %d\n", elems.g_F);
+	// printf("bF : %d\n", elems.b_F);
+	// printf("rC : %d\n", elems.r_C);
+	// printf("gC : %d\n", elems.g_C);
+	// printf("bC : %d\n", elems.b_C);
+	// 	int i = 0;
+	// while (i <= parsing.nbr_lines)
+	// {
+	// 	ft_putstr_fd(parsing.map[i]);
+	// 	ft_putstr_fd("\n");
+	// 	i++;
+	// }
+	raycasting(&parsing, &elems, &ray);
+	// i = 0;
+	// while (i <= parsing.nbr_lines)
+	// {
+	// 	free(parsing.map[i]);
+	// 	i++;
+	// }
 	// free(parsing.map[i]);
 	free(parsing.map);
 	free(elems.path_to_S);
