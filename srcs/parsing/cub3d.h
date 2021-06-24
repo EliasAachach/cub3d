@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/23 19:08:40 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/24 17:45:35 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,28 +112,48 @@ typedef	struct s_draw
 	int		end_draw;
 }				t_draw;
 
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+}				t_colors;
+
+typedef struct s_mlx
+{
+	void	*img_ptr;
+	char	*data_addr;
+	int		bpp;
+	int		endian;
+	int		size;
+}				t_mlx;
 
 typedef struct s_ray
 {
-	t_dda	dda;
-	t_draw	draw;
-	double	posx;
-	double	posy;
-	double	dirx;
-	double	diry;
-	double	ray_dirx;
-	double	ray_diry;
-	double	planx;
-	double	plany;
-	double	side_distx;
-	double	side_disty;
-	double	delta_distx;
-	double	delta_disty;
-	double	camerax;
-	double	resx;
-	double	resy;
-	double	perp_wall_dist;
-	void	*mlx_win;
+	t_dda		dda;
+	t_draw		draw;
+	t_colors	roof;
+	t_colors	wall;
+	t_colors	floor;
+	t_mlx		mlx;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		ray_dirx;
+	double		ray_diry;
+	double		planx;
+	double		plany;
+	double		side_distx;
+	double		side_disty;
+	double		delta_distx;
+	double		delta_disty;
+	double		camerax;
+	double		resx;
+	double		resy;
+	double		perp_wall_dist;
+	void		*mlx_win;
 }				t_ray;
 
 char	*ft_strdup(char *s);

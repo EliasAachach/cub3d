@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/23 19:12:59 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/24 17:52:35 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	dda(t_ray *ray, t_parsing *parsing)
 		(1 - ray->dda.stepy) / 2) / ray->ray_diry;
 }
 
-void	data_draw(t_ray *ray)
+void	data_draw(t_ray *ray, t_parsing *parsing)
 {
 	ray->draw.line_height = (int)(ray->resy / ray->perp_wall_dist);
 	ray->draw.start_draw = -ray->draw.line_height / 2 + ray->resy / 2;
@@ -97,6 +97,60 @@ void	data_draw(t_ray *ray)
 	ray->draw.end_draw = ray->draw.line_height / 2 + ray->resy / 2;
 	if (ray->draw.end_draw >= ray->resy)
 		ray->draw.end_draw = ray->resy - 1;
+	if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 1)
+	{
+		ray->wall.r = 255;
+		ray->wall.g = 0;
+		ray->wall.b = 0;
+		if (ray->dda.side == 1)
+			ray->wall.r = 255 / 2;
+	}
+	if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 2)
+	{
+		ray->wall.r = 0;
+		ray->wall.g = 255;
+		ray->wall.b = 0;
+		if (ray->dda.side == 1)
+			ray->wall.g = 255 / 2;
+	}
+	ray->floor.r = 80;
+	ray->floor.g = 80;
+	ray->floor.b = 80;
+	ray->roof.r = 0;
+	ray->roof.g = 100;
+	ray->roof.b = 0;
+}
+
+void	colorpix(int x, int y, t_ray *ray, t_colors color)
+{
+	int pos;
+
+	pos = (y * ray->resx + x) * 4;
+	ray->mlx.data_addr[pos + RGB_B] = color.b;
+	ray->mlx.data_addr[pos + RGB_B] = color.g;
+	ray->mlx.data_addr[pos + RGB_B] = color.r;
+}
+
+void	fill_img(t_ray *ray, int x)
+{
+	int y;
+
+	y = 0;
+	while (y < ray->resy)
+	{
+		while (y < ray->draw.start_draw)
+		{
+			colorpix(x, y, ray, ray->roof);
+			y++;
+		}
+		while(y < ray->draw.end_draw)
+		{
+			colorpix(x, y, ray, ray->wall);
+			y++;
+		}
+		colorpix(x, y, ray, ray->floor);
+		y++;
+	}
 }
 
 void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
@@ -115,8 +169,16 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 		ray->delta_distx = abs(1 / ray->ray_diry);
 		set_step_sidedist(ray);
 		dda(ray, parsing);
-		data_draw(ray);
+		data_draw(ray, parsing);
+		ray->mlx.data_addr = mlx_get_data_addr(ray->mlx.img_ptr,\
+		&(ray->mlx.bpp), &(ray->mlx.size), &(ray->mlx.endian));
+		fill_img(ray, x);
 	}
+}
+
+void	put_window(void *mlx_ptr, void *win_ptr, void *img)
+{
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 }
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
@@ -128,7 +190,9 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
 	ray->resx = elems->R_x_value;
 	ray->resy = elems->R_y_value;
-	//RAYCASTING STARTS HERE
+	ray->mlx.img_ptr =\
+	mlx_new_image(elems->mlx_ptr, elems->R_x_value, elems->R_y_value);
 	raycast(parsing, elems, ray);
+	put_window(elems->mlx_ptr, ray->mlx_win, ray->mlx.img_ptr);
 	mlx_loop(elems->mlx_ptr);
 }

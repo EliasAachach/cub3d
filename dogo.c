@@ -33,7 +33,6 @@ void            my_mlx_pixel_put(char *data, int x, int y, t_colors colors)
     data[(y * 640 + x) * 4 + RGB_B] = colors.b;
 }
 
-
 int             main()
 {
     t_colors colors;
