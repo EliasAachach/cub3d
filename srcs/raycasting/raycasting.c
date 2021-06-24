@@ -10,7 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../parsing/cub3d.h"
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int n)
+{
+	unsigned int nbr;
+
+	nbr = n;
+	if (n < 0)
+	{
+		ft_putchar('-');
+		nbr = -n;
+	}
+	if (nbr >= 10)
+		ft_putnbr(nbr / 10);
+	ft_putchar(nbr % 10 + '0');
+}
+
 
 void	set_dir_plan(int player_dir, t_ray *ray)
 {
@@ -158,27 +179,32 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	int	x;
 
 	x = 0;
-	while (x < ray->resx && x++)
+		ft_putchar('r');
+		ft_putnbr(ray->resx);
+	while (x < ray->resx)
 	{
+		ft_putchar('g');
 		ray->camerax = 2 * x / ray->resx - 1;
 		ray->ray_dirx = ray->dirx + ray->planx * ray->camerax;
 		ray->ray_diry = ray->diry + ray->plany * ray->camerax;
 		ray->dda.mapx = (int)ray->posx;
 		ray->dda.mapy = (int)ray->posy;
-		ray->delta_distx = abs(1 / ray->ray_dirx);
-		ray->delta_distx = abs(1 / ray->ray_diry);
+		ray->delta_distx = fabs(1 / ray->ray_dirx);
+		ray->delta_distx = fabs(1 / ray->ray_diry);
 		set_step_sidedist(ray);
 		dda(ray, parsing);
 		data_draw(ray, parsing);
 		ray->mlx.data_addr = mlx_get_data_addr(ray->mlx.img_ptr,\
 		&(ray->mlx.bpp), &(ray->mlx.size), &(ray->mlx.endian));
 		fill_img(ray, x);
+		x++;
 	}
+		ft_putchar('b');
 }
 
 void	put_window(void *mlx_ptr, void *win_ptr, void *img)
 {
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 1920, 1080);
 }
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
