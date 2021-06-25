@@ -148,8 +148,8 @@ void	colorpix(int x, int y, t_ray *ray, t_colors color)
 
 	pos = (y * ray->resx + x) * 4;
 	ray->mlx.data_addr[pos + RGB_B] = color.b;
-	ray->mlx.data_addr[pos + RGB_B] = color.g;
-	ray->mlx.data_addr[pos + RGB_B] = color.r;
+	ray->mlx.data_addr[pos + RGB_G] = color.g;
+	ray->mlx.data_addr[pos + RGB_R] = color.r;
 }
 
 void	fill_img(t_ray *ray, int x)
@@ -159,6 +159,10 @@ void	fill_img(t_ray *ray, int x)
 	y = 0;
 	while (y < ray->resy)
 	{
+		ft_putnbr(ray->draw.start_draw);
+		ft_putchar('\n');
+		ft_putnbr(ray->draw.end_draw);
+		ft_putchar('\n');
 		while (y < ray->draw.start_draw)
 		{
 			colorpix(x, y, ray, ray->roof);
@@ -166,6 +170,7 @@ void	fill_img(t_ray *ray, int x)
 		}
 		while(y < ray->draw.end_draw)
 		{
+			ft_putchar('e');
 			colorpix(x, y, ray, ray->wall);
 			y++;
 		}
@@ -179,11 +184,9 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	int	x;
 
 	x = 0;
-		ft_putchar('r');
 		ft_putnbr(ray->resx);
 	while (x < ray->resx)
 	{
-		ft_putchar('g');
 		ray->camerax = 2 * x / ray->resx - 1;
 		ray->ray_dirx = ray->dirx + ray->planx * ray->camerax;
 		ray->ray_diry = ray->diry + ray->plany * ray->camerax;
@@ -199,12 +202,11 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 		fill_img(ray, x);
 		x++;
 	}
-		ft_putchar('b');
 }
 
 void	put_window(void *mlx_ptr, void *win_ptr, void *img)
 {
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 1920, 1080);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 }
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
