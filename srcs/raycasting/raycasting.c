@@ -66,14 +66,14 @@ void	set_step_sidedist(t_ray *ray)
 	}
 	else
 	{
-		ray->dda.stepx = -1;
+		ray->dda.stepx = 1;
 		ray->side_distx = (ray->dda.mapx + 1.0 - ray->posx)\
 		* ray->delta_distx;
 	}
 	if (ray->ray_diry < 0)
 	{
 		ray->dda.stepy = -1;
-		ray->side_disty = (ray->posy - ray->dda.mapy) *ray->delta_disty;
+		ray->side_disty = (ray->posy - ray->dda.mapy) * ray->delta_disty;
 	}
 	else
 	{
@@ -159,10 +159,6 @@ void	fill_img(t_ray *ray, int x)
 	y = 0;
 	while (y < ray->resy)
 	{
-		ft_putnbr(ray->draw.start_draw);
-		ft_putchar('\n');
-		ft_putnbr(ray->draw.end_draw);
-		ft_putchar('\n');
 		while (y < ray->draw.start_draw)
 		{
 			colorpix(x, y, ray, ray->roof);
@@ -170,7 +166,6 @@ void	fill_img(t_ray *ray, int x)
 		}
 		while(y < ray->draw.end_draw)
 		{
-			ft_putchar('e');
 			colorpix(x, y, ray, ray->wall);
 			y++;
 		}
@@ -184,7 +179,6 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	int	x;
 
 	x = 0;
-		ft_putnbr(ray->resx);
 	while (x < ray->resx)
 	{
 		ray->camerax = 2 * x / ray->resx - 1;
