@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 14:47:08 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 15:04:42 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,17 +159,14 @@ void	fill_img(t_ray *ray, int x)
 	y = 0;
 	while (y < ray->resy)
 	{
-		while (y < ray->draw.start_draw)
-		{
+		if (y < ray->draw.start_draw)
 			colorpix(x, y, ray, ray->roof);
-			y++;
-		}
-		while(y < ray->draw.end_draw)
+		else if(y >= ray->draw.start_draw && y <= ray->draw.end_draw)
 		{
 			colorpix(x, y, ray, ray->wall);
-			y++;
 		}
-		colorpix(x, y, ray, ray->floor);
+		else
+			colorpix(x, y, ray, ray->floor);
 		y++;
 	}
 }
