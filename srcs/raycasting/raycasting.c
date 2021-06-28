@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 12:09:42 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 12:33:09 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,8 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
 	int	x;
 
-	x = 0;
-	while (x < ray->resx)
+	x = -1;
+	while (++x < ray->resx)
 	{
 		ray->camerax = 2 * x / ray->resx - 1;
 		ray->ray_dirx = ray->dirx + ray->planx * ray->camerax;
@@ -194,7 +194,6 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 		ray->mlx.data_addr = mlx_get_data_addr(ray->mlx.img_ptr,\
 		&(ray->mlx.bpp), &(ray->mlx.size), &(ray->mlx.endian));
 		fill_img(ray, x);
-		x++;
 	}
 }
 
@@ -222,6 +221,7 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	ray->resy =  (double)elems->R_y_value;
 	ray->mlx.img_ptr =\
 	mlx_new_image(elems->mlx_ptr, elems->R_x_value, elems->R_y_value);
+	init_var(ray);
 	raycast(parsing, elems, ray);
 	put_window(elems->mlx_ptr, ray->mlx_win, ray->mlx.img_ptr);
 	mlx_loop(elems->mlx_ptr);
