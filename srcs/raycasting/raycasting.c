@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 11:45:37 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 12:07:06 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ void	ft_putnbr(int n)
 
 void	set_dir_plan(int player_dir, t_ray *ray)
 {
-	ray->dirx = 0;
-	ray->diry = 0;
-	ray->planx = 0;
-	ray->plany = 0;
 	if (player_dir == 'N')
 	{
 		ray->dirx = -1;
@@ -207,6 +203,14 @@ void	put_window(void *mlx_ptr, void *win_ptr, void *img)
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 }
 
+void	init_var(t_ray *ray)
+{
+	ray->dirx = 0;
+	ray->diry = 0;
+	ray->planx = 0;
+	ray->plany = 0;
+}
+
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
 	ray->posx = (double)parsing->player_x;
@@ -214,8 +218,8 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	set_dir_plan(parsing->player_dir, ray);
 	ray->mlx_win =\
 	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
-	ray->resx = elems->R_x_value;
-	ray->resy = elems->R_y_value;
+	ray->resx = (double)elems->R_x_value;
+	ray->resy =  (double)elems->R_y_value;
 	ray->mlx.img_ptr =\
 	mlx_new_image(elems->mlx_ptr, elems->R_x_value, elems->R_y_value);
 	raycast(parsing, elems, ray);
