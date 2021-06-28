@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/24 17:52:35 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 11:45:37 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	ft_putnbr(int n)
 
 void	set_dir_plan(int player_dir, t_ray *ray)
 {
+	ray->dirx = 0;
+	ray->diry = 0;
+	ray->planx = 0;
+	ray->plany = 0;
 	if (player_dir == 'N')
 	{
 		ray->dirx = -1;

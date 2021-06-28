@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/24 17:45:35 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 11:22:31 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,11 @@ typedef struct s_ray
 	double		ray_diry;
 	double		planx;
 	double		plany;
+	double		camerax;
 	double		side_distx;
 	double		side_disty;
 	double		delta_distx;
 	double		delta_disty;
-	double		camerax;
 	double		resx;
 	double		resy;
 	double		perp_wall_dist;
