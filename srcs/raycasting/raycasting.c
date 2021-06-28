@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 12:33:09 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 13:50:14 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,12 +208,14 @@ void	init_var(t_ray *ray)
 	ray->diry = 0;
 	ray->planx = 0;
 	ray->plany = 0;
+	ray->dda.hit = 0;
 }
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
 	ray->posx = (double)parsing->player_x;
 	ray->posy = (double)parsing->player_y;
+	init_var(ray);
 	set_dir_plan(parsing->player_dir, ray);
 	ray->mlx_win =\
 	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
@@ -221,7 +223,6 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	ray->resy =  (double)elems->R_y_value;
 	ray->mlx.img_ptr =\
 	mlx_new_image(elems->mlx_ptr, elems->R_x_value, elems->R_y_value);
-	init_var(ray);
 	raycast(parsing, elems, ray);
 	put_window(elems->mlx_ptr, ray->mlx_win, ray->mlx.img_ptr);
 	mlx_loop(elems->mlx_ptr);
