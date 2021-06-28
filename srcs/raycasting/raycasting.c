@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 13:50:14 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/28 14:47:08 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,14 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		if (ray->dda.side == 1)
 			ray->wall.r = 255 / 2;
 	}
-	if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 2)
+	/*if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 2)
 	{
 		ray->wall.r = 0;
 		ray->wall.g = 255;
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.g = 255 / 2;
-	}
+	}*/
 	ray->floor.r = 80;
 	ray->floor.g = 80;
 	ray->floor.b = 80;
