@@ -6,7 +6,7 @@
 /*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 16:21:46 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/06/29 14:06:59 by elaachac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,8 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	while (++x < ray->resx)
 	{
 		ray->camerax = 2 * x / ray->resx - 1;
-		ray->ray_dirx = ray->dirx + ray->planx * ray->camerax;
-		ray->ray_diry = ray->diry + ray->plany * ray->camerax;
+		ray->ray_posx = ray->dirx + ray->planx * ray->camerax;
+		ray->ray_posy = ray->diry + ray->plany * ray->camerax;
 		ray->dda.mapx = (int)ray->posx;
 		ray->dda.mapy = (int)ray->posy;
 		ray->delta_distx = fabs(1 / ray->ray_dirx);
