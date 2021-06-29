@@ -107,6 +107,10 @@ void	dda(t_ray *ray, t_parsing *parsing)
 	else
 		ray->perp_wall_dist = (ray->dda.mapy - ray->posy +\
 		(1 - ray->dda.stepy) / 2) / ray->ray_diry;
+	printf("posy: %f\n", ray->posy);
+	printf("mapy: %d\n", ray->dda.mapy);
+	ray->perp_wall_dist = 1.5;
+	printf("perpwalldist: %f\n", ray->perp_wall_dist);
 }
 
 void	data_draw(t_ray *ray, t_parsing *parsing)
@@ -125,7 +129,7 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.r = 255 / 2;
-	}
+	}/*
 	if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 2)
 	{
 		ray->wall.r = 180;
@@ -133,13 +137,13 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.g = 255 / 2;
-	}
-	ray->floor.r = 80;
-	ray->floor.g = 80;
-	ray->floor.b = 80;
+	}*/
 	ray->roof.r = 0;
 	ray->roof.g = 100;
-	ray->roof.b = 0;
+	ray->roof.b = 150;
+	ray->floor.r = 0;
+	ray->floor.g = 100;
+	ray->floor.b = 0;
 }
 
 void	colorpix(int x, int y, t_ray *ray, t_colors color)
@@ -179,12 +183,12 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	while (++x < ray->resx)
 	{
 		ray->camerax = 2 * x / ray->resx - 1;
-		ray->ray_posx = ray->dirx + ray->planx * ray->camerax;
-		ray->ray_posy = ray->diry + ray->plany * ray->camerax;
+		ray->ray_dirx = ray->dirx + ray->planx * ray->camerax;
+		ray->ray_diry = ray->diry + ray->plany * ray->camerax;
 		ray->dda.mapx = (int)ray->posx;
 		ray->dda.mapy = (int)ray->posy;
 		ray->delta_distx = fabs(1 / ray->ray_dirx);
-		ray->delta_distx = fabs(1 / ray->ray_diry);
+		ray->delta_disty = fabs(1 / ray->ray_diry);
 		set_step_sidedist(ray);
 		dda(ray, parsing);
 		data_draw(ray, parsing);
