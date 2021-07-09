@@ -66,6 +66,9 @@ void	set_step_sidedist(t_ray *ray)
 	}
 	else
 	{
+		printf("mapx:%d\n", ray->dda.mapx);
+		printf("posx:%f\n", ray->posx);
+		printf("deltadistX:%f\n", ray->delta_distx);
 		ray->dda.stepx = 1;
 		ray->side_distx = (ray->dda.mapx + 1.0 - ray->posx)\
 		* ray->delta_distx;
@@ -84,19 +87,23 @@ void	set_step_sidedist(t_ray *ray)
 
 void	dda(t_ray *ray, t_parsing *parsing)
 {
+	ray->dda.hit = 0;
 	while (ray->dda.hit == 0)
 	{
+		printf("side_distx:%f\nside_dist_y%f\n", ray->side_distx, ray->side_disty);
 		if (ray->side_distx < ray->side_disty)
 		{
 			ray->side_distx += ray->delta_distx;
 			ray->dda.mapx += ray->dda.stepx;
 			ray->dda.side = X_WALL;
+			write(1, "side X_WALL\n", 12);
 		}
 		else
 		{
 			ray->side_disty += ray->delta_disty;
 			ray->dda.mapy += ray->dda.stepy;
 			ray->dda.side = Y_WALL;
+			write(1, "SIDE Y_WALL\n", 12);
 		}
 		if (parsing->map[ray->dda.mapx][ray->dda.mapy] > 0)
 			ray->dda.hit = 1;
@@ -109,7 +116,7 @@ void	dda(t_ray *ray, t_parsing *parsing)
 		(1 - ray->dda.stepy) / 2) / ray->ray_diry;
 	printf("posy: %f\n", ray->posy);
 	printf("mapy: %d\n", ray->dda.mapy);
-	ray->perp_wall_dist = 1.5;
+	//  ray->perp_wall_dist = 1.5;
 	printf("perpwalldist: %f\n", ray->perp_wall_dist);
 }
 
@@ -122,22 +129,22 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 	ray->draw.end_draw = ray->draw.line_height / 2 + ray->resy / 2;
 	if (ray->draw.end_draw >= ray->resy)
 		ray->draw.end_draw = ray->resy - 1;
-	if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 1)
+	if (parsing->map[ray->dda.mapx + ray->dda.stepx][ray->dda.mapy + ray->dda.stepy] == '1')
 	{
 		ray->wall.r = 255;
 		ray->wall.g = 0;
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.r = 255 / 2;
-	}/*
-	if (parsing->map[ray->dda.mapx][ray->dda.mapy] == 2)
+	}
+	if (parsing->map[ray->dda.mapx + ray->dda.stepx][ray->dda.mapy + ray->dda.stepy] == 2)
 	{
 		ray->wall.r = 180;
 		ray->wall.g = 180;
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.g = 255 / 2;
-	}*/
+	}
 	ray->roof.r = 0;
 	ray->roof.g = 100;
 	ray->roof.b = 150;
@@ -209,7 +216,26 @@ void	init_var(t_ray *ray)
 	ray->diry = 0;
 	ray->planx = 0;
 	ray->plany = 0;
+	ray->ray_dirx = 0;
+	ray->ray_diry = 0;
+	ray->side_distx = 0;
+	ray->side_disty = 0;
+	ray->camerax = 0;
+
+	ray->dda.side = 0;
 	ray->dda.hit = 0;
+	ray->dda.stepx = 0;
+	ray->dda.stepy = 0;
+
+	ray->roof.r = 0;
+	ray->roof.g = 0;
+	ray->roof.b = 0;
+	ray->floor.r = 0;
+	ray->floor.g = 0;
+	ray->floor.b = 0;
+	ray->wall.r = 0;
+	ray->wall.g = 0;
+	ray->wall.b = 0;
 }
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
