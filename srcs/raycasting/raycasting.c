@@ -66,9 +66,6 @@ void	set_step_sidedist(t_ray *ray)
 	}
 	else
 	{
-		printf("mapx:%d\n", ray->dda.mapx);
-		printf("posx:%f\n", ray->posx);
-		printf("deltadistX:%f\n", ray->delta_distx);
 		ray->dda.stepx = 1;
 		ray->side_distx = (ray->dda.mapx + 1.0 - ray->posx)\
 		* ray->delta_distx;
@@ -90,20 +87,17 @@ void	dda(t_ray *ray, t_parsing *parsing)
 	ray->dda.hit = 0;
 	while (ray->dda.hit == 0)
 	{
-		printf("side_distx:%f\nside_dist_y%f\n", ray->side_distx, ray->side_disty);
 		if (ray->side_distx < ray->side_disty)
 		{
 			ray->side_distx += ray->delta_distx;
 			ray->dda.mapx += ray->dda.stepx;
 			ray->dda.side = X_WALL;
-			write(1, "side X_WALL\n", 12);
 		}
 		else
 		{
 			ray->side_disty += ray->delta_disty;
 			ray->dda.mapy += ray->dda.stepy;
 			ray->dda.side = Y_WALL;
-			write(1, "SIDE Y_WALL\n", 12);
 		}
 		if (parsing->map[ray->dda.mapx][ray->dda.mapy] > 0)
 			ray->dda.hit = 1;
