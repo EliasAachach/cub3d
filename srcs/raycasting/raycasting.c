@@ -66,6 +66,8 @@ void	set_step_sidedist(t_ray *ray)
 	}
 	else
 	{
+		//entre toujours ici
+		printf("posx:%f\nmapx:%d\ndeltadistx:%f\n", ray->posx, ray->dda.mapx, ray->delta_distx);
 		ray->dda.stepx = 1;
 		ray->side_distx = (ray->dda.mapx + 1.0 - ray->posx)\
 		* ray->delta_distx;
@@ -87,6 +89,7 @@ void	dda(t_ray *ray, t_parsing *parsing)
 	ray->dda.hit = 0;
 	while (ray->dda.hit == 0)
 	{
+		printf("sidedistx:%f\nsidedisty:%f\n", ray->side_distx, ray->side_disty);
 		if (ray->side_distx < ray->side_disty)
 		{
 			ray->side_distx += ray->delta_distx;
@@ -102,7 +105,7 @@ void	dda(t_ray *ray, t_parsing *parsing)
 		if (parsing->map[ray->dda.mapx][ray->dda.mapy] > 0)
 			ray->dda.hit = 1;
 	}
-	if (ray->dda.side == 0)
+	if (ray->dda.side == X_WALL)
 		ray->perp_wall_dist = (ray->dda.mapx - ray->posx +\
 		(1 - ray->dda.stepx) / 2) / ray->ray_dirx;
 	else
@@ -123,7 +126,7 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 	ray->draw.end_draw = ray->draw.line_height / 2 + ray->resy / 2;
 	if (ray->draw.end_draw >= ray->resy)
 		ray->draw.end_draw = ray->resy - 1;
-	if (parsing->map[ray->dda.mapx + ray->dda.stepx][ray->dda.mapy + ray->dda.stepy] == '1')
+	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy + (int)ray->dda.stepy] == '1')
 	{
 		ray->wall.r = 255;
 		ray->wall.g = 0;
@@ -131,7 +134,7 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		if (ray->dda.side == 1)
 			ray->wall.r = 255 / 2;
 	}
-	if (parsing->map[ray->dda.mapx + ray->dda.stepx][ray->dda.mapy + ray->dda.stepy] == 2)
+	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy + (int)ray->dda.stepy] == 2)
 	{
 		ray->wall.r = 180;
 		ray->wall.g = 180;

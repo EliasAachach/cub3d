@@ -100,8 +100,8 @@ typedef	struct s_dda
 {
 	int		mapx;
 	int		mapy;
-	int		stepx;
-	int		stepy;
+	double	stepx;
+	double	stepy;
 	int		side;
 	int		hit;
 }				t_dda;
