@@ -67,7 +67,6 @@ void	set_step_sidedist(t_ray *ray)
 	else
 	{
 		//entre toujours ici
-		printf("posx:%f\nmapx:%d\ndeltadistx:%f\n", ray->posx, ray->dda.mapx, ray->delta_distx);
 		ray->dda.stepx = 1;
 		ray->side_distx = (ray->dda.mapx + 1.0 - ray->posx)\
 		* ray->delta_distx;
@@ -89,7 +88,6 @@ void	dda(t_ray *ray, t_parsing *parsing)
 	ray->dda.hit = 0;
 	while (ray->dda.hit == 0)
 	{
-		printf("sidedistx:%f\nsidedisty:%f\n", ray->side_distx, ray->side_disty);
 		if (ray->side_distx < ray->side_disty)
 		{
 			ray->side_distx += ray->delta_distx;
@@ -237,9 +235,10 @@ void	init_var(t_ray *ray)
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
-	ray->posx = (double)parsing->player_x;
-	ray->posy = (double)parsing->player_y;
-	init_var(ray);
+	ray->posx = (double)parsing->player_x + 0.5;
+	ray->posy = (double)parsing->player_y + 0.5;
+	ray->dda.mapx = (int)ray->posx;
+	ray->dda.mapy = (int)ray->posy;
 	set_dir_plan(parsing->player_dir, ray);
 	ray->mlx_win =\
 	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
