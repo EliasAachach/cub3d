@@ -100,7 +100,7 @@ void	dda(t_ray *ray, t_parsing *parsing)
 			ray->dda.mapy += ray->dda.stepy;
 			ray->dda.side = Y_WALL;
 		}
-		if (parsing->map[ray->dda.mapx][ray->dda.mapy] > 0)
+		if (parsing->map[ray->dda.mapx][ray->dda.mapy] == '1')
 			ray->dda.hit = 1;
 	}
 	if (ray->dda.side == X_WALL)
@@ -109,10 +109,6 @@ void	dda(t_ray *ray, t_parsing *parsing)
 	else
 		ray->perp_wall_dist = (ray->dda.mapy - ray->posy +\
 		(1 - ray->dda.stepy) / 2) / ray->ray_diry;
-	printf("posy: %f\n", ray->posy);
-	printf("mapy: %d\n", ray->dda.mapy);
-	//  ray->perp_wall_dist = 1.5;
-	printf("perpwalldist: %f\n", ray->perp_wall_dist);
 }
 
 void	data_draw(t_ray *ray, t_parsing *parsing)
@@ -132,6 +128,8 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		if (ray->dda.side == 1)
 			ray->wall.r = 255 / 2;
 	}
+	/*
+	SPRITES
 	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy + (int)ray->dda.stepy] == 2)
 	{
 		ray->wall.r = 180;
@@ -139,7 +137,7 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.g = 255 / 2;
-	}
+	}*/
 	ray->roof.r = 0;
 	ray->roof.g = 100;
 	ray->roof.b = 150;
