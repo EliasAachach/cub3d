@@ -128,8 +128,6 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		if (ray->dda.side == 1)
 			ray->wall.r = 255 / 2;
 	}
-	/*
-	SPRITES
 	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy + (int)ray->dda.stepy] == 2)
 	{
 		ray->wall.r = 180;
@@ -137,7 +135,7 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		ray->wall.b = 0;
 		if (ray->dda.side == 1)
 			ray->wall.g = 255 / 2;
-	}*/
+	}
 	ray->roof.r = 0;
 	ray->roof.g = 100;
 	ray->roof.b = 150;
@@ -231,6 +229,20 @@ void	init_var(t_ray *ray)
 	ray->wall.b = 0;
 }
 
+int            win_close(int keycode, t_elems *elems)
+{
+    if (keycode == ESC_KEY)
+    {
+		if (elems->mlx_ptr && elems->mlx_win)
+        	mlx_destroy_window(elems->mlx_ptr, elems->mlx_win);
+		else
+			printf("gros naze");
+		// mlx_destroy_image(elems->mlx_ptr, elems->img_ptr);
+        exit(0);
+    }
+    return (0);
+}
+
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
 	ray->posx = (double)parsing->player_x + 0.5;
@@ -238,13 +250,15 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	ray->dda.mapx = (int)ray->posx;
 	ray->dda.mapy = (int)ray->posy;
 	set_dir_plan(parsing->player_dir, ray);
-	ray->mlx_win =\
+	elems->mlx_win =\
 	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
 	ray->resx = (double)elems->R_x_value;
 	ray->resy =  (double)elems->R_y_value;
 	ray->mlx.img_ptr =\
 	mlx_new_image(elems->mlx_ptr, elems->R_x_value, elems->R_y_value);
+	elems->img_ptr = &ray->mlx.img_ptr;
 	raycast(parsing, elems, ray);
-	put_window(elems->mlx_ptr, ray->mlx_win, ray->mlx.img_ptr);
+	put_window(elems->mlx_ptr, elems->mlx_win, ray->mlx.img_ptr);
+	mlx_hook(elems->mlx_win, 2, 1L<<0, win_close, &elems);
 	mlx_loop(elems->mlx_ptr);
 }

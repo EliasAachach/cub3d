@@ -45,6 +45,8 @@
 
 typedef struct s_elems
 {
+	void		**img_ptr;
+	void		*mlx_win;
 	void		*mlx_ptr;
 	int			R_is_present;
 	int			NO_is_present;
@@ -132,12 +134,12 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
+	t_mlx		mlx;
 	t_dda		dda;
 	t_draw		draw;
 	t_colors	roof;
 	t_colors	wall;
 	t_colors	floor;
-	t_mlx		mlx;
 	double		posx;
 	double		posy;
 	double		dirx;
@@ -154,7 +156,6 @@ typedef struct s_ray
 	double		resx;
 	double		resy;
 	double		perp_wall_dist;
-	void		*mlx_win;
 }				t_ray;
 
 char	*ft_strdup(char *s);
