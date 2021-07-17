@@ -233,10 +233,10 @@ int            win_close(int keycode, t_elems *elems)
 {
     if (keycode == ESC_KEY)
     {
-		if (elems->mlx_ptr && elems->mlx_win)
+		write(1,"o", 1);
+		// if (elems->mlx_ptr && elems->mlx_win)
+        	mlx_clear_window(elems->mlx_ptr, elems->mlx_win);
         	mlx_destroy_window(elems->mlx_ptr, elems->mlx_win);
-		else
-			printf("gros naze");
 		// mlx_destroy_image(elems->mlx_ptr, elems->img_ptr);
         exit(0);
     }
