@@ -32,7 +32,6 @@ void	ft_putnbr(int n)
 	ft_putchar(nbr % 10 + '0');
 }
 
-
 void	set_dir_plan(int player_dir, t_ray *ray)
 {
 	if (player_dir == 'N')
@@ -66,7 +65,6 @@ void	set_step_sidedist(t_ray *ray)
 	}
 	else
 	{
-		//entre toujours ici
 		ray->dda.stepx = 1;
 		ray->side_distx = (ray->dda.mapx + 1.0 - ray->posx)\
 		* ray->delta_distx;
@@ -120,15 +118,12 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 	ray->draw.end_draw = ray->draw.line_height / 2 + ray->resy / 2;
 	if (ray->draw.end_draw >= ray->resy)
 		ray->draw.end_draw = ray->resy - 1;
-	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy + (int)ray->dda.stepy] == '1')
-	{
+	if (ray->dda.side == 1)
+		ray->wall.r = 255 / 2;
+	else
 		ray->wall.r = 255;
-		ray->wall.g = 0;
-		ray->wall.b = 0;
-		if (ray->dda.side == 1)
-			ray->wall.r = 255 / 2;
-	}
-	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy + (int)ray->dda.stepy] == 2)
+	if (parsing->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy +\
+		(int)ray->dda.stepy] == '2')
 	{
 		ray->wall.r = 180;
 		ray->wall.g = 180;
@@ -136,12 +131,12 @@ void	data_draw(t_ray *ray, t_parsing *parsing)
 		if (ray->dda.side == 1)
 			ray->wall.g = 255 / 2;
 	}
-	ray->roof.r = 0;
-	ray->roof.g = 100;
-	ray->roof.b = 150;
-	ray->floor.r = 0;
-	ray->floor.g = 100;
-	ray->floor.b = 0;
+	// ray->roof.r = 0;
+	// ray->roof.g = 100;
+	// ray->roof.b = 150;
+	// ray->floor.r = 0;
+	// ray->floor.g = 100;
+	// ray->floor.b = 0;
 }
 
 void	colorpix(int x, int y, t_ray *ray, t_colors color)
@@ -161,7 +156,7 @@ void	fill_img(t_ray *ray, int x)
 	y = 0;
 	while (y < ray->resy)
 	{
-		if (y < ray->draw.start_draw)
+		if (y < ray->draw.start_draw && ray->draw.start_draw)
 			colorpix(x, y, ray, ray->roof);
 		else if(y >= ray->draw.start_draw && y <= ray->draw.end_draw)
 		{
@@ -178,6 +173,8 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	int	x;
 
 	x = -1;
+	ray->mlx.data_addr = mlx_get_data_addr(ray->mlx.img_ptr,\
+		&(ray->mlx.bpp), &(ray->mlx.size), &(ray->mlx.endian));
 	while (++x < ray->resx)
 	{
 		ray->camerax = 2 * x / ray->resx - 1;
@@ -190,8 +187,6 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 		set_step_sidedist(ray);
 		dda(ray, parsing);
 		data_draw(ray, parsing);
-		ray->mlx.data_addr = mlx_get_data_addr(ray->mlx.img_ptr,\
-		&(ray->mlx.bpp), &(ray->mlx.size), &(ray->mlx.endian));
 		fill_img(ray, x);
 	}
 }
@@ -201,7 +196,7 @@ void	put_window(void *mlx_ptr, void *win_ptr, void *img)
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 }
 
-void	init_var(t_ray *ray)
+void	init_var(t_ray *ray, t_elems *elems)
 {
 	ray->dirx = 0;
 	ray->diry = 0;
@@ -217,14 +212,16 @@ void	init_var(t_ray *ray)
 	ray->dda.hit = 0;
 	ray->dda.stepx = 0;
 	ray->dda.stepy = 0;
-
-	ray->roof.r = 0;
-	ray->roof.g = 0;
-	ray->roof.b = 0;
-	ray->floor.r = 0;
-	ray->floor.g = 0;
-	ray->floor.b = 0;
-	ray->wall.r = 0;
+	ray->draw.start_draw = 0;
+	ray->draw.end_draw = 0;
+	ray->draw.line_height = 0;
+	ray->roof.r = elems->r_C;
+	ray->roof.g = elems->g_C;
+	ray->roof.b = elems->b_C;
+	ray->floor.r = elems->r_F;
+	ray->floor.g = elems->g_F;
+	ray->floor.b = elems->b_F;
+	ray->wall.r = 255;
 	ray->wall.g = 0;
 	ray->wall.b = 0;
 }
@@ -237,7 +234,7 @@ int            win_close(int keycode, t_elems *elems)
 		// if (elems->mlx_ptr && elems->mlx_win)
         	mlx_clear_window(elems->mlx_ptr, elems->mlx_win);
         	mlx_destroy_window(elems->mlx_ptr, elems->mlx_win);
-		// mlx_destroy_image(elems->mlx_ptr, elems->img_ptr);
+		mlx_destroy_image(elems->mlx_ptr, elems->img_ptr);
         exit(0);
     }
     return (0);
@@ -249,6 +246,7 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	ray->posy = (double)parsing->player_y + 0.5;
 	ray->dda.mapx = (int)ray->posx;
 	ray->dda.mapy = (int)ray->posy;
+	init_var(ray, elems);
 	set_dir_plan(parsing->player_dir, ray);
 	elems->mlx_win =\
 	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
