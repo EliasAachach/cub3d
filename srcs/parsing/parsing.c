@@ -71,16 +71,16 @@ void	parser2(int fd, t_parsing *parsing, t_elems *elems)
 	close(fd);
 }
 
-void	parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg)
+void	parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg)
 {
 	int		fd;
 	char	*line;
 
 	line = NULL;
-	arg_check(arg, nbr_arg);
+	arg_check(arg, parsing->nbr_arg);
 	parsing->filename = arg[1];
 	fd = open(parsing->filename, O_RDONLY);
-	get_elems(fd, elems);
+	get_elems(fd, elems, ray);
 	elems->error_fd = 0;
 	last_line_check(elems->last_elem_line, parsing);
 	if (check_all_elems(elems) == 1)

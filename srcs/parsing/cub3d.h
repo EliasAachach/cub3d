@@ -16,6 +16,9 @@
 # define TRUE 1
 # define FALSE 0
 
+# define KEYPRESS 2
+# define KEYRELEASE 3
+
 # define W_KEY 119
 # define A_KEY 97
 # define S_KEY 115
@@ -45,9 +48,6 @@
 
 typedef struct s_elems
 {
-	void		**img_ptr;
-	void		*mlx_win;
-	void		*mlx_ptr;
 	int			R_is_present;
 	int			NO_is_present;
 	int			SO_is_present;
@@ -77,6 +77,7 @@ typedef struct s_elems
 
 typedef struct s_parsing
 {
+	int		nbr_arg;
 	int		longest_line;
 	int		nbr_lines;
 	int		player_x;
@@ -126,14 +127,27 @@ typedef struct s_colors
 typedef struct s_mlx
 {
 	void	*img_ptr;
+	void	*mlx_ptr;
+	void	*mlx_win;
 	char	*data_addr;
 	int		bpp;
 	int		endian;
 	int		size;
 }				t_mlx;
 
+typedef struct s_mv
+{
+	int w;
+	int a;
+	int s;
+	int d;
+	int left;
+	int right;
+}				t_mv;
+
 typedef struct s_ray
 {
+	t_mv		mv;
 	t_mlx		mlx;
 	t_dda		dda;
 	t_draw		draw;
@@ -166,17 +180,17 @@ int		player_in_map(char c, t_parsing *parsing);
 void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag);
 void	error_elems(char *newline, t_elems *elems, int error_flag);
 void	get_path(char *newline, int elem_flag, t_elems *elems);
-void	get_elems(int fd, t_elems *elems);
+void	get_elems(int fd, t_elems *elems, t_ray *ray);
 void	check_flag(int elem_flag, t_elems *elems);
 char	*del_spaces(char *line);
-void	get_R_values(char *newline, t_elems *elems);
+void	get_R_values(char *newline, t_elems *elems, t_ray *ray);
 char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_strtrim_inside(char *str);
 char	**ft_split(char const *s, char c);
 void	*ft_strfree(char **str);
-void	stock_values(char *newline, int elem_flag, t_elems *elems);
+void	stock_values(char *newline, int elem_flag, t_elems *elems, t_ray *ray);
 int		wich_elem(char *line, t_elems *elems);
-int		res_check(char *str, t_elems *elems);
+int		res_check(char *str, t_elems *elems, t_ray *ray);
 void	find_map(int fd, t_parsing *parsing);
 int		is_first_line(char *line);
 int		check_line(char *line);
@@ -189,5 +203,6 @@ int		check_all_elems(t_elems *elems);
 void	check_colors(char *newline, int elem_flag, t_elems *elems, int i);
 int		final_check(char **final, int i);
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray);
+void    parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg);
 
 #endif

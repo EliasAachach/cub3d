@@ -12,15 +12,15 @@
 
 #include "../parsing/cub3d.h"
 
-int	res_check(char *str, t_elems *elems)
+int	res_check(char *str, t_elems *elems, t_ray *ray)
 {
 	int	i;
 	int	x;
 	int	y;
 
 	i = 0;
-	elems->mlx_ptr = mlx_init();
-	mlx_get_screen_size(elems->mlx_ptr, (&x), (&y));
+	ray->mlx.mlx_ptr = mlx_init();
+	mlx_get_screen_size(ray->mlx.mlx_ptr, (&x), (&y));
 	while (str[i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))

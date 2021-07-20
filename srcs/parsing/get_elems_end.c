@@ -71,7 +71,7 @@ void	get_colors(char *newline, int elem_flag, t_elems *elems)
 	get_colors2(final, i, elem_flag, elems);
 }
 
-void	get_R_values(char *newline, t_elems *elems)
+void	get_R_values(char *newline, t_elems *elems, t_ray *ray)
 {
 	int	i;
 
@@ -92,15 +92,15 @@ void	get_R_values(char *newline, t_elems *elems)
 		i++;
 	}
 	elems->R_y_value = ft_atoi(newline + i);
-	if (res_check(newline + i, elems) == 1)
+	if (res_check(newline + i, elems, ray) == 1)
 		error_elems(newline, elems, 5);
 	free(newline);
 }
 
-void	stock_values(char *newline, int elem_flag, t_elems *elems)
+void	stock_values(char *newline, int elem_flag, t_elems *elems, t_ray *ray)
 {
 	if (elem_flag == 'R')
-		get_R_values(newline, elems);
+		get_R_values(newline, elems, ray);
 	if (elem_flag == 'F' || elem_flag == 'C')
 		get_colors(newline, elem_flag, elems);
 }

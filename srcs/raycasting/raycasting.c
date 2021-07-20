@@ -168,7 +168,7 @@ void	fill_img(t_ray *ray, int x)
 	}
 }
 
-void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
+void	raycast(t_parsing *parsing, t_ray *ray)
 {
 	int	x;
 
@@ -191,11 +191,6 @@ void	raycast(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	}
 }
 
-void	put_window(void *mlx_ptr, void *win_ptr, void *img)
-{
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
-}
-
 void	init_var(t_ray *ray, t_elems *elems)
 {
 	ray->dirx = 0;
@@ -207,7 +202,6 @@ void	init_var(t_ray *ray, t_elems *elems)
 	ray->side_distx = 0;
 	ray->side_disty = 0;
 	ray->camerax = 0;
-
 	ray->dda.side = 0;
 	ray->dda.hit = 0;
 	ray->dda.stepx = 0;
@@ -224,20 +218,46 @@ void	init_var(t_ray *ray, t_elems *elems)
 	ray->wall.r = 255;
 	ray->wall.g = 0;
 	ray->wall.b = 0;
+	ray->mv.w = 0;
+	ray->mv.a = 0;
+	ray->mv.s = 0;
+	ray->mv.d = 0;
+	ray->mv.left = 0;
+	ray->mv.right = 0;
 }
 
-int            win_close(int keycode, t_elems *elems)
+int            win_close(t_ray *ray)
 {
-    if (keycode == ESC_KEY)
-    {
-		write(1,"o", 1);
-		// if (elems->mlx_ptr && elems->mlx_win)
-        	mlx_clear_window(elems->mlx_ptr, elems->mlx_win);
-        	mlx_destroy_window(elems->mlx_ptr, elems->mlx_win);
-		mlx_destroy_image(elems->mlx_ptr, elems->img_ptr);
-        exit(0);
-    }
-    return (0);
+	mlx_destroy_image(ray->mlx.mlx_ptr, ray->mlx.img_ptr);
+	if (ray->mlx.mlx_ptr && ray->mlx.mlx_win)
+	mlx_destroy_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win);
+	// mlx_clear_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win);
+	exit(0);
+	return (0);
+}
+
+int	key_pressed(int key, t_ray *ray)
+{
+	if (key == ESC_KEY)
+		win_close(ray);
+	if (key == W_KEY)
+		ray->mv.w = 1;
+	if (key == A_KEY)
+		ray->mv.a = 1;
+	if (key == S_KEY)
+		ray->mv.s = 1;
+	if (key == D_KEY)
+		ray->mv.d = 1;
+	if (key == LEFT_KEY)
+		ray->mv.left = 1;
+	if (key == RIGHT_KEY)
+		ray->mv.right = 1;
+		return (0);
+}
+
+void	put_window(void *mlx_ptr, void *win_ptr, void *img)
+{
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img, 0, 0);
 }
 
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
@@ -248,15 +268,16 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	ray->dda.mapy = (int)ray->posy;
 	init_var(ray, elems);
 	set_dir_plan(parsing->player_dir, ray);
-	elems->mlx_win =\
-	mlx_new_window(elems->mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
+	ray->mlx.mlx_win =\
+	mlx_new_window(ray->mlx.mlx_ptr, elems->R_x_value, elems->R_y_value, "Cub3d");
 	ray->resx = (double)elems->R_x_value;
 	ray->resy =  (double)elems->R_y_value;
 	ray->mlx.img_ptr =\
-	mlx_new_image(elems->mlx_ptr, elems->R_x_value, elems->R_y_value);
-	elems->img_ptr = &ray->mlx.img_ptr;
-	raycast(parsing, elems, ray);
-	put_window(elems->mlx_ptr, elems->mlx_win, ray->mlx.img_ptr);
-	mlx_hook(elems->mlx_win, 2, 1L<<0, win_close, &elems);
-	mlx_loop(elems->mlx_ptr);
+	mlx_new_image(ray->mlx.mlx_ptr, elems->R_x_value, elems->R_y_value);
+	raycast(parsing, ray);
+	put_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win, ray->mlx.img_ptr);
+	// mlx_hook(ray->mlx.mlx_win, 2, 1L << 0, win_close, &ray);
+	mlx_hook(ray->mlx.mlx_win, KEYPRESS, 1L << 0, key_pressed, &ray);
+	// mlx_hook(ray->mlx.mlx_win, KEYRELEASE, 1L << 1, key_released, &ray);
+	mlx_loop(ray->mlx.mlx_ptr);
 }

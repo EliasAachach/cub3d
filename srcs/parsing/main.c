@@ -4,14 +4,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void    parser(t_parsing *parsing, t_elems *elems, char **arg, int nbr_arg);
-
 void	ft_putstr_fd(char *s)
 {
 	write(1, s, ft_strlen(s));
 }
 
-void	init_parsing(t_parsing *parsing, t_elems *elems)
+void	init_parsing(t_parsing *parsing, t_elems *elems, int argc)
 {
     parsing->filename = NULL;
 	parsing->first_line = NULL;
@@ -30,7 +28,7 @@ void	init_parsing(t_parsing *parsing, t_elems *elems)
 	parsing->map_error = 0;
 	parsing->player_in_map = 0;
 	parsing->first_line_passed = 0;
-
+	parsing->nbr_arg = argc;
 	elems->R_is_present = 0;
 	elems->NO_is_present = 0;
 	elems->SO_is_present = 0;
@@ -62,8 +60,8 @@ int     main(int argc, char **argv)
     t_parsing	parsing;
     t_elems		elems;
 	t_ray		ray;
-    init_parsing(&parsing, &elems);
-    parser(&parsing, &elems, argv, argc);
+    init_parsing(&parsing, &elems, argc);
+    parser(&parsing, &elems, &ray, argv);
 	// printf("path_to_S : %s\n", elems.path_to_S);
 	// printf("path_to_NO : %s\n", elems.path_to_NO);
 	// printf("path_to_SO : %s\n", elems.path_to_SO);

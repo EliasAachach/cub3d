@@ -43,11 +43,11 @@ int	elem_present(t_elems *elems)
 	return (0);
 }
 
-void	stock_elem(char *newline, int elem_flag, t_elems *elems)
+void	stock_elem(char *newline, t_ray *ray, int elem_flag, t_elems *elems)
 {
 	if (elem_flag == 'R' || elem_flag == 'F' || elem_flag == 'C')
 	{
-		stock_values(newline, elem_flag, elems);
+		stock_values(newline, elem_flag, elems, ray);
 		return ;
 	}
 	if (elem_flag == 'N' + 'O' || elem_flag == 'S' + 'O'
@@ -60,16 +60,16 @@ void	stock_elem(char *newline, int elem_flag, t_elems *elems)
 	}
 }
 
-void	elem_found(t_elems *elems, char *newline, int elem_flag)
+void	elem_found(t_elems *elems, t_ray *ray, char *newline, int elem_flag)
 {
 	elem_flag = wich_elem(newline, elems);
 	check_flag(elem_flag, elems);
 	if (elems->double_elem)
 		error_elems(newline, elems, 1);
-	stock_elem(newline, elem_flag, elems);
+	stock_elem(newline, ray, elem_flag, elems);
 }
 
-void	get_elems(int fd, t_elems *elems)
+void	get_elems(int fd, t_elems *elems, t_ray *ray)
 {
 	char	*line;
 	char	*newline;
@@ -91,7 +91,7 @@ void	get_elems(int fd, t_elems *elems)
 			error_elems(line, elems, 0);
 		free(line);
 		if (ft_strlen(newline) > 0)
-			elem_found(elems, newline, elem_flag);
+			elem_found(elems, ray, newline, elem_flag);
 		else
 			free(newline);
 	}
