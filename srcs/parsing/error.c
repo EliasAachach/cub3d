@@ -1,30 +1,31 @@
 #include "cub3d.h"
 
-void	free_parsing(t_parsing *parsing)
+void	free_parsing(t_parsing *parsing, t_ray *ray)
 {
 	int	i;
 
 	i = 0;
 	if (parsing->first_line)
 		free(parsing->first_line);
-	if (parsing->map)
+	if (ray->map)
 	{
-		while (parsing->map[i])
+		while (ray->map[i])
 		{
-			free(parsing->map[i]);
+			free(ray->map[i]);
 			i++;
 		}
-		free(parsing->map);
+		free(ray->map);
 	}
 }
 
-void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag)
+void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag,\
+	t_ray *ray)
 {
 	if (error_flag == 0)
 		printf("Error\nMap is invalid.");
 	if (error_flag == 1)
 		printf("Error\nMap is open.");
-	free_parsing(parsing);
+	free_parsing(parsing, ray);
 	error_elems(NULL, elems, 9);
 	exit(0);
 }

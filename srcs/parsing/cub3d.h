@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/28 11:22:31 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/07/21 18:06:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_parsing
 	int		player_in_map;
 	char	*filename;
 	char	*first_line;
-	char	**map;
 	char	**valid_map;
 }				t_parsing;
 
@@ -133,6 +132,8 @@ typedef struct s_mlx
 	int		bpp;
 	int		endian;
 	int		size;
+	int		x;
+	int		y;
 }				t_mlx;
 
 typedef struct s_mv
@@ -143,6 +144,7 @@ typedef struct s_mv
 	int d;
 	int left;
 	int right;
+	int speed;
 }				t_mv;
 
 typedef struct s_ray
@@ -154,6 +156,7 @@ typedef struct s_ray
 	t_colors	roof;
 	t_colors	wall;
 	t_colors	floor;
+	char		**map;
 	double		posx;
 	double		posy;
 	double		dirx;
@@ -177,7 +180,8 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(const char *str);
 void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y);
 int		player_in_map(char c, t_parsing *parsing);
-void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag);
+void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag,\
+	t_ray *ray);
 void	error_elems(char *newline, t_elems *elems, int error_flag);
 void	get_path(char *newline, int elem_flag, t_elems *elems);
 void	get_elems(int fd, t_elems *elems, t_ray *ray);
@@ -191,12 +195,12 @@ void	*ft_strfree(char **str);
 void	stock_values(char *newline, int elem_flag, t_elems *elems, t_ray *ray);
 int		wich_elem(char *line, t_elems *elems);
 int		res_check(char *str, t_elems *elems, t_ray *ray);
-void	find_map(int fd, t_parsing *parsing);
+void	find_map(int fd, t_parsing *parsing, t_ray *ray);
 int		is_first_line(char *line);
 int		check_line(char *line);
 char	**alloc_map(int nbr_lines, int longest_line);
 char	*del_spaces(char *line);
-void	valid_map(t_parsing *parsing);
+void	valid_map(t_parsing *parsing, t_ray *ray);
 int		rgb_check(t_elems *elems);
 void	arg_check(char **arg, int nbr_arg);
 int		check_all_elems(t_elems *elems);
@@ -204,5 +208,9 @@ void	check_colors(char *newline, int elem_flag, t_elems *elems, int i);
 int		final_check(char **final, int i);
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray);
 void    parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg);
+void    mv_frwrd(t_ray *ray);
+void    mv_dwnwrd(t_ray *ray);
+void    mv_left(t_ray *ray);
+void    mv_right(t_ray *ray);
 
 #endif

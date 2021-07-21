@@ -24,14 +24,14 @@ int	player_in_map(char c, t_parsing *parsing)
 		return (0);
 }
 
-void	get_valid_map(t_parsing *parsing, char **ff_map)
+void	get_valid_map(t_parsing *parsing, char **ff_map, t_ray *ray)
 {
 	int		i;
 
 	i = 0;
 	while (i < parsing->nbr_lines)
 	{
-		ff_map[i] = ft_strdup(parsing->map[i]);
+		ff_map[i] = ft_strdup(ray->map[i]);
 		i++;
 	}
 }
@@ -45,7 +45,7 @@ void	player_here(t_parsing *parsing, int x, int y, char **ff_map)
 	ft_strfree(ff_map);
 }
 
-void	valid_map(t_parsing *parsing)
+void	valid_map(t_parsing *parsing, t_ray *ray)
 {
 	int		x;
 	int		y;
@@ -53,7 +53,7 @@ void	valid_map(t_parsing *parsing)
 
 	x = 0;
 	ff_map = alloc_map(parsing->nbr_lines, parsing->longest_line);
-	get_valid_map(parsing, ff_map);
+	get_valid_map(parsing, ff_map, ray);
 	while (x < parsing->nbr_lines)
 	{
 		y = 0;

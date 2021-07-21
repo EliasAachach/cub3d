@@ -25,7 +25,7 @@ void	last_line_check(char *line, t_parsing *parsing)
 	free(line);
 }
 
-void	get_map(int fd, t_parsing *parsing)
+void	get_map(int fd, t_parsing *parsing, t_ray *ray)
 {
 	int		x;
 	int		first_line_passed;
@@ -40,32 +40,32 @@ void	get_map(int fd, t_parsing *parsing)
 				|| first_line_passed == TRUE) && x <= parsing->nbr_lines)
 		{
 			first_line_passed = TRUE;
-			parsing->map[x] = ft_strdup(line);
+			ray->map[x] = ft_strdup(line);
 			x++;
 		}
 		free(line);
 	}
 	if (x == parsing->nbr_lines - 1)
-		parsing->map[x] = ft_strdup(line);
+		ray->map[x] = ft_strdup(line);
 	free(line);
 }
 
-void	parser2(int fd, t_parsing *parsing, t_elems *elems)
+void	parser2(int fd, t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
-	find_map(fd, parsing);
+	find_map(fd, parsing, ray);
 	parsing->nbr_lines_map = parsing->nbr_lines;
 	elems->error_fd = fd;
 	close(fd);
 	if (parsing->map_error == TRUE)
-		parse_error(parsing, elems, 0);
+		parse_error(parsing, elems, 0, ray);
 	fd = open(parsing->filename, O_RDONLY);
-	get_map(fd, parsing);
-	valid_map(parsing);
+	get_map(fd, parsing, ray);
+	valid_map(parsing, ray);
 	if (parsing->map_is_open == TRUE || parsing->player_in_map == FALSE)
 	{
 		if (parsing->map_is_open == TRUE)
-			parse_error(parsing, elems, 1);
-		parse_error(parsing, elems, 0);
+			parse_error(parsing, elems, 1, ray);
+		parse_error(parsing, elems, 0, ray);
 	}
 	free(parsing->first_line);
 	close(fd);
@@ -93,5 +93,5 @@ void	parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg)
 		elems->error_fd = fd;
 		error_elems(line, elems, 5);
 	}
-	parser2(fd, parsing, elems);
+	parser2(fd, parsing, elems, ray);
 }

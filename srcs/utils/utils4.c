@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:30 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 23:25:15 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/07/21 19:04:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	res_check(char *str, t_elems *elems, t_ray *ray)
 	int	y;
 
 	i = 0;
-	ray->mlx.mlx_ptr = mlx_init();
 	mlx_get_screen_size(ray->mlx.mlx_ptr, (&x), (&y));
 	while (str[i])
 	{

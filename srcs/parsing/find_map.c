@@ -69,7 +69,7 @@ void	last_line(char *line, t_parsing *parsing)
 	free(newline);
 }
 
-void	find_map(int fd, t_parsing *parsing)
+void	find_map(int fd, t_parsing *parsing, t_ray *ray)
 {
 	char	*line;
 	char	*newline;
@@ -90,8 +90,8 @@ void	find_map(int fd, t_parsing *parsing)
 	}
 	last_line(line, parsing);
 	free(line);
-	parsing->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
-	if (!parsing->map)
+	ray->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
+	if (!ray->map)
 	{
 		parsing->map_error = TRUE;
 		return ;

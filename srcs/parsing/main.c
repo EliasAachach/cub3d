@@ -9,11 +9,11 @@ void	ft_putstr_fd(char *s)
 	write(1, s, ft_strlen(s));
 }
 
-void	init_parsing(t_parsing *parsing, t_elems *elems, int argc)
+void	init_parsing(t_parsing *parsing, t_elems *elems, int argc, t_ray *ray)
 {
     parsing->filename = NULL;
 	parsing->first_line = NULL;
-	parsing->map = NULL;
+	ray->map = NULL;
 	parsing->valid_map = NULL;
     parsing->longest_line = 0;
 	parsing->nbr_lines = 0;
@@ -53,6 +53,7 @@ void	init_parsing(t_parsing *parsing, t_elems *elems, int argc)
 	elems->path_to_SO = NULL;
 	elems->path_to_EA = NULL;
 	elems->path_to_WE = NULL;
+	ray->mlx.mlx_ptr = mlx_init();
 }
 
 int     main(int argc, char **argv)
@@ -60,8 +61,10 @@ int     main(int argc, char **argv)
     t_parsing	parsing;
     t_elems		elems;
 	t_ray		ray;
-    init_parsing(&parsing, &elems, argc);
+    init_parsing(&parsing, &elems, argc, &ray);
     parser(&parsing, &elems, &ray, argv);
+	ray.mlx.mlx_win = mlx_new_window(ray.mlx.mlx_ptr,\
+		elems.R_x_value, elems.R_y_value, "Cub3d");
 	// printf("path_to_S : %s\n", elems.path_to_S);
 	// printf("path_to_NO : %s\n", elems.path_to_NO);
 	// printf("path_to_SO : %s\n", elems.path_to_SO);
@@ -90,7 +93,7 @@ int     main(int argc, char **argv)
 	// 	i++;
 	// }
 	// free(parsing.map[i]);
-	free(parsing.map);
+	free(ray.map);
 	free(elems.path_to_S);
 	free(elems.path_to_NO);
 	free(elems.path_to_SO);
