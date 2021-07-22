@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/21 19:02:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/22 16:26:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,10 @@ void	init_var(t_ray *ray, t_elems *elems)
 	ray->mv.d = 0;
 	ray->mv.left = 0;
 	ray->mv.right = 0;
+	ray->mlx.img_ptr = NULL;
+	ray->mlx.data_addr = NULL;
+	ray->mlx.mlx_win = mlx_new_window(ray->mlx.mlx_ptr,\
+		elems->R_x_value, elems->R_y_value, "Cub3d");
 }
 
 int            win_close(t_ray *ray)

@@ -63,8 +63,6 @@ int     main(int argc, char **argv)
 	t_ray		ray;
     init_parsing(&parsing, &elems, argc, &ray);
     parser(&parsing, &elems, &ray, argv);
-	ray.mlx.mlx_win = mlx_new_window(ray.mlx.mlx_ptr,\
-		elems.R_x_value, elems.R_y_value, "Cub3d");
 	// printf("path_to_S : %s\n", elems.path_to_S);
 	// printf("path_to_NO : %s\n", elems.path_to_NO);
 	// printf("path_to_SO : %s\n", elems.path_to_SO);

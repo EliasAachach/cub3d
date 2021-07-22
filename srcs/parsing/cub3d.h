@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/21 18:06:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/22 15:11:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ typedef struct s_ray
 	double		resy;
 	double		perp_wall_dist;
 }				t_ray;
+
+void	ft_putstr_fd(char *s);
 
 char	*ft_strdup(char *s);
 int		ft_strcmp(char *s1, char *s2);
