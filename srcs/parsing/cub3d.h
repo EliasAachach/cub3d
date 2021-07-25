@@ -138,13 +138,13 @@ typedef struct s_mlx
 
 typedef struct s_mv
 {
-	int w;
-	int a;
-	int s;
-	int d;
-	int left;
-	int right;
-	int speed;
+	int		w;
+	int		a;
+	int 	s;
+	int		d;
+	int		left;
+	int		right;
+	double	speed;
 }				t_mv;
 
 typedef struct s_ray
@@ -214,5 +214,7 @@ void    mv_frwrd(t_ray *ray);
 void    mv_dwnwrd(t_ray *ray);
 void    mv_left(t_ray *ray);
 void    mv_right(t_ray *ray);
+void	init_var(t_ray *ray, t_elems *elems);
+void	set_dir_plan(int player_dir, t_ray *ray);
 
 #endif

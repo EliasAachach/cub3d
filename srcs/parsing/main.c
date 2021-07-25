@@ -83,6 +83,8 @@ int     main(int argc, char **argv)
 	// 	ft_putstr_fd("\n");
 	// 	i++;
 	// }
+	init_var(&ray, &elems);
+	// set_dir_plan(parsing.player_dir, &ray);
 	raycasting(&parsing, &elems, &ray);
 	// i = 0;
 	// while (i <= parsing.nbr_lines)
