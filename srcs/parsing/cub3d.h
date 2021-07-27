@@ -44,7 +44,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "gnl/get_next_line.h"
-# include <mlx.h>
+# include "../../includes/mlx.h"
 
 typedef struct s_elems
 {
