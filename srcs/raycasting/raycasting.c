@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	ft_putchar(char c)
 {
@@ -193,6 +193,8 @@ void	init_var(t_ray *ray, t_elems *elems)
 {
 	ray->dirx = 0;
 	ray->diry = 0;
+	ray->posx = 0;
+	ray->posy = 0;
 	ray->planx = 0;
 	ray->plany = 0;
 	ray->ray_dirx = 0;
@@ -222,7 +224,7 @@ void	init_var(t_ray *ray, t_elems *elems)
 	ray->mv.d = 0;
 	ray->mv.left = 0;
 	ray->mv.right = 0;
-	ray->mv.speed = 0.09;
+	ray->mv.speed = 0.05;
 	ray->mlx.img_ptr = NULL;
 	ray->mlx.data_addr = NULL;
 	ray->mlx.mlx_win = mlx_new_window(ray->mlx.mlx_ptr,\
@@ -242,12 +244,9 @@ int            win_close(t_ray *ray)
 
 void	init_image(t_ray *ray)
 {
-		// printf("bjr initimage\n");
 	if (ray->mlx.img_ptr && ray->mlx.mlx_ptr)
 	{
-		// printf("c entre\n");
 		mlx_destroy_image(ray->mlx.mlx_ptr, ray->mlx.img_ptr);
-		// printf("pas de souc\n");
 	}
 	ray->mlx.img_ptr = mlx_new_image(ray->mlx.mlx_ptr, ray->mlx.x, ray->mlx.y);
 	ray->mlx.data_addr = mlx_get_data_addr(ray->mlx.img_ptr,\
@@ -327,12 +326,12 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	ray->posy = (double)parsing->player_y + 0.5;
 	ray->dda.mapx = (int)ray->posx;
 	ray->dda.mapy = (int)ray->posy;
+	ray->map[parsing->player_x][parsing->player_y] = '0';
 	set_dir_plan(parsing->player_dir, ray);
 	ray->resx = (double)elems->R_x_value;
 	ray->resy =  (double)elems->R_y_value;
-	// mlx_hook(ray->mlx.mlx_win, 2, 1L << 0, win_close, &ray);
-	mlx_hook(ray->mlx.mlx_win, KEYPRESS, 1L << 0, key_pressed, ray);
-	mlx_hook(ray->mlx.mlx_win, KEYRELEASE, 1L << 1, key_released, ray);
-	mlx_loop_hook(ray->mlx.mlx_ptr, loop, ray);
+	mlx_hook(ray->mlx.mlx_win, KEYPRESS, 1L << 0, &key_pressed, ray);
+	mlx_hook(ray->mlx.mlx_win, KEYRELEASE, 1L << 1, &key_released, ray);
+	mlx_loop_hook(ray->mlx.mlx_ptr, &loop, ray);
 	mlx_loop(ray->mlx.mlx_ptr);
 }

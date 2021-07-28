@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/cub3d.h"
+#include "../../includes/cub3d.h"
 
 char	*ft_strtrim(const char *s1, const char *set)
 {

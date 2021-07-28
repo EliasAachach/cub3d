@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	free_parsing(t_parsing *parsing, t_ray *ray)
 {

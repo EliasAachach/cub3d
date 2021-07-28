@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -120,7 +120,10 @@ int	wich_elem(char *line, t_elems *elems)
 			{
 				ret = check_next_char(line);
 				if (ret == 0)
+				{
+			write (1, "q\n", 2);
 					error_elems(line, elems, 0);
+				}
 			}
 			return (ret);
 		}

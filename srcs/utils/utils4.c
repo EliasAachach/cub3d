@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing/cub3d.h"
+#include "../../includes/cub3d.h"
 
 int	res_check(char *str, t_elems *elems, t_ray *ray)
 {

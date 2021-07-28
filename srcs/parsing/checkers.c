@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	check_colors(char *newline, int elem_flag, t_elems *elems, int i)
 {
@@ -56,12 +56,6 @@ void	arg_check(char **arg, int nbr_arg)
 		exit(0);
 	}
 	fd = open(arg[1], O_RDONLY);
-	if (fd < 0)
-	{
-		close (fd);
-		printf("Error\nFile is invalid");
-		exit(0);
-	}
 	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
 	{
 		close(fd);

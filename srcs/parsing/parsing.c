@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "gnl/get_next_line.h"
-#include "cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	last_line_check(char *line, t_parsing *parsing)
 {

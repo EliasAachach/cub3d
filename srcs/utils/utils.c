@@ -1,4 +1,4 @@
-#include "../parsing/cub3d.h"
+#include "../../includes/cub3d.h"
 
 char	*ft_strdup(char *s1)
 {
