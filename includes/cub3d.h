@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/22 15:11:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/28 19:11:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_mv
 	int		left;
 	int		right;
 	double	speed;
+	double	rotspeed;
 }				t_mv;
 
 typedef struct s_ray
@@ -161,10 +162,14 @@ typedef struct s_ray
 	double		posy;
 	double		dirx;
 	double		diry;
-	double		ray_dirx;
-	double		ray_diry;
+	double		olddirx;
+	double		olddiry;
 	double		planx;
 	double		plany;
+	double		oldplanx;
+	double		oldplany;
+	double		ray_dirx;
+	double		ray_diry;
 	double		camerax;
 	double		side_distx;
 	double		side_disty;
@@ -216,5 +221,7 @@ void    mv_left(t_ray *ray);
 void    mv_right(t_ray *ray);
 void	init_var(t_ray *ray, t_elems *elems);
 void	set_dir_plan(int player_dir, t_ray *ray);
+void    rot_left(t_ray *ray);
+void    rot_right(t_ray *ray);
 
 #endif

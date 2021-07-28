@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/22 16:26:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/28 19:06:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ void	init_var(t_ray *ray, t_elems *elems)
 	ray->mv.left = 0;
 	ray->mv.right = 0;
 	ray->mv.speed = 0.05;
+	ray->mv.rotspeed = 0.05;
 	ray->mlx.img_ptr = NULL;
 	ray->mlx.data_addr = NULL;
 	ray->mlx.mlx_win = mlx_new_window(ray->mlx.mlx_ptr,\
@@ -269,10 +270,10 @@ int	loop(t_ray *ray)
 		mv_dwnwrd(ray);
 	if (ray->mv.d == 1)
 		mv_right(ray);
-	// if (ray->mv.left == 1)
-	// 	rot_left(ray);
-	// if (ray->mv.right == 1)
-	// 	rot_right(ray);
+	if (ray->mv.left == 1)
+		rot_left(ray);
+	if (ray->mv.right == 1)
+		rot_right(ray);
 	raycast(ray);
 	put_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win, ray->mlx.img_ptr);
 	return (0);
