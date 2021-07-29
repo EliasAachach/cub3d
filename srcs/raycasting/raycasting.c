@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/28 19:06:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/29 16:30:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,21 +122,16 @@ void	data_draw(t_ray *ray)
 		ray->wall.r = 255 / 2;
 	else
 		ray->wall.r = 255;
-	if (ray->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy +\
-		(int)ray->dda.stepy] == '2')
-	{
-		ray->wall.r = 180;
-		ray->wall.g = 180;
-		ray->wall.b = 0;
-		if (ray->dda.side == 1)
-			ray->wall.g = 255 / 2;
-	}
-	// ray->roof.r = 0;
-	// ray->roof.g = 100;
-	// ray->roof.b = 150;
-	// ray->floor.r = 0;
-	// ray->floor.g = 100;
-	// ray->floor.b = 0;
+	// if (ray->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy +\
+	// 	(int)ray->dda.stepy] == '2')
+	// {
+	// 	ray->wall.r = 180;
+	// 	ray->wall.g = 180;
+	// 	ray->wall.b = 0;
+	// 	if (ray->dda.side == 1)
+	// 		ray->wall.g = 255 / 2;
+	// }
+	// CHECK SI ON EST A UN SPRITE (FAIT SEGFAULT)
 }
 
 void	colorpix(int x, int y, t_ray *ray, t_colors color)

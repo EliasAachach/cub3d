@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/07/28 19:12:02 by user42           ###   ########.fr        #
+#    Updated: 2021/07/29 11:07:43 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ OBJ = $(SRCS:.c=.o)
 
 L_CC = clang
 FLAGS = -Wall -Wextra -Werror
-L_LIB = -lmlx -lXext -lX11 -lm -lbsd -g
+L_LIB = -lmlx -lXext -lX11 -lm -lbsd -g -fsanitize=address
 
 ### COLORS ###
 
