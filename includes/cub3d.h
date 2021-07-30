@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/28 19:11:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/30 20:30:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,16 @@ typedef struct s_parsing
 	char	**valid_map;
 }				t_parsing;
 
+typedef struct	s_tex
+{
+	int			num;
+	double		wallx;
+	double		pos;
+	int			x;
+	int			y;
+	double		step;
+}				t_tex;
+
 typedef	struct s_dda
 {
 	int		mapx;
@@ -148,11 +158,22 @@ typedef struct s_mv
 	double	rotspeed;
 }				t_mv;
 
+typedef	struct s_img
+{
+	void	**addr;
+	char	**image;
+	int		height;
+	int		width;
+	int		s_line;
+}				t_img;
+
 typedef struct s_ray
 {
 	t_mv		mv;
 	t_mlx		mlx;
 	t_dda		dda;
+	t_img		img;
+	t_tex		tex;
 	t_draw		draw;
 	t_colors	roof;
 	t_colors	wall;

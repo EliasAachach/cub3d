@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/29 16:30:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/30 20:09:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,6 @@ void	data_draw(t_ray *ray)
 		ray->wall.r = 255 / 2;
 	else
 		ray->wall.r = 255;
-	// if (ray->map[ray->dda.mapx + (int)ray->dda.stepx][ray->dda.mapy +\
-	// 	(int)ray->dda.stepy] == '2')
-	// {
-	// 	ray->wall.r = 180;
-	// 	ray->wall.g = 180;
-	// 	ray->wall.b = 0;
-	// 	if (ray->dda.side == 1)
-	// 		ray->wall.g = 255 / 2;
-	// }
-	// CHECK SI ON EST A UN SPRITE (FAIT SEGFAULT)
 }
 
 void	colorpix(int x, int y, t_ray *ray, t_colors color)
@@ -314,6 +304,48 @@ int	key_released(int key, t_ray *ray)
 	return (0);
 }
 
+void	set_texture(t_ray *ray, t_elems *elems)
+{
+	ray->img.addr[0] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
+		elems->path_to_NO, &(ray->img.width), &(ray->img.height));
+	if (ray->img.addr[0] == NULL)
+		//ERROR
+	ray->img.addr[1] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
+		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
+	if (ray->img.addr[1] == NULL)
+		//ERROR
+	ray->img.addr[2] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
+		elems->path_to_SO, &(ray->img.width), &(ray->img.height));
+	if (ray->img.addr[2] == NULL)
+		//ERROR
+	ray->img.addr[3] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
+		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
+	if (ray->img.addr[3] == NULL)
+		//ERROR
+}
+
+void	init_texture(t_ray *ray, t_elems *elems)
+{
+	int i;
+
+	ray->img.addr = (void**)malloc(sizeof(void *) * 5);
+	if (!ray->img.addr)
+		//ERROR
+	ray->img.addr[4] = NULL;
+	set_texture(ray, elems);
+	ray->img.image = (char **)malloc(sizeof(char *) * 5);
+	if (!ray->img.image)
+		//ERROR
+	ray->img.image[4] = NULL;
+	i = 0;
+	while (i < 4)
+	{
+		ray->img.image[i] = mlx_get_data_addr(ray->img.addr[i],\
+			&(ray->mlx.bpp), &(ray->img.s_line), &(ray->mlx.endian));
+		i++;
+	}
+}
+
 void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 {
 	ray->mlx.x = elems->R_x_value;
@@ -326,6 +358,7 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	set_dir_plan(parsing->player_dir, ray);
 	ray->resx = (double)elems->R_x_value;
 	ray->resy =  (double)elems->R_y_value;
+	init_texture(ray, elems);
 	mlx_hook(ray->mlx.mlx_win, KEYPRESS, 1L << 0, &key_pressed, ray);
 	mlx_hook(ray->mlx.mlx_win, KEYRELEASE, 1L << 1, &key_released, ray);
 	mlx_loop_hook(ray->mlx.mlx_ptr, &loop, ray);
