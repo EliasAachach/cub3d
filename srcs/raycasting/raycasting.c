@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/30 20:09:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/30 21:22:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,11 @@ void	data_draw(t_ray *ray)
 	ray->draw.end_draw = ray->draw.line_height / 2 + ray->resy / 2;
 	if (ray->draw.end_draw >= ray->resy)
 		ray->draw.end_draw = ray->resy - 1;
-	if (ray->dda.side == 1)
-		ray->wall.r = 255 / 2;
+	if (ray->dda.side == 0)
+		ray->tex.wallx = ray->posy + ray->perp_wall_dist * ray->ray_diry;
 	else
-		ray->wall.r = 255;
+		ray->tex.wallx = ray->posx + ray->perp_wall_dist * ray->ray_diry;
+	ray->tex.wallx -= floor(ray->tex.wallx);
 }
 
 void	colorpix(int x, int y, t_ray *ray, t_colors color)
