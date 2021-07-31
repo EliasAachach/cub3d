@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/07/29 11:07:43 by user42           ###   ########.fr        #
+#    Updated: 2021/07/31 23:08:29 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,8 @@ SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:.c=.o)
 
 L_CC = clang
-FLAGS = -Wall -Wextra -Werror
-L_LIB = -lmlx -lXext -lX11 -lm -lbsd -g -fsanitize=address
-
+FLAGS = -Wall -Wextra -Werror -ggdb
+L_LIB = -lmlx -lXext -lX11 -lm -lbsd
 ### COLORS ###
 
 NOC = \033[0m
