@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/30 21:22:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/31 14:39:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ void	data_draw(t_ray *ray)
 	else
 		ray->tex.wallx = ray->posx + ray->perp_wall_dist * ray->ray_diry;
 	ray->tex.wallx -= floor(ray->tex.wallx);
+	ray->tex.x = (int)(ray->tex.wallx * (double)TEXWIDTH);
+	ray->tex.pos = (ray->draw.start_draw - ray->resy / 2 +\
+		ray->draw.line_height / 2) * ray->tex.step;
+	if (ray->dda.side == 0 && ray->ray_dirx > 0)
+		ray->tex.x = TEXWIDTH - ray->tex.x - 1;
+	if (ray->dda.side == 1 && ray->ray_diry < 0)
+		ray->tex.x = TEXWIDTH - ray->tex.x - 1;
+	ray->tex.step = (1.0 * TEXHEIGHT) / ray->draw.line_height;
 }
 
 void	colorpix(int x, int y, t_ray *ray, t_colors color)
@@ -146,6 +154,15 @@ void	fill_img(t_ray *ray, int x)
 			colorpix(x, y, ray, ray->roof);
 		else if(y >= ray->draw.start_draw && y <= ray->draw.end_draw)
 		{
+			ray->tex.step = (1.0 * TEXHEIGHT) / ray->draw.line_height;
+			ray->tex.y = (int)ray->tex.pos & (TEXHEIGHT - 1);
+			ray->tex.pos += ray->tex.step;
+			ray->wall.r = ray->img.image[ray->tex.num]\
+				[(TEXHEIGHT * ray->tex.y + ray->tex.x) * 4 + RGB_R];
+			ray->wall.g = ray->img.image[ray->tex.num]\
+				[(TEXHEIGHT * ray->tex.y + ray->tex.x) * 4 + RGB_G];
+			ray->wall.b = ray->img.image[ray->tex.num]\
+				[(TEXHEIGHT * ray->tex.y + ray->tex.x) * 4 + RGB_B];
 			colorpix(x, y, ray, ray->wall);
 		}
 		else
@@ -322,7 +339,7 @@ void	set_texture(t_ray *ray, t_elems *elems)
 	ray->img.addr[3] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[3] == NULL)
-		//ERROR
+		   //ERROR
 }
 
 void	init_texture(t_ray *ray, t_elems *elems)

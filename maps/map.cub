@@ -1,9 +1,9 @@
 R 720 480
-SO ./textures/path_to_the_south_texture
-NO ./textures/path_to_the_north_texture
-WE ./textures/path_to_the_west_texture
-EA ./textures/path_to_the_east_texture
-S ./textures/path_to_the_sprite_texture
+NO textures/wood.xpm
+SO textures/greystone.xpm
+WE textures/redbrick.xpm
+EA textures/eagle.xpm
+S textures/mv.xpm
 F 0,    120, 0
 C 70,170,190
 

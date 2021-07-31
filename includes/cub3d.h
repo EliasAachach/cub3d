@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/30 20:30:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/31 11:50:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 
 # define X_WALL 0
 # define Y_WALL 1
+
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
 
 # include <unistd.h>
 # include <stdio.h>
