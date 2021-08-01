@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/31 11:50:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/01 12:54:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ typedef	struct s_img
 	char	**image;
 	int		height;
 	int		width;
+	int		endian;
+	int		bpp;
 	int		s_line;
 }				t_img;
 

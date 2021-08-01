@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/01 00:45:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/01 22:36:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,22 @@ void	dda(t_ray *ray)
 			ray->side_distx += ray->delta_distx;
 			ray->dda.mapx += ray->dda.stepx;
 			ray->dda.side = X_WALL;
+			ray->tex.num = 0;
 		}
 		else
 		{
 			ray->side_disty += ray->delta_disty;
 			ray->dda.mapy += ray->dda.stepy;
 			ray->dda.side = Y_WALL;
+			ray->tex.num = 1;
 		}
 		if (ray->map[ray->dda.mapx][ray->dda.mapy] == '1')
 			ray->dda.hit = 1;
 	}
+	if (ray->tex.num == 0 && ray->posx > ray->dda.mapx)
+		ray->tex.num = 2;
+	else if (ray->tex.num && ray->posy > ray->dda.mapy)
+		ray->tex.num = 3;
 	if (ray->dda.side == X_WALL)
 		ray->perp_wall_dist = (ray->dda.mapx - ray->posx +\
 		(1 - ray->dda.stepx) / 2) / ray->ray_dirx;
@@ -235,7 +241,11 @@ void	init_var(t_ray *ray, t_elems *elems)
 		elems->R_x_value, elems->R_y_value, "Cub3d");
 	ray->mlx.bpp = 0;
 	ray->mlx.endian = 0;
+	ray->img.endian = 0;
+	ray->img.bpp = 0;
 	ray->img.s_line = 0;
+	ray->img.image = NULL;
+	ray->img.addr = NULL;
 }
 
 int            win_close(t_ray *ray)
@@ -330,27 +340,26 @@ void	set_texture(t_ray *ray, t_elems *elems)
 	ray->img.addr[0] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_NO, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[0] == NULL)
-		//ERROR
+		ft_putstr_fd("ZUT0\n");
 	ray->img.addr[1] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[1] == NULL)
-		//ERROR
+		ft_putstr_fd("ZUT1\n");
 	ray->img.addr[2] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_SO, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[2] == NULL)
-		//ERROR
+		ft_putstr_fd("ZUT2\n");
 	ray->img.addr[3] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[3] == NULL)
-		   return ;
-		   //ERROR
+		ft_putstr_fd("ZUT3\n");
 }
 
 void	init_texture(t_ray *ray, t_elems *elems)
 {
 	int i;
 
-	ray->img.addr = (void**)malloc(sizeof(void *) * 5);
+	ray->img.addr = (void **)malloc(sizeof(void *) * 5);
 	if (!ray->img.addr)
 		ft_putstr_fd("ERROR1\n");
 	ray->img.addr[4] = NULL;
@@ -362,10 +371,8 @@ void	init_texture(t_ray *ray, t_elems *elems)
 	i = 0;
 	while (i < 4)
 	{
-		ft_putnbr(i);
-		ft_putstr_fd("ds le while\n");
 		ray->img.image[i] = mlx_get_data_addr(ray->img.addr[i],\
-			&(ray->mlx.bpp), &(ray->img.s_line), &(ray->mlx.endian));
+			&(ray->img.bpp), &(ray->img.s_line), &(ray->img.endian));
 		i++;
 	}
 }
