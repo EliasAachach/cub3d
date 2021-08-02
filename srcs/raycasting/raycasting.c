@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/01 22:36:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/02 16:29:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	data_draw(t_ray *ray)
 	if (ray->dda.side == 0)
 		ray->tex.wallx = ray->posy + ray->perp_wall_dist * ray->ray_diry;
 	else
-		ray->tex.wallx = ray->posx + ray->perp_wall_dist * ray->ray_diry;
+		ray->tex.wallx = ray->posx + ray->perp_wall_dist * ray->ray_dirx;
 	ray->tex.wallx -= floor(ray->tex.wallx);
 	ray->tex.x = (int)(ray->tex.wallx * (double)TEXWIDTH);
 	ray->tex.pos = (ray->draw.start_draw - ray->resy / 2 +\
@@ -337,21 +337,21 @@ int	key_released(int key, t_ray *ray)
 
 void	set_texture(t_ray *ray, t_elems *elems)
 {
-	ray->img.addr[0] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
-		elems->path_to_NO, &(ray->img.width), &(ray->img.height));
-	if (ray->img.addr[0] == NULL)
-		ft_putstr_fd("ZUT0\n");
-	ray->img.addr[1] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
-		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
-	if (ray->img.addr[1] == NULL)
-		ft_putstr_fd("ZUT1\n");
 	ray->img.addr[2] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
-		elems->path_to_SO, &(ray->img.width), &(ray->img.height));
+		elems->path_to_NO, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[2] == NULL)
-		ft_putstr_fd("ZUT2\n");
+		ft_putstr_fd("ZUT0\n");
 	ray->img.addr[3] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
-		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
+		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[3] == NULL)
+		ft_putstr_fd("ZUT1\n");
+	ray->img.addr[0] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
+		elems->path_to_SO, &(ray->img.width), &(ray->img.height));
+	if (ray->img.addr[0] == NULL)
+		ft_putstr_fd("ZUT2\n");
+	ray->img.addr[1] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
+		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
+	if (ray->img.addr[1] == NULL)
 		ft_putstr_fd("ZUT3\n");
 }
 
