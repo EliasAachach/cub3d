@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/06 20:30:10 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:51:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	check_all_elems(t_elems *elems)
 {
 	if (elems->R_is_present == FALSE || elems->NO_is_present == FALSE
 		|| elems->EA_is_present == FALSE || elems->SO_is_present == FALSE
-		|| elems->WE_is_present == FALSE || elems->S_is_present == FALSE
-		|| elems->C_is_present == FALSE || elems->F_is_present == FALSE)
+		|| elems->WE_is_present == FALSE || elems->C_is_present == FALSE
+		|| elems->F_is_present == FALSE)
 		return (1);
 	return (0);
 }

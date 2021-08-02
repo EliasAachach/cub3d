@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/01 12:54:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/02 22:31:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_elems
 	int			C_is_present;
 	int			missing_elem;
 	int			double_elem;
+	int			err_flag;
 	int			R_x_value;
 	int			R_y_value;
 	int			r_F;
@@ -215,7 +216,7 @@ void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y);
 int		player_in_map(char c, t_parsing *parsing);
 void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag,\
 	t_ray *ray);
-void	error_elems(char *newline, t_elems *elems, int error_flag);
+void	error_elems(char *newline, t_elems *elems, t_ray *ray);
 void	get_path(char *newline, int elem_flag, t_elems *elems);
 void	get_elems(int fd, t_elems *elems, t_ray *ray);
 void	check_flag(int elem_flag, t_elems *elems);

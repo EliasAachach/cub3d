@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/08/01 15:13:03 by user42           ###   ########.fr        #
+#    Updated: 2021/08/02 21:19:40 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ OBJ = $(SRCS:.c=.o)
 
 L_CC = clang -ggdb
 FLAGS = -Wall -Wextra -Werror
-L_LIB = -lmlx -lXext -lX11 -lm -lbsd
+L_LIB = -L minilibx-linux -lmlx -lXext -lX11 -lm -lbsd
 ### COLORS ###
 
 NOC = \033[0m

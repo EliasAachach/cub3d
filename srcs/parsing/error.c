@@ -26,7 +26,8 @@ void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag,\
 	if (error_flag == 1)
 		printf("Error\nMap is open.");
 	free_parsing(parsing, ray);
-	error_elems(NULL, elems, 9);
+	elems->err_flag = 9;
+	error_elems(NULL, elems, ray);
 	exit(0);
 }
 
@@ -46,23 +47,30 @@ void	ft_free(char *newline, t_elems *elems)
 		free(elems->path_to_WE);
 }
 
-void	error_elems(char *newline, t_elems *elems, int error_flag)
+// void	error_mlx(t_ray *ray, t_elems *elems)
+// {
+// 	error_elems(NULL, elems, 6);
+// }
+
+void	error_elems(char *newline, t_elems *elems, t_ray *ray)
 {
 	char	*line;
 
 	line = NULL;
 	while (get_next_line(elems->error_fd, &line) == 1)
 		free(line);
-	 free(line);
-	if (error_flag == 0)
+	free(line);
+	if (elems->err_flag != 6)
+		mlx_destroy_display(ray->mlx.mlx_ptr);
+	if (elems->err_flag == 0)
 		printf("Error\nAn element is missing.");
-	if (error_flag == 1)
+	if (elems->err_flag == 1)
 		printf("Error\nAn element is present mutiple times.");
-	if (error_flag == 3)
+	if (elems->err_flag == 3)
 		printf("Error\nUnexpected error, check your map.");
-	if (error_flag == 4)
+	if (elems->err_flag == 4)
 		printf("Error\nMap is invalid.");
-	if (error_flag == 5)
+	if (elems->err_flag == 5)
 		printf("Error\nAn element is incorrect.");
 	ft_free(newline, elems);
 	exit(0);

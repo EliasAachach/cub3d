@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_elems.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:57:20 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/05 17:55:50 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:50:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	elem_present(t_elems *elems)
 {
 	if (elems->R_is_present == TRUE && elems->NO_is_present == TRUE
 		&& elems->SO_is_present == TRUE && elems->WE_is_present == TRUE
-		&& elems->EA_is_present == TRUE && elems->S_is_present == TRUE
-		&& elems->F_is_present == TRUE && elems->C_is_present == TRUE)
+		&& elems->EA_is_present == TRUE && elems->F_is_present == TRUE
+		&& elems->C_is_present == TRUE)
 		return (1);
 	return (0);
 }
