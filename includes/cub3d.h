@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/02 22:31:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/03 20:33:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_elems
 	int			g_C;
 	int			b_C;
 	int			error_fd;
+	int			elem_flag;
 	char		*path_to_S;
 	char		*path_to_NO;
 	char		*path_to_SO;
@@ -217,7 +218,7 @@ int		player_in_map(char c, t_parsing *parsing);
 void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag,\
 	t_ray *ray);
 void	error_elems(char *newline, t_elems *elems, t_ray *ray);
-void	get_path(char *newline, int elem_flag, t_elems *elems);
+void	get_path(char *newline, int elem_flag, t_elems *elems, t_ray *ray);
 void	get_elems(int fd, t_elems *elems, t_ray *ray);
 void	check_flag(int elem_flag, t_elems *elems);
 char	*del_spaces(char *line);
@@ -227,7 +228,7 @@ char	*ft_strtrim_inside(char *str);
 char	**ft_split(char const *s, char c);
 void	*ft_strfree(char **str);
 void	stock_values(char *newline, int elem_flag, t_elems *elems, t_ray *ray);
-int		wich_elem(char *line, t_elems *elems);
+int		wich_elem(char *line, t_elems *elems, t_ray *ray);
 int		res_check(char *str, t_elems *elems, t_ray *ray);
 void	find_map(int fd, t_parsing *parsing, t_ray *ray);
 int		is_first_line(char *line);

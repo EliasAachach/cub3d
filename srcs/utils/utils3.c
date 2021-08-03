@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:22:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/06 20:31:29 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/03 20:31:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	check_next_char(char *line)
 	return (0);
 }
 
-int	wich_elem(char *line, t_elems *elems)
+int	wich_elem(char *line, t_elems *elems, t_ray *ray)
 {
 	char	*charset;
 	int		i;
@@ -111,6 +111,7 @@ int	wich_elem(char *line, t_elems *elems)
 	i = 0;
 	ret = 0;
 	charset = "RNSWEFC";
+	elems->err_flag = 0;
 	while (charset[i])
 	{
 		if (line[0] == charset[i])
@@ -120,15 +121,12 @@ int	wich_elem(char *line, t_elems *elems)
 			{
 				ret = check_next_char(line);
 				if (ret == 0)
-				{
-			write (1, "q\n", 2);
-					error_elems(line, elems, 0);
-				}
+					error_elems(line, elems, ray);
 			}
 			return (ret);
 		}
 		i++;
 	}
-	error_elems(line, elems, 0);
+	error_elems(line, elems, ray);
 	return (0);
 }

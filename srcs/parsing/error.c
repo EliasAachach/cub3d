@@ -62,6 +62,8 @@ void	error_elems(char *newline, t_elems *elems, t_ray *ray)
 	free(line);
 	if (elems->err_flag != 6)
 		mlx_destroy_display(ray->mlx.mlx_ptr);
+	if (ray->mlx.mlx_ptr)
+		free(ray->mlx.mlx_ptr);
 	if (elems->err_flag == 0)
 		printf("Error\nAn element is missing.");
 	if (elems->err_flag == 1)

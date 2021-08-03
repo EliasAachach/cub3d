@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:53:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/02 18:03:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/03 20:29:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,15 @@ void	parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg)
 	last_line_check(elems->last_elem_line, parsing);
 	if (check_all_elems(elems) == 1)
 	{
+		elems->err_flag = 0;
 		elems->error_fd = fd;
-		error_elems(line, elems, 0);
+		error_elems(line, elems, ray);
 	}
 	if (rgb_check(elems) == 1)
 	{
+		elems->err_flag = 5;
 		elems->error_fd = fd;
-		error_elems(line, elems, 5);
+		error_elems(line, elems, ray);
 	}
 	parser2(fd, parsing, elems, ray);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:57:20 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/02 17:50:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/03 20:31:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	stock_elem(char *newline, t_ray *ray, int elem_flag, t_elems *elems)
 		|| elem_flag == 'W' + 'E' || elem_flag == 'E' + 'A'
 		|| elem_flag == 'S')
 	{
-		get_path(newline, elem_flag, elems);
+		get_path(newline, elem_flag, elems, ray);
 		free(newline);
 		return ;
 	}
@@ -62,10 +62,11 @@ void	stock_elem(char *newline, t_ray *ray, int elem_flag, t_elems *elems)
 
 void	elem_found(t_elems *elems, t_ray *ray, char *newline, int elem_flag)
 {
-	elem_flag = wich_elem(newline, elems);
+	elem_flag = wich_elem(newline, elems, ray);
 	check_flag(elem_flag, elems);
+	elems->err_flag = 1;
 	if (elems->double_elem)
-		error_elems(newline, elems, 1);
+		error_elems(newline, elems, ray);
 	stock_elem(newline, ray, elem_flag, elems);
 }
 
@@ -77,6 +78,7 @@ void	get_elems(int fd, t_elems *elems, t_ray *ray)
 
 	line = NULL;
 	elem_flag = 0;
+	elems->err_flag = 0;
 	while (get_next_line(fd, &line) == 1)
 	{
 		elems->error_fd = fd;
@@ -88,7 +90,7 @@ void	get_elems(int fd, t_elems *elems, t_ray *ray)
 		}
 		newline = del_spaces(line);
 		if (newline == NULL)
-			error_elems(line, elems, 0);
+			error_elems(line, elems, ray);
 		free(line);
 		if (ft_strlen(newline) > 0)
 			elem_found(elems, ray, newline, elem_flag);

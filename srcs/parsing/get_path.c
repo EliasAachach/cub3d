@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:44:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 17:37:14 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/03 20:27:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	existing_path(char *tmp)
 	return (0);
 }
 
-void	get_path(char *newline, int elem_flag, t_elems *elems)
+void	get_path(char *newline, int elem_flag, t_elems *elems, t_ray *ray)
 {
 	int		i;
 	int		j;
@@ -114,7 +114,8 @@ void	get_path(char *newline, int elem_flag, t_elems *elems)
 	if (ft_strdup_path(tmp, elem_flag, elems) == 1 || existing_path(tmp) == 1)
 	{
 		free(tmp);
-		error_elems(newline, elems, 5);
+		elems->err_flag = 5;
+		error_elems(newline, elems, ray);
 	}
 	free(tmp);
 }
