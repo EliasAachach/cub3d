@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/06 23:24:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/07 00:04:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	arg_check(char **arg, int nbr_arg, t_ray *ray)
 
 	if (nbr_arg != 2)
 	{
+		if (ray->mlx.mlx_ptr)
+		{
+			mlx_destroy_display(ray->mlx.mlx_ptr);
+			free(ray->mlx.mlx_ptr);
+		}
 		printf("Error\nWrong number of arguments.");
 		exit(0);
 	}
@@ -60,7 +65,6 @@ void	arg_check(char **arg, int nbr_arg, t_ray *ray)
 	{
 		close(fd);
 		printf("Error\nFile is invalid");
-		
 		if (ray->mlx.mlx_ptr)
 		{
 			mlx_destroy_display(ray->mlx.mlx_ptr);
