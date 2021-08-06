@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/02 16:29:33 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/06 23:19:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,7 @@ int            win_close(t_ray *ray)
 	if (ray->mlx.mlx_ptr && ray->mlx.mlx_win)
 		mlx_destroy_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win);
 	// mlx_clear_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win);
+	error_mlx(ray);
 	exit(0);
 	return (0);
 }
@@ -340,19 +341,19 @@ void	set_texture(t_ray *ray, t_elems *elems)
 	ray->img.addr[2] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_NO, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[2] == NULL)
-		ft_putstr_fd("ZUT0\n");
+		error_mlx(ray);
 	ray->img.addr[3] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[3] == NULL)
-		ft_putstr_fd("ZUT1\n");
+		error_mlx(ray);
 	ray->img.addr[0] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_SO, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[0] == NULL)
-		ft_putstr_fd("ZUT2\n");
+		error_mlx(ray);
 	ray->img.addr[1] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr,\
 		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[1] == NULL)
-		ft_putstr_fd("ZUT3\n");
+		error_mlx(ray);
 }
 
 void	init_texture(t_ray *ray, t_elems *elems)
@@ -361,12 +362,12 @@ void	init_texture(t_ray *ray, t_elems *elems)
 
 	ray->img.addr = (void **)malloc(sizeof(void *) * 5);
 	if (!ray->img.addr)
-		ft_putstr_fd("ERROR1\n");
+		error_mlx(ray);
 	ray->img.addr[4] = NULL;
 	set_texture(ray, elems);
 	ray->img.image = (char **)malloc(sizeof(char *) * 5);
 	if (!ray->img.image)
-		ft_putstr_fd("ERROR1\n");
+		error_mlx(ray);
 	ray->img.image[4] = NULL;
 	i = 0;
 	while (i < 4)
@@ -389,6 +390,7 @@ void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	set_dir_plan(parsing->player_dir, ray);
 	ray->resx = (double)elems->R_x_value;
 	ray->resy =  (double)elems->R_y_value;
+	err_ptr(ray, elems);
 	init_texture(ray, elems);
 	mlx_hook(ray->mlx.mlx_win, KEYPRESS, 1L << 0, &key_pressed, ray);
 	mlx_hook(ray->mlx.mlx_win, KEYRELEASE, 1L << 1, &key_released, ray);

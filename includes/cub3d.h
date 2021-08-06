@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/03 20:33:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/06 23:24:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,15 @@ typedef	struct s_img
 	int		s_line;
 }				t_img;
 
+typedef	struct s_err
+{
+	char *NO;
+	char *SO;
+	char *EA;
+	char *WE;
+}				t_err;
+
+
 typedef struct s_ray
 {
 	t_mv		mv;
@@ -181,6 +190,7 @@ typedef struct s_ray
 	t_dda		dda;
 	t_img		img;
 	t_tex		tex;
+	t_err		err;
 	t_draw		draw;
 	t_colors	roof;
 	t_colors	wall;
@@ -237,19 +247,22 @@ char	**alloc_map(int nbr_lines, int longest_line);
 char	*del_spaces(char *line);
 void	valid_map(t_parsing *parsing, t_ray *ray);
 int		rgb_check(t_elems *elems);
-void	arg_check(char **arg, int nbr_arg);
+void	arg_check(char **arg, int nbr_arg, t_ray *ray);
 int		check_all_elems(t_elems *elems);
 void	check_colors(char *newline, int elem_flag, t_elems *elems, int i);
 int		final_check(char **final, int i);
-void    raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray);
-void    parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg);
-void    mv_frwrd(t_ray *ray);
-void    mv_dwnwrd(t_ray *ray);
-void    mv_left(t_ray *ray);
-void    mv_right(t_ray *ray);
+void	raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray);
+void	parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg);
+void	mv_frwrd(t_ray *ray);
+void	mv_dwnwrd(t_ray *ray);
+void	mv_left(t_ray *ray);
+void	mv_right(t_ray *ray);
 void	init_var(t_ray *ray, t_elems *elems);
 void	set_dir_plan(int player_dir, t_ray *ray);
-void    rot_left(t_ray *ray);
-void    rot_right(t_ray *ray);
+void	rot_left(t_ray *ray);
+void	rot_right(t_ray *ray);
+void	error_mlx(t_ray *ray);
+void	err_ptr(t_ray *ray, t_elems *elems);
+void	free_texture(t_ray *ray);
 
 #endif

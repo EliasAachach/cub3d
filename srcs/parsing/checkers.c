@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/02 17:51:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/06 23:24:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_all_elems(t_elems *elems)
 	return (0);
 }
 
-void	arg_check(char **arg, int nbr_arg)
+void	arg_check(char **arg, int nbr_arg, t_ray *ray)
 {
 	int	fd;
 
@@ -60,6 +60,12 @@ void	arg_check(char **arg, int nbr_arg)
 	{
 		close(fd);
 		printf("Error\nFile is invalid");
+		
+		if (ray->mlx.mlx_ptr)
+		{
+			mlx_destroy_display(ray->mlx.mlx_ptr);
+			free(ray->mlx.mlx_ptr);
+		}
 		exit(0);
 	}
 	close(fd);

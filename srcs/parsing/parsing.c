@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:53:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/03 20:29:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/06 23:23:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	parser(t_parsing *parsing, t_elems *elems, t_ray *ray, char **arg)
 	char	*line;
 
 	line = NULL;
-	arg_check(arg, parsing->nbr_arg);
+	arg_check(arg, parsing->nbr_arg, ray);
 	parsing->filename = arg[1];
 	fd = open(parsing->filename, O_RDONLY);
 	get_elems(fd, elems, ray);

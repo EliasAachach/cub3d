@@ -47,10 +47,46 @@ void	ft_free(char *newline, t_elems *elems)
 		free(elems->path_to_WE);
 }
 
-// void	error_mlx(t_ray *ray, t_elems *elems)
-// {
-// 	error_elems(NULL, elems, 6);
-// }
+void	free_texture(t_ray *ray)
+{
+	int i;
+
+	i = 0;
+	while (ray->img.addr[i])
+	{
+		if (ray->img.addr[i])
+			mlx_destroy_image(ray->mlx.mlx_ptr, ray->img.addr[i]);
+		i++;
+	}
+	if (ray->img.addr)
+		free(ray->img.addr);
+	if (ray->img.image)
+		free(ray->img.image);
+}
+
+void	err_ptr(t_ray *ray, t_elems *elems)
+{
+	ray->err.NO = elems->path_to_NO;
+	ray->err.SO = elems->path_to_SO;
+	ray->err.WE = elems->path_to_WE;
+	ray->err.EA = elems->path_to_EA;
+}
+
+void	error_mlx(t_ray *ray)
+{
+	// free_ptr(void **addr);
+	
+	if (ray->err.NO)
+		free(ray->err.NO);
+	if (ray->err.SO)
+		free(ray->err.SO);
+	if (ray->err.EA)
+		free(ray->err.EA);
+	if (ray->err.WE)
+		free(ray->err.WE);
+	free_texture(ray);
+	// error_elems(NULL, elems, ray);
+}
 
 void	error_elems(char *newline, t_elems *elems, t_ray *ray)
 {
