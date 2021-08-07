@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/06 23:24:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 00:31:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,5 +264,6 @@ void	rot_right(t_ray *ray);
 void	error_mlx(t_ray *ray);
 void	err_ptr(t_ray *ray, t_elems *elems);
 void	free_texture(t_ray *ray);
+void	ft_free(char *newline, t_elems *elems);
 
 #endif

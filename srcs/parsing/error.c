@@ -74,8 +74,9 @@ void	err_ptr(t_ray *ray, t_elems *elems)
 
 void	error_mlx(t_ray *ray)
 {
-	// free_ptr(void **addr);
-	
+	int i;
+
+	i = 0;
 	if (ray->err.NO)
 		free(ray->err.NO);
 	if (ray->err.SO)
@@ -85,6 +86,21 @@ void	error_mlx(t_ray *ray)
 	if (ray->err.WE)
 		free(ray->err.WE);
 	free_texture(ray);
+	if (ray->mlx.mlx_ptr)
+	{
+		mlx_destroy_display(ray->mlx.mlx_ptr);
+		free(ray->mlx.mlx_ptr);
+	}
+	if (ray->map)
+	{
+		while (ray->map[i])
+		{
+			free(ray->map[i]);
+			i++;
+		}
+		free(ray->map);
+	}
+	exit(0);
 	// error_elems(NULL, elems, ray);
 }
 
