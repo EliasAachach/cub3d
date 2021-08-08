@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:30 by elaachac          #+#    #+#             */
-/*   Updated: 2021/07/21 19:04:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 19:25:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	res_check(char *str, t_elems *elems, t_ray *ray)
 {
@@ -35,7 +35,7 @@ int	res_check(char *str, t_elems *elems, t_ray *ray)
 	return (0);
 }
 
-char 	*del_spaces(char *line)
+char	*del_spaces(char *line)
 {
 	int		i;
 	char	*newline;

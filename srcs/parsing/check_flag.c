@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_flag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:01:43 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 16:02:03 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/08 19:27:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	check_flag4(int elem_flag, t_elems *elems)
 {

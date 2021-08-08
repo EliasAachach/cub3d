@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:44:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/03 20:27:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 19:41:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 char	*ft_strndup(char *s1, int len, int i)
 {
@@ -97,7 +97,6 @@ void	get_path(char *newline, int elem_flag, t_elems *elems, t_ray *ray)
 	int		len;
 	char	*tmp;
 
-	j = 0;
 	i = 2;
 	len = 0;
 	if (elem_flag == 'S')

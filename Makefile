@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/08/08 18:42:42 by user42           ###   ########.fr        #
+#    Updated: 2021/08/08 19:44:12 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ vpath %.c srcs/raycasting
 
 FILES =	./srcs/parsing/main\
 		./srcs/parsing/checkers\
+		./srcs/parsing/init_parsing\
 		./srcs/parsing/check_flag\
 		./srcs/parsing/find_map\
 		./srcs/parsing/find_map2\
@@ -30,6 +31,7 @@ FILES =	./srcs/parsing/main\
 		./srcs/parsing/flood_fill\
 		./srcs/parsing/parsing\
 		./srcs/parsing/error\
+		./srcs/parsing/error2\
 		./srcs/parsing/get_path\
 		./srcs/parsing/valid_map\
 		./srcs/parsing/gnl/get_next_line\

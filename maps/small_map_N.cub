@@ -1,0 +1,16 @@
+R 720 480
+NO images/wood.xpm
+SO images/greystone.xpm
+WE images/redbrick.xpm
+EA images/eagle.xpm
+S images/mv.xpm
+F 75,74,74
+C 1,10,254
+
+111111
+100001
+100001
+100001
+100011
+100N01
+111111

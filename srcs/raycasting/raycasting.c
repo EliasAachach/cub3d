@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/08 19:22:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 23:24:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	win_close(t_ray *ray)
 		mlx_clear_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win);
 		mlx_destroy_window(ray->mlx.mlx_ptr, ray->mlx.mlx_win);
 	}
-	error_mlx(ray);
+	printf("Exiting Cub3d\n");
+	error_mlx(ray, 0);
 	exit(0);
 	return (0);
 }

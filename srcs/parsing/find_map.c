@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:53:49 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 18:01:16 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/08 19:36:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	end_of_loop(t_parsing *parsing, char *line, char *newline)
 {

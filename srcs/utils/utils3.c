@@ -6,11 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:22:58 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/03 20:31:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 19:25:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	ft_bzero(void *s, size_t n)
 {

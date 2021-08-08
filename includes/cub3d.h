@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/08 19:03:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 23:28:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ void	init_var(t_ray *ray, t_elems *elems);
 void	set_dir_plan(int player_dir, t_ray *ray);
 void	rot_left(t_ray *ray);
 void	rot_right(t_ray *ray);
-void	error_mlx(t_ray *ray);
+void	error_mlx(t_ray *ray, int error_malloc);
 void	err_ptr(t_ray *ray, t_elems *elems);
 void	free_texture(t_ray *ray);
 int		key_pressed(int key, t_ray *ray);
@@ -277,5 +277,7 @@ void	put_window(void *mlx_ptr, void *win_ptr, void *img);
 void	dda(t_ray *ray);
 void	set_step_sidedist(t_ray *ray);
 void	set_dir_plan(int player_dir, t_ray *ray);
+void	ft_free(char *newline, t_elems *elems);
+void	init_parsing(t_parsing *parsing, t_elems *elems, int argc, t_ray *ray);
 
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_map2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 18:03:15 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/04 18:10:34 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/08 19:36:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	is_first_line(char *line)
 {

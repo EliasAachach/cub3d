@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:57:20 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/03 20:31:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 19:53:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ void	elem_found(t_elems *elems, t_ray *ray, char *newline, int elem_flag)
 {
 	elem_flag = wich_elem(newline, elems, ray);
 	check_flag(elem_flag, elems);
-	elems->err_flag = 1;
 	if (elems->double_elem)
+	{
+		elems->err_flag = 1;
 		error_elems(newline, elems, ray);
+	}
 	stock_elem(newline, ray, elem_flag, elems);
 }
 
