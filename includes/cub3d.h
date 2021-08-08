@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/08 00:31:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/08 19:03:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_parsing
 	char	**valid_map;
 }				t_parsing;
 
-typedef struct	s_tex
+typedef struct s_tex
 {
 	int			num;
 	double		wallx;
@@ -113,7 +113,7 @@ typedef struct	s_tex
 	double		step;
 }				t_tex;
 
-typedef	struct s_dda
+typedef struct s_dda
 {
 	int		mapx;
 	int		mapy;
@@ -123,7 +123,7 @@ typedef	struct s_dda
 	int		hit;
 }				t_dda;
 
-typedef	struct s_draw
+typedef struct s_draw
 {
 	int		line_height;
 	int		start_draw;
@@ -155,7 +155,7 @@ typedef struct s_mv
 {
 	int		w;
 	int		a;
-	int 	s;
+	int		s;
 	int		d;
 	int		left;
 	int		right;
@@ -163,7 +163,7 @@ typedef struct s_mv
 	double	rotspeed;
 }				t_mv;
 
-typedef	struct s_img
+typedef struct s_img
 {
 	void	**addr;
 	char	**image;
@@ -174,14 +174,13 @@ typedef	struct s_img
 	int		s_line;
 }				t_img;
 
-typedef	struct s_err
+typedef struct s_err
 {
-	char *NO;
-	char *SO;
-	char *EA;
-	char *WE;
+	char	*NO;
+	char	*SO;
+	char	*EA;
+	char	*WE;
 }				t_err;
-
 
 typedef struct s_ray
 {
@@ -225,7 +224,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_atoi(const char *str);
 void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y);
 int		player_in_map(char c, t_parsing *parsing);
-void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag,\
+void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag, \
 	t_ray *ray);
 void	error_elems(char *newline, t_elems *elems, t_ray *ray);
 void	get_path(char *newline, int elem_flag, t_elems *elems, t_ray *ray);
@@ -264,6 +263,19 @@ void	rot_right(t_ray *ray);
 void	error_mlx(t_ray *ray);
 void	err_ptr(t_ray *ray, t_elems *elems);
 void	free_texture(t_ray *ray);
-void	ft_free(char *newline, t_elems *elems);
+int		key_pressed(int key, t_ray *ray);
+int		key_released(int key, t_ray *ray);
+int		win_close(t_ray *ray);
+int		loop(t_ray *ray);
+void	init_texture(t_ray *ray, t_elems *elems);
+void	set_texture(t_ray *ray, t_elems *elems);
+void	fill_img(t_ray *ray, int x);
+void	colorpix(int x, int y, t_ray *ray, t_colors color);
+void	data_draw(t_ray *ray);
+void	init_image(t_ray *ray);
+void	put_window(void *mlx_ptr, void *win_ptr, void *img);
+void	dda(t_ray *ray);
+void	set_step_sidedist(t_ray *ray);
+void	set_dir_plan(int player_dir, t_ray *ray);
 
 #endif

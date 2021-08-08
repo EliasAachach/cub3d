@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/08/08 00:39:10 by user42           ###   ########.fr        #
+#    Updated: 2021/08/08 18:42:42 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,11 @@ FILES =	./srcs/parsing/main\
 		./srcs/raycasting/raycasting\
 		./srcs/raycasting/move\
 		./srcs/raycasting/move2\
+		./srcs/raycasting/key\
+		./srcs/raycasting/texture\
+		./srcs/raycasting/image\
+		./srcs/raycasting/init_ray\
+		./srcs/raycasting/dda\
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:.c=.o)
