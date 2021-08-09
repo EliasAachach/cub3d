@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:53:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/06 23:23:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/09 00:44:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	parser2(int fd, t_parsing *parsing, t_elems *elems, t_ray *ray)
 	close(fd);
 	if (parsing->map_error == TRUE)
 		parse_error(parsing, elems, 0, ray);
+		printf("oui\n");
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing, ray);
 	valid_map(parsing, ray);

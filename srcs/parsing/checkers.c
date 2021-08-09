@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/07 00:04:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/09 00:08:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	arg_check(char **arg, int nbr_arg, t_ray *ray)
 			mlx_destroy_display(ray->mlx.mlx_ptr);
 			free(ray->mlx.mlx_ptr);
 		}
-		printf("Error\nWrong number of arguments.");
+		printf("Error\nWrong number of arguments.\n");
 		exit(0);
 	}
 	fd = open(arg[1], O_RDONLY);
 	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
 	{
 		close(fd);
-		printf("Error\nFile is invalid");
+		printf("Error\nFile is invalid.\n");
 		if (ray->mlx.mlx_ptr)
 		{
 			mlx_destroy_display(ray->mlx.mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:27:26 by user42            #+#    #+#             */
-/*   Updated: 2021/08/08 19:32:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/09 00:16:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag, \
 	t_ray *ray)
 {
 	if (error_flag == 0)
-		printf("Error\nMap is invalid.");
+		printf("Error\nMap is invalid.\n");
 	if (error_flag == 1)
-		printf("Error\nMap is open.");
+		printf("Error\nMap is open.\n");
 	free_parsing(parsing, ray);
 	elems->err_flag = 9;
 	error_elems(NULL, elems, ray);

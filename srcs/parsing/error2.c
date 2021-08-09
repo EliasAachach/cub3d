@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:29:53 by user42            #+#    #+#             */
-/*   Updated: 2021/08/08 23:37:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/09 00:09:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	error_mlx(t_ray *ray, int error_malloc)
 
 	i = 0;
 	if (error_malloc == 1)
-		printf("Error\nMalloc error, something went wrong");
+		printf("Error\nMalloc error, something went wrong.\n");
 	error_mlx2(ray, error_malloc);
 	if (ray->mlx.mlx_ptr)
 	{
@@ -68,15 +68,15 @@ void	error_elems(char *newline, t_elems *elems, t_ray *ray)
 	if (ray->mlx.mlx_ptr)
 		free(ray->mlx.mlx_ptr);
 	if (elems->err_flag == 0)
-		printf("Error\nAn element is missing or wrong.");
+		printf("Error\nAn element is missing or wrong.\n");
 	if (elems->err_flag == 1)
-		printf("Error\nAn element is present mutiple times.");
+		printf("Error\nAn element is present mutiple times.\n");
 	if (elems->err_flag == 3)
-		printf("Error\nUnexpected error, check your map.");
+		printf("Error\nUnexpected error, check your map.\n");
 	if (elems->err_flag == 4)
-		printf("Error\nMap is invalid.");
+		printf("Error\nMap is invalid.\n");
 	if (elems->err_flag == 5)
-		printf("Error\nAn element is incorrect.");
+		printf("Error\nAn element is incorrect.\n");
 	ft_free(newline, elems);
 	exit(0);
 }
