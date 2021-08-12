@@ -1,9 +1,9 @@
 R 720 480
-NO images/wood.xpm
-SO images/greystone.xpm
-WE images/redbrick.xpm
-EA images/eagle.xpm
-S images/mv.xpm
+NO textures/wood.xpm
+SO textures/greystone.xpm
+WE textures/redbrick.xpm
+EA textures/eagle.xpm
+S textures/mv.xpm
 F 75,74,74
 C 1,10,254
 111111

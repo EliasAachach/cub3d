@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:29:53 by user42            #+#    #+#             */
-/*   Updated: 2021/08/09 00:09:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:46:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	error_mlx2(t_ray *ray, int error_malloc)
 		free(ray->err.EA);
 	if (ray->err.WE)
 		free(ray->err.WE);
+	if (ray->err.S)
+		free(ray->err.S);
 	free_texture(ray);
 }
 

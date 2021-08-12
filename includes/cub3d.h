@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/08 23:28:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:46:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ typedef struct s_err
 	char	*SO;
 	char	*EA;
 	char	*WE;
+	char	*S;
 }				t_err;
 
 typedef struct s_ray

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:27:26 by user42            #+#    #+#             */
-/*   Updated: 2021/08/12 15:29:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:46:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	err_ptr(t_ray *ray, t_elems *elems)
 	ray->err.SO = elems->path_to_SO;
 	ray->err.WE = elems->path_to_WE;
 	ray->err.EA = elems->path_to_EA;
+	ray->err.S = elems->path_to_S;
 }
