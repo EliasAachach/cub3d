@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:37:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/08 19:37:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:53:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	check_sides(char side)
 	if (side == '0')
 		return (0);
 	if (side == '1')
-		return (0);
-	if (side == '2')
 		return (0);
 	if (side == ' ')
 		return (0);
@@ -71,13 +69,9 @@ void	flood_fill(t_parsing *parsing, char **ff_map, int x, int y)
 		}
 	}
 	ff_check(parsing, ff_map, x, y);
-	if (ff_map[x][y] == '0' || ff_map[x][y] == '2'
-		|| ff_map[x][y] == ' ')
+	if (ff_map[x][y] == '0' || ff_map[x][y] == ' ')
 	{
-		if (ff_map[x][y] == '2')
-			ff_map[x][y] = -3;
-		else
-			ff_map[x][y] = -1;
+		ff_map[x][y] = -1;
 		flood_fill(parsing, ff_map, x, y + 1);
 		flood_fill(parsing, ff_map, x, y - 1);
 		flood_fill(parsing, ff_map, x + 1, y);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/12 16:46:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:45:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,7 @@ int		key_pressed(int key, t_ray *ray);
 int		key_released(int key, t_ray *ray);
 int		win_close(t_ray *ray);
 int		loop(t_ray *ray);
+int		key_leave(t_ray *ray);
 void	init_texture(t_ray *ray, t_elems *elems);
 void	set_texture(t_ray *ray, t_elems *elems);
 void	fill_img(t_ray *ray, int x);

@@ -6,19 +6,22 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:27:26 by user42            #+#    #+#             */
-/*   Updated: 2021/08/12 16:46:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 11:53:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_parsing(t_parsing *parsing, t_ray *ray)
+void	free_parsing(t_parsing *parsing, t_ray *ray, int error_flag)
 {
 	int	i;
 
 	i = 0;
+	if (error_flag == 1)
+	{
 	if (parsing->first_line)
 		free(parsing->first_line);
+	}
 	if (ray->map)
 	{
 		while (ray->map[i])
@@ -32,12 +35,19 @@ void	free_parsing(t_parsing *parsing, t_ray *ray)
 
 void	parse_error(t_parsing *parsing, t_elems *elems, int error_flag, \
 	t_ray *ray)
-{
+{	
+	char	*line;
+
+	line = NULL;
+	while (get_next_line(elems->error_fd, &line) == 1)
+		free(line);
+	free(line);
+	close (elems->error_fd);
 	if (error_flag == 0)
 		printf("Error\nMap is invalid.\n");
 	if (error_flag == 1)
 		printf("Error\nMap is open.\n");
-	free_parsing(parsing, ray);
+	free_parsing(parsing, ray, error_flag);
 	elems->err_flag = 9;
 	error_elems(NULL, elems, ray);
 	exit(0);

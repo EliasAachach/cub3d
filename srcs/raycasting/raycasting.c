@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 12:38:42 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/08 23:24:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:49:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	raycasting(t_parsing *parsing, t_elems *elems, t_ray *ray)
 	err_ptr(ray, elems);
 	init_texture(ray, elems);
 	mlx_hook(ray->mlx.mlx_win, KEYPRESS, 1L << 0, &key_pressed, ray);
+	mlx_hook(ray->mlx.mlx_win, 33, (1L << 17), &key_leave, ray);
 	mlx_hook(ray->mlx.mlx_win, KEYRELEASE, 1L << 1, &key_released, ray);
 	mlx_loop_hook(ray->mlx.mlx_ptr, &loop, ray);
 	mlx_loop(ray->mlx.mlx_ptr);

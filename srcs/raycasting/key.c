@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:18:15 by user42            #+#    #+#             */
-/*   Updated: 2021/08/08 19:15:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:44:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ int	key_pressed(int key, t_ray *ray)
 	if (key == RIGHT_KEY)
 		ray->mv.right = 1;
 	loop(ray);
+	return (0);
+}
+
+int	key_leave(t_ray *ray)
+{
+	win_close(ray);
 	return (0);
 }
 

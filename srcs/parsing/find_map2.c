@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 18:03:15 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/08 19:36:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:52:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_line(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != '2' && line[i] != ' '
+		if (line[i] != '0' && line[i] != '1' && line[i] != ' '
 			&& line[i] != 'N' && line[i] != 'S' && line[i] != 'E'
 			&& line[i] != 'W')
 			return (1);

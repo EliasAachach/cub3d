@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:29:53 by user42            #+#    #+#             */
-/*   Updated: 2021/08/12 16:46:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/13 11:47:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	error_elems(char *newline, t_elems *elems, t_ray *ray)
 	while (get_next_line(elems->error_fd, &line) == 1)
 		free(line);
 	free(line);
+	close (elems->error_fd);
 	if (elems->err_flag != 6)
 		mlx_destroy_display(ray->mlx.mlx_ptr);
 	if (ray->mlx.mlx_ptr)

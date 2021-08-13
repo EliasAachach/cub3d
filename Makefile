@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/08/08 19:44:12 by user42           ###   ########.fr        #
+#    Updated: 2021/08/13 12:01:13 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ FILES =	./srcs/parsing/main\
 SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:.c=.o)
 
-L_CC = clang -ggdb
+L_CC = clang
 FLAGS = -Wall -Wextra -Werror
 L_LIB = -L minilibx-linux -lmlx -lXext -lX11 -lm -lbsd
 ### COLORS ###
@@ -78,11 +78,11 @@ $(NAME): 	$(OBJ)
 			@echo " $(VIOLET)[$(L_CC)] $(GREEN)[$(FLAGS)]$(NOC) $(YELLOW)in progress ...:$(NOC) $< $(RED)->$(NOC) $@"
 			@$(L_CC) -c -I$(INC_PATH) $< -o ${<:.c=.o}
 clean:
-	@echo "$(RED)Removing '.o' objects: $(NOC) $@\n"
+	@echo "$(RED)Removing '.o' objects: $(NOC) $@"
 	@rm -f $(OBJ)
 
 fclean: clean
-	@echo "$(RED)Removing executable: $(NOC) $@\n"
+	@echo "$(RED)Removing executable: $(NOC) $@"
 	@rm -f $(NAME)
 
 re: fclean all

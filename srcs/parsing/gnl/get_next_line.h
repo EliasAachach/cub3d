@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 15:18:55 by elaachac          #+#    #+#             */
-/*   Updated: 2021/04/21 16:22:56 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/13 11:14:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <string.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 200
+#  define BUFFER_SIZE 1
 # endif
 
 char	*ft_substr(const char *s, unsigned int start, size_t n);
