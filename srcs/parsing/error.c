@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:27:26 by user42            #+#    #+#             */
-/*   Updated: 2021/08/13 11:53:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/15 14:56:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	free_parsing(t_parsing *parsing, t_ray *ray, int error_flag)
 	int	i;
 
 	i = 0;
-	if (error_flag == 1)
+	if (error_flag == 1 || error_flag == 0)
 	{
 	if (parsing->first_line)
 		free(parsing->first_line);
 	}
+	
 	if (ray->map)
 	{
 		while (ray->map[i])
