@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/09 00:08:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 13:49:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	check_colors(char *newline, int elem_flag, t_elems *elems, int i)
 	while ((newline[i] >= '0' && newline[i] <= '9') || newline[i] == ',')
 	{
 		if (coma > 2 || color > 3 || all > 11)
+		{
 			error_elems(newline, elems, 0);
+		}
 		if (newline[i] == ',')
 		{
 			coma++;

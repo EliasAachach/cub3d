@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/08/13 12:01:13 by user42           ###   ########.fr        #
+#    Updated: 2021/08/17 14:02:33 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ FILES =	./srcs/parsing/main\
 SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:.c=.o)
 
-L_CC = clang
+L_CC = clang -g
 FLAGS = -Wall -Wextra -Werror
 L_LIB = -L minilibx-linux -lmlx -lXext -lX11 -lm -lbsd
 ### COLORS ###

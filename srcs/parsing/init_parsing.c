@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:43:53 by user42            #+#    #+#             */
-/*   Updated: 2021/08/08 19:46:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 11:34:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_parsing2(t_parsing *parsing, t_elems *elems, int argc, t_ray *ray)
 	elems->path_to_SO = NULL;
 	elems->path_to_EA = NULL;
 	elems->path_to_WE = NULL;
+	elems->last_elem_line = NULL;
 	ray->mlx.mlx_ptr = mlx_init();
 }
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:53:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/15 14:49:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 14:01:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	parser2(int fd, t_parsing *parsing, t_elems *elems, t_ray *ray)
 	parsing->nbr_lines_map = parsing->nbr_lines;
 	elems->error_fd = fd;
 	if (parsing->map_error == TRUE)
-		parse_error(parsing, elems, 0, ray);
+		parse_error(parsing, elems, 8, ray);
 	fd = open(parsing->filename, O_RDONLY);
 	get_map(fd, parsing, ray);
 	valid_map(parsing, ray);
