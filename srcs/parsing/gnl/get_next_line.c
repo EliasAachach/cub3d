@@ -6,11 +6,29 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 20:54:13 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/17 14:04:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 19:34:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strdupgnl(char *s1)
+{
+	size_t	i;
+	char	*s2;
+
+	i = 0;
+	s2 = ((char *)malloc(sizeof(char) * (ft_strlen(s1) + 1)));
+	if (!s2)
+		return (NULL);
+	while (s1[i])
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
 
 static	int	ft_free(void **var, int ret_value)
 {
@@ -81,6 +99,8 @@ int	get_next_line(int fd, char **line)
 		(*line)[0] = '\0';
 		return (0);
 	}
+	*line = ft_strdupgnl(rest);
+	free (rest);
 	rest = NULL;
 	return (0);
 }

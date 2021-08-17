@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elaachac <elaachac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:22:23 by elaachac          #+#    #+#             */
-/*   Updated: 2021/06/09 14:32:00 by elaachac         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:43:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ char	*ft_realloc(void *ptr, size_t size, size_t old_size)
 	tmp = (void *)malloc(sizeof(void) * size);
 	if (tmp)
 		ft_memcpy(tmp, ptr, old_size);
-	free(ptr);
+	if (ptr)
+		free(ptr);
 	return (tmp);
 }
 

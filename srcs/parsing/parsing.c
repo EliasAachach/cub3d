@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:53:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/17 14:01:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 19:31:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	parser2(int fd, t_parsing *parsing, t_elems *elems, t_ray *ray)
 	valid_map(parsing, ray);
 	if (parsing->map_is_open == TRUE || parsing->player_in_map == FALSE)
 	{
+		elems->error_fd = fd;
 		if (parsing->map_is_open == TRUE)
 			parse_error(parsing, elems, 1, ray);
 		parse_error(parsing, elems, 0, ray);

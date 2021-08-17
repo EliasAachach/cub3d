@@ -1,15 +1,14 @@
-R 720 480
+R 720 4294967324
 NO textures/wood.xpm
 SO textures/greystone.xpm
 WE textures/redbrick.xpm
-EA textures/eagle.xpm
-S textures/mv.xpm
+EA textures/chien1.xpm
 F 75,74,74
 C 1,10,254
+
 111111
 100001
-1N2001
+100E01
 100001
-100201
-100021
+100001
 111111

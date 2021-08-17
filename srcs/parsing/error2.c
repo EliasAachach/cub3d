@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:29:53 by user42            #+#    #+#             */
-/*   Updated: 2021/08/17 12:44:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 19:37:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ void	error_elems(char *newline, t_elems *elems, t_ray *ray)
 
 	line = NULL;
 	while (get_next_line(elems->error_fd, &line) == 1)
-	{
-		printf("oui\n");
 		free(line);
-	}
 	free(line);
 	close (elems->error_fd);
 	if (elems->err_flag != 6)

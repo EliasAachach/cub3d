@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:54:05 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/13 10:45:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 20:52:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_elems
 	int			b_C;
 	int			error_fd;
 	int			elem_flag;
+	unsigned long int	x_atoul;
+	unsigned long int	y_atoul;
 	char		*path_to_S;
 	char		*path_to_NO;
 	char		*path_to_SO;
@@ -278,8 +280,9 @@ void	init_image(t_ray *ray);
 void	put_window(void *mlx_ptr, void *win_ptr, void *img);
 void	dda(t_ray *ray);
 void	set_step_sidedist(t_ray *ray);
-void	set_dir_plan(int player_dir, t_ray *ray);
-void	ft_free(char *newline, t_elems *elems);
-void	init_parsing(t_parsing *parsing, t_elems *elems, int argc, t_ray *ray);
+void				set_dir_plan(int player_dir, t_ray *ray);
+void				ft_free(char *newline, t_elems *elems);
+void				init_parsing(t_parsing *parsing, t_elems *elems, int argc, t_ray *ray);
+unsigned long int	ft_atoul(char *str);
 
 #endif

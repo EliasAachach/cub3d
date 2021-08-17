@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:57:20 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/17 13:59:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 19:32:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,20 @@ void	get_elems(int fd, t_elems *elems, t_ray *ray)
 		else
 			free(newline);
 	}
+	elems->error_fd = fd;
+	if (elem_present(elems) == 1)
+	{
+		elems->last_elem_line = ft_strdup(line);
+		free(line);
+		return ;
+	}
+	newline = del_spaces(line);
+	if (newline == NULL)
+		error_elems(line, elems, ray);
+	free(line);
+	if (ft_strlen(newline) > 0)
+		elem_found(elems, ray, newline, elem_flag);
+	else
+		free(newline);
+	
 }

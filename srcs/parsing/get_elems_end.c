@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:09:35 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/03 20:22:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 20:51:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	get_R_values(char *newline, t_elems *elems, t_ray *ray)
 		i++;
 	}
 	elems->R_x_value = ft_atoi(newline + i);
+	elems->x_atoul = ft_atoul(newline + i);
 	while (newline[i] >= '0' && newline[i] <= '9')
 		i++;
 	while (!(newline[i] >= '0' && newline[i] <= '9'))
@@ -96,6 +97,7 @@ void	get_R_values(char *newline, t_elems *elems, t_ray *ray)
 		i++;
 	}
 	elems->R_y_value = ft_atoi(newline + i);
+	elems->y_atoul = ft_atoul(newline + i);
 	if (res_check(newline + i, elems, ray) == 1)
 		error_elems(newline, elems, ray);
 	free(newline);
