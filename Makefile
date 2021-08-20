@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/24 14:08:36 by elaachac          #+#    #+#              #
-#    Updated: 2021/08/17 14:02:33 by user42           ###   ########.fr        #
+#    Updated: 2021/08/19 11:46:26 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ FILES =	./srcs/parsing/main\
 		./srcs/parsing/find_map\
 		./srcs/parsing/find_map2\
 		./srcs/parsing/get_elems\
+		./srcs/parsing/get_elems_2\
 		./srcs/parsing/get_elems_end\
 		./srcs/parsing/flood_fill\
 		./srcs/parsing/parsing\

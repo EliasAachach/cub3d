@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:53:49 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/16 16:27:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 14:10:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,5 @@ void	find_map(int fd, t_parsing *parsing, t_ray *ray)
 	free(line);
 	ray->map = alloc_map(parsing->nbr_lines, parsing->longest_line);
 	if (!ray->map)
-	{
 		parsing->map_error = TRUE;
-		return ;
-	}
 }

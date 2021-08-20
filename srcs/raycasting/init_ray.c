@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:33:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 14:24:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 14:12:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_var2(t_ray *ray, t_elems *elems)
 	ray->img.s_line = 0;
 	ray->img.image = NULL;
 	ray->img.addr = NULL;
+	ray->tex.step = 0;
 }
 
 void	init_var(t_ray *ray, t_elems *elems)
@@ -64,6 +65,5 @@ void	init_var(t_ray *ray, t_elems *elems)
 	ray->floor.r = elems->r_F;
 	ray->floor.g = elems->g_F;
 	ray->floor.b = elems->b_F;
-	ray->tex.step = 0;
 	init_var2(ray, elems);
 }

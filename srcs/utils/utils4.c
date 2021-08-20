@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:30 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/17 20:49:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/18 19:34:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	res_check(char *str, t_elems *elems, t_ray *ray)
 			return (1);
 		i++;
 	}
-	if (elems->R_x_value <= 0 || elems->R_y_value <= 0 ||
-		elems->R_x_value != elems->x_atoul ||
-		elems->R_y_value != elems->y_atoul)
+	if (elems->R_x_value <= 0 || elems->R_y_value <= 0
+		|| elems->R_x_value != elems->x_atoul
+		|| elems->R_y_value != elems->y_atoul)
 		return (1);
 	if (elems->R_x_value > x)
 		elems->R_x_value = x;

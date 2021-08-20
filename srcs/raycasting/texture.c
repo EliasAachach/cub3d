@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:25:46 by user42            #+#    #+#             */
-/*   Updated: 2021/08/08 23:40:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/20 15:35:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_texture(t_ray *ray, t_elems *elems)
 	if (ray->img.addr[0] == NULL)
 		error_mlx(ray, 1);
 	ray->img.addr[1] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr, \
-		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
+		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[1] == NULL)
 		error_mlx(ray, 1);
 	ray->img.addr[2] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr, \
@@ -27,7 +27,7 @@ void	set_texture(t_ray *ray, t_elems *elems)
 	if (ray->img.addr[2] == NULL)
 		error_mlx(ray, 1);
 	ray->img.addr[3] = mlx_xpm_file_to_image(ray->mlx.mlx_ptr, \
-		elems->path_to_EA, &(ray->img.width), &(ray->img.height));
+		elems->path_to_WE, &(ray->img.width), &(ray->img.height));
 	if (ray->img.addr[3] == NULL)
 		error_mlx(ray, 1);
 }

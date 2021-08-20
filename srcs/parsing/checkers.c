@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 23:26:06 by elaachac          #+#    #+#             */
-/*   Updated: 2021/08/17 13:49:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/18 17:04:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	arg_check(char **arg, int nbr_arg, t_ray *ray)
 		exit(0);
 	}
 	fd = open(arg[1], O_RDONLY);
-	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") == 1 || fd < 0)
+	if (ft_strcmp(arg[1] + ft_strlen(arg[1]) - 4, ".cub") != 0 || fd < 0)
 	{
 		close(fd);
 		printf("Error\nFile is invalid.\n");

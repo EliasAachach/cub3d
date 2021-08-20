@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:24:56 by user42            #+#    #+#             */
-/*   Updated: 2021/08/17 21:05:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/18 19:33:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-unsigned long int ft_atoul(char *str)
+unsigned long int	ft_atoul(char *str)
 {
-	unsigned long int i;
-	unsigned long int j;
-	int	neg;
-	unsigned long int nb;
+	unsigned long int	i;
+	unsigned long int	j;
+	int					neg;
+	unsigned long int	nb;
 
 	i = 0;
 	j = 0;

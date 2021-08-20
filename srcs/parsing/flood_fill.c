@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 19:37:16 by user42            #+#    #+#             */
-/*   Updated: 2021/08/15 14:53:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 14:09:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	check_adjacent_cases(t_parsing *parsing, char **ff_map, int x, int y)
 		return (1);
 	if (check_sides(ff_map[x][y + 1], parsing) == 1)
 		return (1);
-	if (x + 1 >= parsing->nbr_lines || check_sides(ff_map[x + 1][y], parsing) == 1)
+	if (x + 1 >= parsing->nbr_lines || check_sides(ff_map[x + 1][y], \
+		parsing) == 1)
 		return (1);
 	if (check_sides(ff_map[x][y - 1], parsing) == 1)
 		return (1);
